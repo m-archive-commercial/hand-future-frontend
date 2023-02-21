@@ -4,6 +4,7 @@
 import { IconUser } from '@tabler/icons-react'
 import clsx from 'clsx'
 import { avatarSizeMap, hSizeMap, SIZE_TYPE, tSizeMap, wSizeMap } from '../../supports/ds/visual'
+import Image from 'next/image'
 
 
 export interface AvatarProps {
@@ -12,6 +13,12 @@ export interface AvatarProps {
   name?: string
   size?: SIZE_TYPE
   customClasses?: string
+}
+
+const WSizeMap: Record<string, number> = {
+  'sm': 12,
+  'md': 16,
+  'lg': 128
 }
 
 export const BaseAvatar = (props: AvatarProps) => {
@@ -36,7 +43,7 @@ export const BaseAvatar = (props: AvatarProps) => {
         : 'bg-neutral-focus text-neutral-content'
     )}>
       {
-        url ? <img src={url}/>
+        url ? <Image src={url} alt={name || 'avatar'} width={WSizeMap[size]} height={WSizeMap[size]}/>
           : name ? <span className={tSizeMap[size]}>{name[0]}</span>
             : <IconUser/>
       }

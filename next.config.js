@@ -6,6 +6,15 @@ const nextConfig = {
   // use images, o.w. would cause: hostname "mmbiz.qpic.cn" is not configured under images in your `next.config.js`
   images: {
     remotePatterns: [
+      {
+        protocol: 'http',
+        hostname: "gkleifeng.com"
+      },
+      {
+        protocol: 'https',
+        hostname: "gkleifeng.com"
+      },
+
       // wechat article
       {
         protocol: 'http',

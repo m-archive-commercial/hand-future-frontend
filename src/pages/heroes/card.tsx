@@ -158,7 +158,7 @@ export const Card = ({ heroes }: {
           <label className={'flex items-center'}>
             <i>Click to upload a new avatar --{'>'}</i>
             <input type={'file'} className={'hidden'} accept={'image/*'} onChange={onAvatarChange}/>
-            <BaseAvatar customClasses={'ml-5'} url={data.avatar} size={'md'}/>
+            <BaseAvatar customClasses={'ml-5'} url={data.avatar} size={'lg'}/>
           </label>
 
           {/* 嘉宾姓名、title */}
@@ -264,7 +264,7 @@ export const Card = ({ heroes }: {
 
 export default Card
 
-export const getStaticProps = async () => {
+export const getServerSideProps = async () => {
   const res = await backendAPI.get('/heroes/list')
   return {
     props: {

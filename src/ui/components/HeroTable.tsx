@@ -1,5 +1,6 @@
 import { IHero } from '../../supports/ds/hero'
 import clsx from 'clsx'
+import Image from 'next/image'
 
 export interface HeroTableProps {
   heroes: IHero[]
@@ -39,7 +40,7 @@ export const HeroTable = (props: HeroTableProps) => {
                     <div className="flex items-center space-x-3">
                       <div className="avatar">
                         <div className="rounded-full w-12 h-12">
-                          <img src={hero.avatar} alt={hero.name}/>
+                          <Image src={hero.avatar} alt={hero.name} width={64} height={64}/>
                         </div>
                       </div>
                       <div>

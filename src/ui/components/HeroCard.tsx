@@ -1,5 +1,6 @@
 import { IHero } from '../../supports/ds/hero'
 import Dialog from './NominateDialog'
+import Image from 'next/image'
 
 /**
  * todo: use redux to alert working
@@ -15,7 +16,7 @@ export interface HeroCardProps {
 export const HeroCard = ({ data }: HeroCardProps) => {
   return (
     <div className="card w-64 h-96 bg-base-100 image-full2">
-      <figure><img src={data.avatar} alt="Shoes"/></figure>
+      <figure><Image src={data.avatar} alt="avatar" width={64} height={64}/></figure>
       <div className="card-body">
         <h2 className="card-title">
           {data.name}
@@ -26,7 +27,8 @@ export const HeroCard = ({ data }: HeroCardProps) => {
           <button className="badge badge-outline" onClick={alertWorking}>查看详情</button>
 
           {/*  我要提名 */}
-          <Dialog hero={{name: data.name, avatar: data.avatar}} user={{name: "test", avatar: "xx", message: "好想好想……"}}/>
+          <Dialog hero={{ name: data.name, avatar: data.avatar }}
+                  user={{ name: 'test', avatar: 'xx', message: '好想好想……' }}/>
 
         </div>
       </div>

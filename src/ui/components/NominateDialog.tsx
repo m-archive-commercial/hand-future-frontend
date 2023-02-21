@@ -1,6 +1,7 @@
 import React from 'react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { Cross2Icon } from '@radix-ui/react-icons'
+import Image from 'next/image'
 
 export interface NominateDialogProps {
   hero: {
@@ -32,7 +33,7 @@ const DialogDemo = (props: NominateDialogProps) => (
           <div>被提名者：{props.hero.name}</div>
           <div className="avatar">
             <div className="w-24 rounded-full">
-              <img src={props.hero.avatar}/>
+              <Image src={props.hero.avatar} alt={props.hero.name} width={64} height={64}/>
             </div>
           </div>
         </div>
@@ -48,7 +49,7 @@ const DialogDemo = (props: NominateDialogProps) => (
             defaultValue="@peduarte"
           />
         </fieldset>
-        
+
         <div className="mt-[25px] flex justify-end">
           <Dialog.Close asChild>
             <button
