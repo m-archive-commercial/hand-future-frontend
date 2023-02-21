@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { UserProfile } from '../../ds/user'
 import { AppState } from '../../store'
 import backendAPI from '../../utils/api'
@@ -11,7 +11,7 @@ export interface UserState {
   avatar?: string
 }
 
-export const initialState: UserState = {
+const initialState: UserState = {
   token: undefined,
   basic: undefined,
   works: [],

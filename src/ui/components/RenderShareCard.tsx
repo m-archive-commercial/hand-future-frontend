@@ -44,9 +44,10 @@ export const RenderShareCard = (props: RenderShareCardProps) => {
           <div className={'flex-1 flex flex-col justify-center items-baseline'}>
             <div className={'text-black text-3xl font-black flex items-center'}>
               {/*2.10 小手图形-03.svg*/}
-              <Image priority src={'/card/small_hand.svg'} alt={'small_hand.svg'} width={40} height={40}
-                     className={'-translate-y-2.5 -translate-x-1'}/>
-              {/* name */}
+              <Image priority src={'/card/small_hand.svg'} alt={'small_hand.svg'}
+                     width={40} height={40} className={'-translate-y-2.5 -translate-x-1'}
+              />
+              {/*name */}
               <p className={clsx('-translate-y-2', fontWeightName)}>{data.name}</p>
             </div>
 
@@ -85,7 +86,7 @@ export const RenderShareCard = (props: RenderShareCardProps) => {
           <style type="text/css">
             {
               '.st0{fill:white;stroke:#000000;stroke-width:17;stroke-linecap:round;stroke-linejoin:round;}' +
-              '.st1{fill:none;stroke:#11A278;stroke-width:16;stroke-miterlimit:10;}'
+              `.st1{fill:none;stroke:${themeColor};stroke-width:16;stroke-miterlimit:10;}`
             }
           </style>
           <g id="图层_2_1_">

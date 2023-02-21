@@ -2,7 +2,7 @@ import { IHero, IShareCard } from '../../supports/ds/hero'
 import BaseAvatar from '../../ui/base_components/BaseAvatar'
 import { LoremIpsum, loremIpsum } from 'lorem-ipsum'
 import InputText, { InputAction } from '../../ui/components/InputText'
-import { ChangeEvent, useRef, useState } from 'react'
+import { ChangeEvent, useEffect, useRef, useState } from 'react'
 import InputTextArea from '../../ui/components/InputTextArea'
 import backendAPI from '../../supports/utils/api'
 import { COLOR_PRIMARY } from '../../config/theme'
@@ -14,14 +14,24 @@ import { Fonts } from '../../config/fonts'
 import { FONT_WEIGHT, FONT_WEIGHTS } from '../../supports/ds/font'
 import HeroTable from '../../ui/components/HeroTable'
 import { IconRotateClockwise2 } from '@tabler/icons-react'
+import { useDispatch } from 'react-redux'
+import { setHeroes } from '../../supports/features/user/heroesSlice'
 
 // cao ！ 不能写死 url 啊 ！
 const SAMPLE_HERO: IHero = {
   'id': '',
   'avatar': '/cover_growth.jpg',
   'cities': '',
-  'name': loremIpsum(),
-  'title': loremIpsum()
+  'name': loremIpsum({
+    sentenceLowerBound: 1,
+    sentenceUpperBound: 2
+  }),
+  'title': loremIpsum({
+    sentenceLowerBound: 3,
+    sentenceUpperBound: 4,
+    paragraphLowerBound: 1,
+    paragraphUpperBound: 2
+  })
 }
 
 const SAMPLE_DATA: IShareCard = {
@@ -40,25 +50,29 @@ const SAMPLE_DATA: IShareCard = {
 }
 
 
-export interface CardProps {
+export const Card = ({ heroes }: {
   heroes: IHero[]
-}
+}) => {
 
-export const Card = (props: CardProps) => {
-  const { heroes } = props
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    // dispatch(setHeroes(heroes))
+  }, [])
+
   const [searchKey, setSearchKey] = useState('')
-
   const [data, setData] = useState<IShareCard>(SAMPLE_DATA)
   const [midColor, setMidColor] = useState('#337799')
   const [themeColor, setThemeColor] = useState(COLOR_PRIMARY)
-  const refCanvas = useRef<HTMLDivElement>(null)
   const [fontIndex, setFontIndex] = useState(1) // 0: default, 1: ali
   const [fontWeightName, setFontWeightName] = useState<FONT_WEIGHT>(FONT_WEIGHTS[6])
   const [fontWeightTitle, setFontWeightTitle] = useState<FONT_WEIGHT>(FONT_WEIGHTS[8])
   const [fontWeightContent, setFontWeightContent] = useState<FONT_WEIGHT>(FONT_WEIGHTS[3])
   const [qrCodeUrl, setQrCodeUrl] = useState('https://gkleifeng.notion.site/da7ad92cb3414e6891c80e52541a6678')
   const [isGeneratingCard, setGeneratingCard] = useState(false)
-  // console.log(heroes)
+
+  const refCanvas = useRef<HTMLDivElement>(null)
+  console.log(data)
 
 
   const update = ({ type, value }: InputAction) => {
@@ -107,7 +121,7 @@ export const Card = (props: CardProps) => {
   return (
     <RootLayout>
       {/* 使用横向布局 */}
-      <div className={'grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 max-w-[1600px] md:p-8 gap-8'}>
+      <div className={'m-auto flex flex-wrap gap-8'}>
 
         {/* 1. 搜索区域*/}
         <div>
@@ -250,10 +264,11 @@ export const Card = (props: CardProps) => {
 
 export default Card
 
-
-export const getServerSideProps = async () => {
+export const getStaticProps = async () => {
   const res = await backendAPI.get('/heroes/list')
-  const heroes: IHero[] = res.data.list
-  console.log('heroes: ', heroes)
-  return { props: { heroes } }
+  return {
+    props: {
+      heroes: res.data.list
+    }
+  }
 }
