@@ -15,7 +15,6 @@ import { FONT_WEIGHT, FONT_WEIGHTS } from '../../supports/ds/font'
 import HeroTable from '../../ui/components/HeroTable'
 import { IconRotateClockwise2 } from '@tabler/icons-react'
 import { useDispatch } from 'react-redux'
-import { setHeroes } from '../../supports/features/user/heroesSlice'
 
 // cao ！ 不能写死 url 啊 ！
 const SAMPLE_HERO: IHero = {
