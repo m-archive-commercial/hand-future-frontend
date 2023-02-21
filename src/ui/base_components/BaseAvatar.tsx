@@ -18,7 +18,9 @@ export interface AvatarProps {
 const WSizeMap: Record<string, number> = {
   'sm': 12,
   'md': 16,
-  'lg': 128
+  'lg': 64,
+  'xl': 128,
+  '2xl': 256
 }
 
 export const BaseAvatar = (props: AvatarProps) => {
@@ -36,7 +38,7 @@ export const BaseAvatar = (props: AvatarProps) => {
 
     <div className={clsx(
       'rounded-full',
-      size === 'sm' ? 'w-12 h-12' : size == 'md' ? 'w-16 h-16' : 'w-20 h-20',
+      // size === 'sm' ? 'w-12 h-12' : size == 'md' ? 'w-16 h-16' : 'w-20 h-20',
       // wSizeMap[size],
       // hSizeMap[size],
       url ? ''// 'ring ring-primary ring-offset-base-100 ring-offset-2'
@@ -44,8 +46,13 @@ export const BaseAvatar = (props: AvatarProps) => {
     )}>
       {
         url ? <Image src={url} alt={name || 'avatar'} width={WSizeMap[size]} height={WSizeMap[size]}/>
-          : name ? <span className={tSizeMap[size]}>{name[0]}</span>
-            : <IconUser/>
+          : <div className={'w-12 h-12 flex justify-center items-center'}>
+            {
+              name
+                ? <span className={tSizeMap[size]}>{name[0]}</span>
+                : <IconUser/>
+            }
+          </div>
       }
     </div>
   </div>
