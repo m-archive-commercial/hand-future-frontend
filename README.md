@@ -52,6 +52,17 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## tips
 
+### generate card
+
+https://www.npmjs.com/package/html-to-image
+https://www.npmjs.com/package/htmltocanvas
+
+https://stackoverflow.com/questions/5534128/converting-html-to-svg-using-javascript-jquery
+https://www.hiqpdf.com/demo/ConvertHtmlToSvg.aspx
+http://html2canvas.hertzen.com/configuration
+
+https://docs.htmlcsstoimage.com/
+
 ### 3d-force-graph
 
 good example can be found

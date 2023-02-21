@@ -99,7 +99,7 @@ export const Card = ({ heroes }: {
       const dataUrl = await htmlToImage.toPng(
         refCanvas.current!,
         {
-          pixelRatio: 8
+          pixelRatio: 4 // 这个因子非常重要，否则低端浏览器图片会很糊
         }
       )
       console.log('generated !')
