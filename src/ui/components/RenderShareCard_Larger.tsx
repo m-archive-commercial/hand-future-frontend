@@ -18,7 +18,8 @@ export interface RenderShareCardProps {
   qrCodeUrl: string
 }
 
-export const RenderShareCard = (props: RenderShareCardProps) => {
+export const RenderShareCard_Larger = (props: RenderShareCardProps) => {
+  // w = 360 * 2
   const {
     refCanvas, themeColor, midColor, data, fontClass,
     fontWeightName,
@@ -26,33 +27,42 @@ export const RenderShareCard = (props: RenderShareCardProps) => {
     fontWeightContent,
     qrCodeUrl
   } = props
+
+  console.log('data in rendered share card: ', data)
   return (
-    <div ref={refCanvas} className={clsx(`w-[360px] p-4 relative`, fontClass)}
+    <div id={'render'}
+         ref={refCanvas} className={clsx(`w-[720px] p-8 relative`, fontClass)}
          style={{ background: `linear-gradient(to bottom, ${themeColor}, ${midColor}, ${themeColor})` }}
     >
-      <div className={'rounded-3xl bg-white p-4'}>
+      <div className={'rounded-6xl bg-white p-8'}>
 
         {/* avatar | name - title */}
         <div className={'flex justify-around items-center'}>
           {/*  avatar */}
 
+          {/*<div className={'avatar w-36 h-36'}>*/}
+          {/*  <div className={'rounded-full'}>*/}
+          {/*    <img src={data.avatar} alt={data.name}/>*/}
+          {/*  </div>*/}
+          {/*</div>*/}
+          {/**/}
           <BaseAvatar
-            customClasses={'m-4'}
-            url={data.avatar + '?raw=true'} name={data.name} size={'lg'}/>
+            customClasses={'m-8'}
+            url={data.avatar} name={data.name} size={'xl'}/>
 
           {/*  name - title*/}
           <div className={'flex-1 flex flex-col justify-center items-baseline'}>
-            <div className={'text-black text-3xl font-black flex items-center'}>
+            <div className={'text-6xl text-black font-black flex items-center'}>
               {/*2.10 小手图形-03.svg*/}
               <Image priority src={'/card/small_hand.svg'} alt={'small_hand.svg'}
-                     width={40} height={40} className={'-translate-y-2.5 -translate-x-1'}
+                     width={80} height={80} className={'-translate-y-5 -translate-x-2'}
               />
               {/*name */}
-              <p className={clsx('-translate-y-2', fontWeightName)}>{data.name}</p>
+              <p className={clsx('-translate-y-4', fontWeightName)}>{data.name}</p>
             </div>
 
             {/* title */}
-            <div className={clsx('text-sm')}>
+            <div className={clsx('text-2xl')}>
               {data.title.split('\n').map((s, index) => (
                 <p key={index}>{s}</p>
               ))}
@@ -62,26 +72,21 @@ export const RenderShareCard = (props: RenderShareCardProps) => {
 
         {/*  article */}
         <article className="prose">
-          <h2 className={clsx(' text-center mt-4 mb-3', fontWeightTitle)}>{data.articleTitle}</h2>
+          <h2 className={clsx('text-[48px]  text-center mt-8 mb-6', fontWeightTitle)}>{data.articleTitle}</h2>
 
           {data.articleContent.split('\n').map((paragraph, index) => (
             <p key={index} className={clsx(
               fontWeightContent,
-              ' text-[16px] my-[7px] leading-normal text-justify'
+              ' text-[32px] my-[14px] leading-normal text-justify'
             )}>{paragraph}</p>
           ))}
         </article>
 
 
-        {/* todo: 方法一为什么用 Image fill 颜色就不起作用了 ？ */}
-        {/*<Image src={'/card/big_hand-2.svg'} alt={'mother f**k'} className={`absolute left-0 bottom-[180px] w-full`}*/}
-        {/*       width={320} height={240}/>*/}
-
-        {/* 方法二 */}
         <svg version="1.1" id="图层_1" xmlns="http://www.w3.org/2000/svg"
              viewBox="0 0 1264.5 501.4" // 这个有用，不能删
-             width={368} height={240}
-             className={'-ml-9 absolute bottom-[130px]'}
+             width={736} height={480}
+             className={'-ml-[72px] absolute bottom-[220px]'}
         >
           <style type="text/css">
             {
@@ -115,13 +120,15 @@ export const RenderShareCard = (props: RenderShareCardProps) => {
           </g>
         </svg>
 
-        <div className={'h-[140px]'}/>
-        <div className={'text-2xl text-center m-2 font-black'} style={{ color: themeColor }}>携手的未来</div>
+        <div className={'h-[280px]'}/>
+        <div className={'text-5xl text-center m-4 font-black'} style={{ color: themeColor }}>
+          携手的未来
+        </div>
 
         {/* 二维码 */}
-        <QRCodeSVG value={qrCodeUrl} className={'mx-auto my-2'} width={'64px'} height={'64px'}/>
+        <QRCodeSVG value={qrCodeUrl} className={'mx-auto my-4'} width={'128px'} height={'128px'}/>
 
-        <div className={'text-black text-center text-sm text-gray-500'}>
+        <div className={'text-xl text-black text-center text-gray-500'}>
           <p>扫码查看活动介绍</p>
           <p>欢迎您们的加入</p>
         </div>
@@ -131,4 +138,4 @@ export const RenderShareCard = (props: RenderShareCardProps) => {
   )
 }
 
-export default RenderShareCard
+export default RenderShareCard_Larger

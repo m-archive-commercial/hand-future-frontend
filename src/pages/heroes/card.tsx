@@ -14,7 +14,6 @@ import { Fonts } from '../../config/fonts'
 import { FONT_WEIGHT, FONT_WEIGHTS } from '../../supports/ds/font'
 import HeroTable from '../../ui/components/HeroTable'
 import { IconRotateClockwise2 } from '@tabler/icons-react'
-import { useDispatch } from 'react-redux'
 
 // cao ！ 不能写死 url 啊 ！
 const SAMPLE_HERO: IHero = {
@@ -53,7 +52,7 @@ export const Card = ({ heroes }: {
   heroes: IHero[]
 }) => {
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
   useEffect(() => {
     // dispatch(setHeroes(heroes))
@@ -97,7 +96,12 @@ export const Card = ({ heroes }: {
     setGeneratingCard(true)
     console.log('generating dataUrl')
     try {
-      const dataUrl = await htmlToImage.toPng(refCanvas.current!)
+      const dataUrl = await htmlToImage.toPng(
+        refCanvas.current!,
+        {
+          pixelRatio: 8
+        }
+      )
       console.log('generated !')
       let a = document.createElement('a')
       a.href = dataUrl //Image Base64 Goes here
@@ -114,8 +118,11 @@ export const Card = ({ heroes }: {
 
   const onClickHero = (id: string) => {
     const hero = heroes.find((hero) => hero.id === id)
+    console.log('clicked hero: ', hero)
     setData({ ...data, ...hero })
   }
+
+  console.log('current data: ', data)
 
   return (
     <RootLayout>
@@ -156,13 +163,14 @@ export const Card = ({ heroes }: {
           {/* 嘉宾头像 */}
           <label className={'flex items-center'}>
             <i>Click to upload a new avatar --{'>'}</i>
-            <input type={'file'} className={'hidden'} accept={'image/*'} onChange={onAvatarChange}/>
+            <input id={'hero-avatar'} type={'file'} className={'hidden'} accept={'image/*'} onChange={onAvatarChange}/>
             <BaseAvatar customClasses={'ml-5'} url={data.avatar} size={'lg'}/>
           </label>
 
           {/* 嘉宾姓名、title */}
-          <InputText type={'name'} maxLen={4} placeholder={data.name} update={update}/>
-          <InputTextArea type={'title'} rows={2} cols={10} maxLength={30} placeholder={data.title} update={update}/>
+          <InputText id={'hero-name'} type={'name'} maxLen={4} placeholder={data.name} update={update}/>
+          <InputTextArea id={'hero-title'} type={'title'} rows={2} cols={10} maxLength={30} placeholder={data.title}
+                         update={update}/>
 
           {/* 文字标题、内容 */}
           <InputText type={'articleTitle'} placeholder={data.articleTitle} update={update}/>

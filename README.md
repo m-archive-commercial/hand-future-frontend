@@ -50,7 +50,37 @@ from the creators of Next.js.
 
 Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
 
+## tips
+
+### 3d-force-graph
+
+good example can be found
+at: https://codesandbox.io/s/nextjs-typescript-react-force-graph-3d-forked-cmq2n?file=/src/FocusGraph.tsx:114-131
+
+### canvas
+
+`react-canvas` is not suitable for our project.
+
+```text
+ WARN  Issues with peer dependencies found
+.
+└─┬ react-canvas
+  └── ✕ unmet peer react@^15.0.0: found 18.2.0
+
+```
+
 ## bugfix
+
+### install `sharp` for nextjs production image optimization as suggested to
+
+ref: https://stackoverflow.com/a/73585638/9422455
+
+```shell
+sudo apt-get update
+sudo apt-get -y install libvips-dev
+npm rebuild sharp
+sudo npm install sharp
+```
 
 ### solved: `Extra attributes from the server: class`
 
