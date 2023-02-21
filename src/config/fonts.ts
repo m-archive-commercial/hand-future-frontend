@@ -13,15 +13,15 @@ import localFont from '@next/font/local'
  */
 export const fontAliPuHui2 = localFont({
   src: [
-    { path: '../assets/fonts/otf/AlibabaPuHuiTi-2-35-Thin.otf', weight: '100', style: 'thin' },
-    { path: '../assets/fonts/otf/AlibabaPuHuiTi-2-45-Light.otf', weight: '200', style: 'light' },
-    { path: '../assets/fonts/otf/AlibabaPuHuiTi-2-55-Regular.otf', weight: '300', style: 'regular' },
-    { path: '../assets/fonts/otf/AlibabaPuHuiTi-2-65-Medium.otf', weight: '400', style: 'medium' },
-    { path: '../assets/fonts/otf/AlibabaPuHuiTi-2-75-SemiBold.otf', weight: '500', style: 'semibold' },
-    { path: '../assets/fonts/otf/AlibabaPuHuiTi-2-85-Bold.otf', weight: '600', style: 'bold' },
-    { path: '../assets/fonts/otf/AlibabaPuHuiTi-2-95-ExtraBold.otf', weight: '700', style: 'extrabold' },
-    { path: '../assets/fonts/otf/AlibabaPuHuiTi-2-105-Heavy.otf', weight: '800', style: 'heavy' },
-    { path: '../assets/fonts/otf/AlibabaPuHuiTi-2-115-Black.otf', weight: '900', style: 'black' },
+    { path: '../../assets/fonts/otf/AlibabaPuHuiTi-2-35-Thin.otf', weight: '100', style: 'thin' },
+    { path: '../../assets/fonts/otf/AlibabaPuHuiTi-2-45-Light.otf', weight: '200', style: 'light' },
+    { path: '../../assets/fonts/otf/AlibabaPuHuiTi-2-55-Regular.otf', weight: '300', style: 'regular' },
+    { path: '../../assets/fonts/otf/AlibabaPuHuiTi-2-65-Medium.otf', weight: '400', style: 'medium' },
+    { path: '../../assets/fonts/otf/AlibabaPuHuiTi-2-75-SemiBold.otf', weight: '500', style: 'semibold' },
+    { path: '../../assets/fonts/otf/AlibabaPuHuiTi-2-85-Bold.otf', weight: '600', style: 'bold' },
+    { path: '../../assets/fonts/otf/AlibabaPuHuiTi-2-95-ExtraBold.otf', weight: '700', style: 'extrabold' },
+    { path: '../../assets/fonts/otf/AlibabaPuHuiTi-2-105-Heavy.otf', weight: '800', style: 'heavy' },
+    { path: '../../assets/fonts/otf/AlibabaPuHuiTi-2-115-Black.otf', weight: '900', style: 'black' },
   ],
   variable: '--font-AliPuHui2',
 })
