@@ -36,17 +36,67 @@ export const RenderShareCard = (props: RenderShareCardProps) => {
         <div className={'flex justify-around items-center'}>
           {/*  avatar */}
 
+          {/* todo: 在iphone浏览器里不显示 */}
           <BaseAvatar
             customClasses={'m-4'}
-            url={data.avatar + '?raw=true'} name={data.name} size={'lg'}/>
+            url={data.avatar} name={data.name} size={'lg'}/>
 
           {/*  name - title*/}
           <div className={'flex-1 flex flex-col justify-center items-baseline'}>
             <div className={'text-black text-3xl font-black flex items-center'}>
+
               {/*2.10 小手图形-03.svg*/}
-              <Image priority src={'/card/small_hand.svg'} alt={'small_hand.svg'}
-                     width={40} height={40} className={'-translate-y-2.5 -translate-x-1'}
-              />
+              {/*<Image priority src={'/card/small_hand.svg'} alt={'small_hand.svg'}*/}
+              {/*       width={40} height={40} className={'-translate-y-2.5 -translate-x-1'}*/}
+              {/*/>*/}
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.95 91.21">
+                <defs>
+                  <style>
+                    {
+                      `.cls-1,.cls-2{fill:#fff;}
+                    .cls-2,.cls-3{stroke:#231815;stroke-width:2px;}
+                    .cls-2,.cls-3,.cls-4{stroke - miterlimit:10;}
+                    .cls-3,.cls-4{fill:none;}
+                    .cls-4{stroke:#64be96;stroke-width:3px;}`
+                    }
+                  </style>
+                </defs>
+                <g id="图层_9" data-name="图层 9">
+                  <path className="cls-1"
+                        d="M37.09,43.94A10.88,10.88,0,0,0,30,45.43c-3.3,2.15-4.57,7-4.65,7.27l.56,10.15a6.31,6.31,0,0,0,3,2.08l10.45,1.68,3.63.58s6.88,4.22,8.64,4.47a6.32,6.32,0,0,0,3.82-.4c1-.38,1.61-1.89,1.36-2.06"/>
+                  <polyline className="cls-1" points="40.26 69.13 52.08 71.93 42.01 65.9 39.09 65.9"/>
+                  <path className="cls-1"
+                        d="M62.3,58.82v5.83L60.08,66.2c3.33-2.38,1.58-5.1.55-6.85s-8.39-6.23-8.39-6.23-6.43-3.65-8.88-4.2-3.49,2.46-3.49,2.46-1.9,3-4.12,1.9S34,50.42,34,49.39s1.82-7.77,10.62-6.81,17.68,8.8,17.68,8.8"/>
+                  <path className="cls-1" d="M46.92,62.86l8.88,5.88s3.86,1.64,4.35-2.15-9.86-8.67-9.86-8.67"/>
+                  <line className="cls-1" x1="50.2" y1="73.43" x2="52.23" y2="71.78"/>
+                  <path className="cls-1"
+                        d="M60.08,66.2,49.24,59.48l-8.17-9.94a2.05,2.05,0,0,1,2.29-.62,64.78,64.78,0,0,1,10.51,5.23,35.55,35.55,0,0,1,7.19,5.94l.84,3.85"/>
+                  <polyline className="cls-1" points="62.3 51.27 73.18 51.27 73.18 64.53 62.3 64.53"/>
+                  <line className="cls-2" x1="61.57" y1="64.65" x2="73.18" y2="64.65"/>
+                  <line className="cls-2" x1="61.9" y1="51.27" x2="73.18" y2="51.27"/>
+                  <path className="cls-3" d="M25.34,51.66c.08-.24,1.35-4.4,4.65-6.24a12.51,12.51,0,0,1,7.1-1.28"/>
+                  <path className="cls-3" d="M50.29,58s10.35,4.88,9.86,8.67-4.35,2.15-4.35,2.15l-8.88-5.89"/>
+                  <path className="cls-3"
+                        d="M42.94,67.23s6.88,4.22,8.64,4.47a6.32,6.32,0,0,0,3.82-.41c1-.37,1.61-1.88,1.36-2.06"/>
+                  <ellipse className="cls-2" cx="32.02" cy="66.22" rx="3.15" ry="4.09"/>
+                  <ellipse className="cls-2" cx="37.09" cy="69.52" rx="3.15" ry="4.09"/>
+                  <ellipse className="cls-2" cx="42.01" cy="71.93" rx="2.92" ry="3.51"/>
+                  <ellipse className="cls-2" cx="47.29" cy="73.46" rx="2.92" ry="3.15"/>
+                  <path className="cls-3" d="M28.86,65a4.8,4.8,0,0,1-3.19-1.79"/>
+                  <path className="cls-3"
+                        d="M60.08,66.24c3.33-2.38,1.58-5.11.55-6.86s-8.39-6.23-8.39-6.23-6.43-3.64-8.88-4.2-3.49,2.46-3.49,2.46-1.9,3-4.12,1.9S34,50.46,34,49.43s1.82-7.77,10.62-6.82,18,8.9,18,8.9"/>
+                  <polyline className="cls-1" points="15.7 50.16 26.58 50.16 26.58 63.42 15.7 63.42"/>
+                  <line className="cls-2" x1="15.7" y1="63.54" x2="26.58" y2="63.54"/>
+                  <line className="cls-2" x1="15.29" y1="50.16" x2="26.58" y2="50.16"/>
+                  <line className="cls-4" x1="43.53" y1="28.19" x2="43.53" y2="14.18"/>
+                  <line className="cls-4" x1="55.85" y1="33.73" x2="64.4" y2="22.64"/>
+                  <line className="cls-4" x1="30.36" y1="33.73" x2="21.81" y2="22.64"/>
+                  <line className="cls-4" x1="22.92" y1="42.27" x2="10.5" y2="35.81"/>
+                  <line className="cls-4" x1="62.96" y1="42.27" x2="75.38" y2="35.81"/>
+                </g>
+              </svg>
+
+
               {/*name */}
               <p className={clsx('-translate-y-2', fontWeightName)}>{data.name}</p>
             </div>

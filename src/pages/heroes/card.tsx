@@ -7,13 +7,15 @@ import InputTextArea from '../../ui/components/InputTextArea'
 import backendAPI from '../../supports/utils/api'
 import { COLOR_PRIMARY } from '../../config/theme'
 import RootLayout from '../../ui/layouts/root'
-import * as htmlToImage from 'html-to-image'
 import { toast } from 'react-toastify'
 import RenderShareCard from '../../ui/components/RenderShareCard'
 import { Fonts } from '../../config/fonts'
 import { FONT_WEIGHT, FONT_WEIGHTS } from '../../supports/ds/font'
 import HeroTable from '../../ui/components/HeroTable'
 import { IconRotateClockwise2 } from '@tabler/icons-react'
+
+import * as htmlToImage from '../../../packages/html-to-image/src/index'
+import HeroSearch from '../../ui/components/HeroSearch'
 
 // cao ！ 不能写死 url 啊 ！
 const SAMPLE_HERO: IHero = {
@@ -52,12 +54,6 @@ export const Card = ({ heroes }: {
   heroes: IHero[]
 }) => {
 
-  // const dispatch = useDispatch()
-
-  useEffect(() => {
-    // dispatch(setHeroes(heroes))
-  }, [])
-
   const [searchKey, setSearchKey] = useState('')
   const [data, setData] = useState<IShareCard>(SAMPLE_DATA)
   const [midColor, setMidColor] = useState('#337799')
@@ -70,7 +66,7 @@ export const Card = ({ heroes }: {
   const [isGeneratingCard, setGeneratingCard] = useState(false)
 
   const refCanvas = useRef<HTMLDivElement>(null)
-  console.log(data)
+  console.log(data.name, data.avatar)
 
 
   const update = ({ type, value }: InputAction) => {
@@ -89,19 +85,29 @@ export const Card = ({ heroes }: {
   }
 
   const onGenCard = async () => {
+
     if (!/\/\/gkleifeng.com/.test(data.avatar))
       return toast.warning('默认头像仅做参考，请上传目标嘉宾头像！')
 
     toast.info('正在生成卡片，请耐心等待片刻！')
+
+    // htmlToImage.toBlob(refCanvas.current!)
+    //   .then(function (blob) {
+    //     if (window.saveAs) {
+    //       window.saveAs(blob, 'my-node.png');
+    //     } else {
+    //       FileSaver.saveAs(blob, 'my-node.png');
+    //     }
+    //   });
+
+
     setGeneratingCard(true)
     console.log('generating dataUrl')
     try {
-      const dataUrl = await htmlToImage.toPng(
-        refCanvas.current!,
-        {
-          pixelRatio: 4 // 这个因子非常重要，否则低端浏览器图片会很糊
-        }
-      )
+      const dataUrl = await htmlToImage.toPng(refCanvas.current!,
+        { pixelRatio: 4 /* 这个因子非常重要，否则低端浏览器图片会很糊 */ })
+      //
+      // const dataUrl = await htmlToImage.toSvg(refCanvas.current!)
       console.log('generated !')
       let a = document.createElement('a')
       a.href = dataUrl //Image Base64 Goes here
@@ -122,35 +128,13 @@ export const Card = ({ heroes }: {
     setData({ ...data, ...hero })
   }
 
-  console.log('current data: ', data)
-
   return (
     <RootLayout>
       {/* 使用横向布局 */}
       <div className={'m-auto flex flex-wrap gap-8'}>
 
         {/* 1. 搜索区域*/}
-        <div>
-          <h2>Search</h2>
-          <div className={'divider'}/>
-
-          <div className="form-control my-6 w-full">
-            <div className="input-group">
-              <input type="text" placeholder="Search…" className="input input-bordered flex-1"
-                     onChange={(e) => {setSearchKey(e.target.value)}}/>
-              <button className="btn btn-square">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                     stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2"
-                        d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
-                </svg>
-              </button>
-            </div>
-          </div>
-
-          <HeroTable heroes={heroes} searchKey={searchKey} onClickHero={onClickHero}/>
-
-        </div>
+        {/*<HeroSearch heroes={heroes} searchKey={searchKey} setSearchKey={setSearchKey} onClickHero={onClickHero}/>*/}
 
         {/* 2. 控制输入区域 */}
         <div>
@@ -164,7 +148,10 @@ export const Card = ({ heroes }: {
           <label className={'flex items-center'}>
             <i>Click to upload a new avatar --{'>'}</i>
             <input id={'hero-avatar'} type={'file'} className={'hidden'} accept={'image/*'} onChange={onAvatarChange}/>
+
+            {/* 在iphone浏览器里不显示 */}
             <BaseAvatar customClasses={'ml-5'} url={data.avatar} size={'lg'}/>
+
           </label>
 
           {/* 嘉宾姓名、title */}

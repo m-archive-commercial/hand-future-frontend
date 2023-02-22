@@ -2,6 +2,9 @@
   "name": "hand-future-frontend",
   "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "packages/html-to-image"
+  ],
   "scripts": {
     "dev": "next dev",
     "prebuild": "yarn",
