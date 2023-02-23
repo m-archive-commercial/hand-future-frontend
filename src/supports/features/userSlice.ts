@@ -45,7 +45,7 @@ export const userSlice = createSlice({
     },
     setAvatar: (state, action: PayloadAction<string>) => {
       state.avatar = action.payload
-    }
+    },
   },
 })
 
