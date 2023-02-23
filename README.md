@@ -52,6 +52,18 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## tips
 
+### 翻墙！ use my own clash config
+
+1. create clash-scope dir: `mkdir clash && cd clash`
+2. download clash (or sync with local if unable to visit foreign
+   nets): `wgeet https://github.com/Dreamacro/clash/releases/download/v1.13.0/clash-linux-386-v1.13.0.gz`
+3. unzip clash `gunzip clash* `
+4. rename clash `mv clash* clash`
+5. grant permission: `sudo chmod +x clash`
+6. copy local clash config files to here, including: `config.yaml`,  `Country.mmdb`, `Rules`, `cache.db`
+7. start: `sudo clash -d .` (attention: since the absence of web communication, using `-f CONFIG_FILE` would fail)
+8. todo: config it to be a daemon service
+
 ### generate card
 
 https://www.npmjs.com/package/html-to-image

@@ -11,11 +11,9 @@ import { toast } from 'react-toastify'
 import RenderShareCard from '../../ui/components/RenderShareCard'
 import { Fonts } from '../../config/fonts'
 import { FONT_WEIGHT, FONT_WEIGHTS } from '../../supports/ds/font'
-import HeroTable from '../../ui/components/HeroTable'
 import { IconRotateClockwise2 } from '@tabler/icons-react'
+import htmlToImage from 'html-to-image'
 
-import * as htmlToImage from '../../../packages/html-to-image/src/index'
-import HeroSearch from '../../ui/components/HeroSearch'
 
 // cao ！ 不能写死 url 啊 ！
 const SAMPLE_HERO: IHero = {
