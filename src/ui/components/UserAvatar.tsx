@@ -4,7 +4,7 @@
 import { ChangeEvent, useRef } from 'react'
 import backendAPI from '../../supports/utils/api'
 import { useDispatch, useSelector } from 'react-redux'
-import { selectAvatar, setUser } from '../../supports/features/user/userSlice'
+import { selectAvatar, setUser } from '../../supports/features/userSlice'
 import { BaseAvatar } from '../base_components/BaseAvatar'
 
 export const UserAvatar = () => {

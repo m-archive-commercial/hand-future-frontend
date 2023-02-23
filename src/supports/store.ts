@@ -5,8 +5,8 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import storage from 'redux-persist/lib/storage'
 import { persistReducer } from 'redux-persist'
 import thunk from 'redux-thunk'
-import { userReducer } from './features/user/userSlice'
-import { heroesReducer } from './features/user/heroesSlice'
+import { userReducer } from './features/userSlice'
+import { heroesReducer } from './features/heroesSlice'
 
 
 const reducers = combineReducers({

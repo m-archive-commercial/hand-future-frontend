@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { UserProfile } from '../../ds/user'
-import { AppState } from '../../store'
-import backendAPI from '../../utils/api'
-import { UserWork } from '../../ds/userWork'
+import { UserProfile } from '../ds/user'
+import { AppState } from '../store'
+import backendAPI from '../utils/api'
+import { UserWork } from '../ds/userWork'
 
 export interface UserState {
   token?: string

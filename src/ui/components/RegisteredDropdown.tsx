@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from 'react-redux'
 import { BaseAvatar } from '../base_components/BaseAvatar'
-import { resetAuth, selectAvatar, selectUser } from '../../supports/features/user/userSlice'
+import { resetAuth, selectAvatar, selectUser } from '../../supports/features/userSlice'
 import React from 'react'
 import ProfileDialog from './ProfileDialog'
 

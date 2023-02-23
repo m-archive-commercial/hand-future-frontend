@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { selectUser } from '../../supports/features/user/userSlice'
+import { selectUser } from '../../supports/features/userSlice'
 import BilibiliVideo from '../base_components/BilibiliVideo'
 import UserAvatar from './UserAvatar'
 

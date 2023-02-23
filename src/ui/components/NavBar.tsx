@@ -3,7 +3,7 @@ import RegisterDialog from './RegisterDialog'
 import RegisteredDropdown from './RegisteredDropdown'
 import { useSelector } from 'react-redux'
 import { menus } from '../../config/menus'
-import { selectUser } from '../../supports/features/user/userSlice'
+import { selectUser } from '../../supports/features/userSlice'
 
 export const SVG_PATH_ARROW_RIGHT = 'M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z'
 export const SVG_PATH_ARROW_DOWN = 'M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z'

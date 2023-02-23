@@ -1,6 +1,6 @@
-import { IHero } from '../../ds/hero'
+import { IHero } from '../ds/hero'
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AppState } from '../../store'
+import { AppState } from '../store'
 
 export interface HeroesSlice {
   data: IHero[]

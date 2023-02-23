@@ -131,7 +131,7 @@ export const Card = ({ heroes }: {
   return (
     <RootLayout>
       {/* 使用横向布局 */}
-      <div className={'m-auto flex flex-wrap gap-8'}>
+      <div className={'p-4 m-auto flex flex-wrap gap-8'}>
 
         {/* 1. 搜索区域*/}
         {/*<HeroSearch heroes={heroes} searchKey={searchKey} setSearchKey={setSearchKey} onClickHero={onClickHero}/>*/}

@@ -12,7 +12,8 @@ export const RootLayout = ({ children }: { children: ReactNode }) => {
       <Header/>
 
       <NavBar/>
-      <div className={'p-4 flex-grow flex justify-center items-center'}>
+
+      <div className={'flex-grow flex justify-center items-center'}>
         {children}
       </div>
 

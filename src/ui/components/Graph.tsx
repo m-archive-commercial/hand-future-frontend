@@ -1,7 +1,7 @@
 import { useRef } from 'react'
 import ForceGraph3D, { ForceGraphMethods } from 'react-force-graph-3d'
+import { Sprite, SpriteMaterial, TextureLoader } from 'three'
 import data from '../../../public/avatar/index.json'
-import * as THREE from 'three'
 
 export const Graph = () => {
   console.log('[Graph] ')
@@ -11,15 +11,15 @@ export const Graph = () => {
     <ForceGraph3D
       ref={fgRef}
       graphData={data}
-      // @ts-ignore
       nodeLabel={'name'}
       nodeThreeObject={({ id }) => {
         const imgPath = `/avatar/${id}`
         console.log('loading img at path: ', imgPath)
-        const imgTexture = new THREE.TextureLoader().load(imgPath)
-        const material = new THREE.SpriteMaterial({ map: imgTexture, depthWrite: false })
-        const img = new THREE.Sprite(material)
-        img.scale.set(24, 24, 24)
+
+        const imgTexture = new TextureLoader().load(imgPath)
+        const material = new SpriteMaterial({ map: imgTexture, depthWrite: false })
+        const img = new Sprite(material)
+        img.scale.set(24, 24, 1)
         return img
       }}
     />

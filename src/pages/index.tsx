@@ -1,5 +1,7 @@
-import type { NextPage } from 'next'
+'use client'
+
 import dynamic from 'next/dynamic'
+import RootLayout from '../ui/layouts/root'
 
 
 // ref: https://nextjs.org/docs/advanced-features/dynamic-import
@@ -8,6 +10,10 @@ const Graph = dynamic(
   { ssr: false }
 )
 
-export const Home = () => <Graph/>
+export const Home = () => (
+  <RootLayout>
+    <Graph/>
+  </RootLayout>
+)
 
 export default Home

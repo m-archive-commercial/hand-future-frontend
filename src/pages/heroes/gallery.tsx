@@ -15,10 +15,9 @@ export interface HeroesGalleryProps {
 }
 
 export const HeroesGallery = ({ data }: HeroesGalleryProps) => {
-  // console.log({ data })
   return (
     <RootLayout>
-      <div className={'w-full flex flex-wrap justify-around justify-items-center gap-4'}>
+      <div className={'p-4  w-full flex flex-wrap justify-around justify-items-center gap-4'}>
         {
           data.map((item) => (
             <HeroCard data={item} key={item.id}/>

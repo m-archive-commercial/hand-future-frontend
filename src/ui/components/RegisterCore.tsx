@@ -8,7 +8,7 @@ import { INIT_USER, TokenData, UserProfile } from '../../supports/ds/user'
 import { toast } from 'react-toastify'
 import { useDispatch, useSelector } from 'react-redux'
 import { BaseAvatar } from '../base_components/BaseAvatar'
-import { selectAvatar, setAvatar, setToken, setUser, setWorks } from '../../supports/features/user/userSlice'
+import { selectAvatar, setAvatar, setToken, setUser, setWorks } from '../../supports/features/userSlice'
 
 
 export interface RegisterProps {

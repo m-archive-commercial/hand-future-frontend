@@ -14,6 +14,7 @@ export const MDialog = (props: DialogProps) => {
 
   return (
     <Dialog.Root>
+      
       <Dialog.Trigger>
         {props.trigger}
       </Dialog.Trigger>

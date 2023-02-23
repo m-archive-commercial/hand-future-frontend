@@ -2,9 +2,6 @@
   "name": "hand-future-frontend",
   "version": "0.1.0",
   "private": true,
-  "workspaces": [
-    "packages/html-to-image"
-  ],
   "scripts": {
     "dev": "next dev",
     "prebuild": "yarn",
@@ -13,6 +10,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "3d-force-graph": "^1.71.1",
     "@next/font": "^13.1.6",
     "@radix-ui/colors": "^0.1.8",
     "@radix-ui/react-dialog": "^1.0.2",
@@ -46,7 +44,8 @@
     "redux": "^4.2.1",
     "redux-persist": "^6.0.0",
     "sharp": "^0.31.3",
-    "three": "0.118.3",
+    "three": "^0.149.0",
+    "three-forcegraph": "^1.41.4",
     "webpack": "5.0.0"
   },
   "devDependencies": {

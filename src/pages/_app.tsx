@@ -10,7 +10,7 @@ import { toast, ToastContainer } from 'react-toastify'
 import localFont from '@next/font/local'
 import backendAPI from '../supports/utils/api'
 import { useEffect } from 'react'
-import { setHeroes } from '../supports/features/user/heroesSlice'
+import { setHeroes } from '../supports/features/heroesSlice'
 import { IHero } from '../supports/ds/hero'
 
 
