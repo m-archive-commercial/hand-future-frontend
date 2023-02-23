@@ -43,13 +43,11 @@ export const RenderShareCard = (props: RenderShareCardProps) => {
 
           {/*  name - title*/}
           <div className={'flex-1 flex flex-col justify-center items-baseline'}>
-            <div className={'text-black text-3xl font-black flex items-center'}>
+            <div className={'text-black text-3xl font-black flex  '}>
 
               {/*2.10 小手图形-03.svg*/}
-              {/*<Image priority src={'/card/small_hand.svg'} alt={'small_hand.svg'}*/}
-              {/*       width={40} height={40} className={'-translate-y-2.5 -translate-x-1'}*/}
-              {/*/>*/}
-              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.95 91.21">
+
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 87.95 91.21" height={30}>
                 <defs>
                   <style>
                     {
@@ -96,9 +94,10 @@ export const RenderShareCard = (props: RenderShareCardProps) => {
                 </g>
               </svg>
 
-
               {/*name */}
-              <p className={clsx('-translate-y-2', fontWeightName)}>{data.name}</p>
+              <p className={clsx('ml-2', '-translate-y-2', fontWeightName)}>{data.name}</p>
+
+
             </div>
 
             {/* title */}

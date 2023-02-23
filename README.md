@@ -62,7 +62,35 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 5. grant permission: `sudo chmod +x clash`
 6. copy local clash config files to here, including: `config.yaml`,  `Country.mmdb`, `Rules`, `cache.db`
 7. start: `sudo clash -d .` (attention: since the absence of web communication, using `-f CONFIG_FILE` would fail)
-8. todo: config it to be a daemon service
+8. config it to be a daemon service
+
+- ref :https://medium.com/@benmorel/creating-a-linux-service-with-systemd-611b5c8b91d6
+
+```shell
+sudo cp clash /usr/local/bin
+sudo vim /etc/systemd/system/clash.service
+systemctl start clash
+systemctl enable clash # auto-start when boot
+systemctl status clash
+```
+
+- file:
+
+```text
+[Unit]
+Description=clash
+After=network.target
+StartLimitIntervalSec=0
+[Service]
+Type=simple
+Restart=always
+RestartSec=1
+User=root
+ExecStart=/usr/local/bin/clash -d /root/hand-future-frontend/external/clash
+
+[Install]
+WantedBy=multi-user.target
+```
 
 ### generate card
 

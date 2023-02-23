@@ -12,7 +12,8 @@ import RenderShareCard from '../../ui/components/RenderShareCard'
 import { Fonts } from '../../config/fonts'
 import { FONT_WEIGHT, FONT_WEIGHTS } from '../../supports/ds/font'
 import { IconRotateClockwise2 } from '@tabler/icons-react'
-import htmlToImage from 'html-to-image'
+import * as htmlToImage from 'html-to-image'
+import HeroSearch from '../../ui/components/HeroSearch'
 
 
 // cao ！ 不能写死 url 啊 ！
@@ -132,7 +133,7 @@ export const Card = ({ heroes }: {
       <div className={'p-4 m-auto flex flex-wrap gap-8'}>
 
         {/* 1. 搜索区域*/}
-        {/*<HeroSearch heroes={heroes} searchKey={searchKey} setSearchKey={setSearchKey} onClickHero={onClickHero}/>*/}
+        <HeroSearch heroes={heroes} searchKey={searchKey} setSearchKey={setSearchKey} onClickHero={onClickHero}/>
 
         {/* 2. 控制输入区域 */}
         <div>
