@@ -8,12 +8,12 @@ import { ReactNode } from 'react'
 export const RootLayout = ({ children }: { children: ReactNode }) => {
 
   return (
-    <div className={'w-screen min-h-screen flex flex-col'}>
+    <div className={'w-screen h-screen flex flex-col'}>
       <Header/>
 
       <NavBar/>
 
-      <div className={'flex-grow flex justify-center items-center'}>
+      <div className={'flex-1 flex justify-center items-center'}>
         {children}
       </div>
 
