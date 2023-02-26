@@ -24,10 +24,12 @@ const RegisterDialog = () => {
     </div>
   )
 
-  const content = <RegisterCore
-    isRegistered={isRegistered}
-    dispatchSetRegister={() => setRegistered(!isRegistered)}
-                  />
+  const content = (
+    <RegisterCore
+      isRegistered={isRegistered}
+      dispatchSetRegister={() => setRegistered(!isRegistered)}
+    />
+  )
 
   return (
     <MDialog trigger={trigger} title="注册/登录" content={content}/>

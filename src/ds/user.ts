@@ -27,6 +27,7 @@ export interface UserProfile extends UserRegister {
   sex?: string
   city?: string
   social: UserSocial // todo: potential error since not init
+  role?: string
 }
 
 export const INIT_USER: UserRegister = {

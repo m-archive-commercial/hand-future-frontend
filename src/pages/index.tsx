@@ -18,7 +18,7 @@ const Graph = dynamic(
   { ssr: false }
 )
 
-export const Home = ({data}: {data: GraphData}) => (
+export const Home = ({data}: {data: GraphData}): JSX.Element => (
   <RootLayout>
     <Graph data={data}/>
   </RootLayout>

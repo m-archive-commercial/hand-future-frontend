@@ -8,11 +8,13 @@
 export interface ISubMenuItem {
   name: string
   path: string
+  admin?: boolean
 }
 
 export interface IMainMenuItem {
   name: string
   children: (ISubMenuItem | IMainMenuItem)[]
+  admin?: boolean
 }
 
 export const isMainMenuItem = (item: IMenuItem): item is IMainMenuItem =>

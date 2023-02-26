@@ -19,11 +19,13 @@ export interface UserState {
   basic?: UserProfile
   works: UserWork[]
   avatar?: string
+  role?: string
 }
 
 const initialState: UserState = {
   token: undefined,
   basic: undefined,
+  role: undefined,
   works: [],
   avatar: undefined
 }

@@ -13,12 +13,14 @@ import RegisteredDropdown from './RegisteredDropdown'
 
 import { selectUser } from '../../redux/features/userSlice'
 import menus from '../../../config/menus.json'
+import { useRole } from '../../hooks/role'
 
 export const SVG_PATH_ARROW_RIGHT = 'M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z'
 export const SVG_PATH_ARROW_DOWN = 'M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z'
 
 export const NavBar = () => {
   const user = useSelector(selectUser)
+  const isAdmin = useRole() === 'admin'
 
   return (
     <div className="navbar bg-base-100 border-b-2">
@@ -55,7 +57,11 @@ export const NavBar = () => {
       <div className="navbar-center hidden md:flex">
         <ul className="menu menu-horizontal px-1">
           {
-            menus.map((menuItem) => (
+            menus
+              .filter((menuItem)=> (
+                !menuItem.admin || isAdmin
+              ))
+              .map((menuItem) => (
               <MenuItem item={menuItem}
                 icon={SVG_PATH_ARROW_DOWN}
                 key={menuItem.name}

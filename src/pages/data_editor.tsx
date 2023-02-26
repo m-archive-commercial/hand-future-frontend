@@ -25,7 +25,7 @@ import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
 
 export type Editor = monaco.editor.IStandaloneCodeEditor
 
-export const DataEditor = ({data}: {
+export const DataEditor = ({ data }: {
   data: GraphData
 }): JSX.Element => {
   console.log('client: ', data)
@@ -35,47 +35,47 @@ export const DataEditor = ({data}: {
 
   const onSubmit = async () => {
     const content = editorRef.current?.getValue()
-    console.log("content: ", content)
+    console.log('content: ', content)
 
-    if(!content) {
+    if (!content) {
       toast.error('Content is required !')
       return
     }
 
     try {
       const dataNew = JSON.parse(content)
-      if(!('nodes' in dataNew)) {
+      if (!('nodes' in dataNew)) {
         toast.error('Key of `nodes` should be included !')
         return
       }
 
-      if(!('links' in dataNew)) {
+      if (!('links' in dataNew)) {
         toast.error('Key of `links` should be included !')
         return
       }
 
-      const nodeIds: string[] = dataNew.nodes.map((node: {id: string}) => node.id)
-      console.log({dataNew, nodeIds})
-      for(const link of dataNew.links) {
-        if(!(nodeIds.includes(link.source))) {
-          console.error({link, source: link.source, nodeIds})
+      const nodeIds: string[] = dataNew.nodes.map((node: { id: string }) => node.id)
+      console.log({ dataNew, nodeIds })
+      for (const link of dataNew.links) {
+        if (!(nodeIds.includes(link.source))) {
+          console.error({ link, source: link.source, nodeIds })
           toast.error(`Link source of ${link.source} doesn't exist in nodes !`)
           return
         }
-        if(!(nodeIds.includes(link.target))) {
+        if (!(nodeIds.includes(link.target))) {
           toast.error(`Link target of ${link.target} doesn't exist in nodes !`)
           return
         }
       }
 
       await backendAPI.put('/data', dataNew)
-      toast.success("Successfully updated data !")
+      toast.success('Successfully updated data !')
     } catch (e) {
       console.error(e)
-      if(e instanceof SyntaxError) {
+      if (e instanceof SyntaxError) {
         toast.error(e.message)
       }
-      if(e instanceof AxiosError) {
+      if (e instanceof AxiosError) {
         toast.error(e.message)
       }
     }
@@ -90,31 +90,33 @@ export const DataEditor = ({data}: {
   return (
     <RootLayout>
 
-      <button
-        className="text-sm rounded-lg bg-primary text-white m-2 px-3 py-1"
-        type="button"
-        onClick={onSubmit}
-      >
-        Save Changes
-      </button>
+      <div className="m-2 flex items-center gap-2">
+        <button
+          className="text-sm rounded-lg bg-primary text-white px-3 py-1"
+          type="button"
+          onClick={onSubmit}
+        >
+          Save Changes
+        </button>
 
-      <button
-        className="text-sm rounded-lg bg-primary text-white m-2 px-3 py-1"
-        type="button"
-        onClick={onReset}
-      >
-        Reset
-      </button>
+        <button
+          className="text-sm rounded-lg bg-primary text-white px-3 py-1"
+          type="button"
+          onClick={onReset}
+        >
+          Reset
+        </button>
 
-      <button
-        className="text-sm rounded-lg bg-primary text-white m-2 px-3 py-1"
-        type="button"
-        onClick={() => {
-          router.push('/')
-        }}
-      >
-        Return to Graph Mode
-      </button>
+        <button
+          className="text-sm rounded-lg bg-primary text-white px-3 py-1"
+          type="button"
+          onClick={() => {
+            router.push('/')
+          }}
+        >
+          Return to Graph Mode
+        </button>
+      </div>
 
       <Editor
         height="90vh"
@@ -135,9 +137,9 @@ export const DataEditor = ({data}: {
 
 export default DataEditor
 
-export const getServerSideProps  = async  (): Promise<{props: {data: GraphData}}> => {
-  const res=  await backendAPI.get('/data')
-  const {data} = res
+export const getServerSideProps = async (): Promise<{ props: { data: GraphData } }> => {
+  const res = await backendAPI.get('/data')
+  const { data } = res
   return {
     props: {
       data

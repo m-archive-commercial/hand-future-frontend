@@ -27,7 +27,7 @@ export const RegisteredDropdown = () => {
   return (
     // avatar with image
     <div className="dropdown dropdown-end">
-      <div className="m-1">
+      <div  role="button" tabIndex={0} className="m-1">
         <BaseAvatar name={user.basic.nickname} url={avatar} size="md"/>
       </div>
 

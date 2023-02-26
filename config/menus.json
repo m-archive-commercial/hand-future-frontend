@@ -9,14 +9,17 @@
   },
   {
     "name": "嘉宾卡片",
-    "path": "/heroes/card"
+    "path": "/heroes/card",
+    "admin": true
   },
   {
     "name": "嘉宾上传",
-    "path": "/heroes/upload"
+    "path": "/heroes/upload",
+    "admin": true
   },
   {
     "name": "关于我们",
-    "path": "/about"
+    "path": "/about",
+    "admin": true
   }
 ]

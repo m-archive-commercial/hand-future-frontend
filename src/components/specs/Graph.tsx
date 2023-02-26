@@ -19,6 +19,8 @@ import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } fr
 
 import { DagModes, ForceEngines, NumDimensions } from '../../ds/panel_3dgraph'
 
+import { useRole } from '../../hooks/role'
+
 import type { DagMode, ForceEngine, NumDimension} from '../../ds/panel_3dgraph'
 import type { ForceGraphMethods , GraphData } from 'react-force-graph-3d'
 
@@ -31,8 +33,9 @@ const Section = ({ title }: { title: string }) => (
 export const Graph = ({data}: {
   data: GraphData
 }): JSX.Element => {
-  console.log('client data: ', data)
 
+  const isAdmin = useRole() === 'admin'
+  console.log('client data: ', data)
   const fgRef = useRef<ForceGraphMethods>()
   const router  = useRouter()
 
@@ -65,13 +68,17 @@ export const Graph = ({data}: {
   return (
     <div className="w-full h-full flex">
 
-      <button
-        type="button"
-        onClick={() => setEnableControl(!enableControl)}
-        className="z-10 fixed right-4 top-20 rounded-lg p-2 bg-primary text-white"
-      >
+      {
+        isAdmin && (
+                <button
+                  type="button"
+                  onClick={() => setEnableControl(!enableControl)}
+                  className="z-10 fixed right-4 top-20 rounded-lg p-2 bg-primary text-white"
+                >
         Control
-      </button>
+                </button>
+        )
+      }
 
       <div className={clsx('w-64', enableControl || 'hidden')}>
 
