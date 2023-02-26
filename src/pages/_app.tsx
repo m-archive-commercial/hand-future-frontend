@@ -1,29 +1,30 @@
-import '../styles/globals.css'
-import 'react-toastify/dist/ReactToastify.css'
+/**
+ * Copyright (c) Hand-Future @2023. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+*/
 
-import type { AppProps } from 'next/app'
-import { Provider, useDispatch } from 'react-redux'
-import { store } from '../supports/store'
+import { Provider } from 'react-redux'
+
 import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
 import { toast, ToastContainer } from 'react-toastify'
-import localFont from '@next/font/local'
-import backendAPI from '../supports/utils/api'
-import { useEffect } from 'react'
-import { setHeroes } from '../supports/features/heroesSlice'
-import { IHero } from '../supports/ds/hero'
 
+import { store } from '../redux/store'
 
-function MyApp({ Component, pageProps }: AppProps) {
+import type { AppProps } from 'next/app'
 
-  return (
-    <Provider store={store}>
-      <PersistGate persistor={persistStore(store)} loading={null}>
-        <Component {...pageProps} />
-        <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_RIGHT}/>
-      </PersistGate>
-    </Provider>
+import '../styles/globals.css'
+import 'react-toastify/dist/ReactToastify.css'
+
+const MyApp = ({ Component, pageProps }: AppProps) => (
+  <Provider store={store}>
+    <PersistGate persistor={persistStore(store)} loading={null}>
+      <Component {...pageProps} />
+      <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_RIGHT}/>
+    </PersistGate>
+  </Provider>
   )
-}
 
 export default MyApp

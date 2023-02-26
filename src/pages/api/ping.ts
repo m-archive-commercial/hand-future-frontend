@@ -1,6 +1,11 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-import type { NextApiRequest, NextApiResponse } from 'next'
+/**
+ * Copyright (c) Hand-Future @2023. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+*/
 
+import type { NextApiRequest, NextApiResponse } from 'next'
 
 export default function handler(
   req: NextApiRequest,

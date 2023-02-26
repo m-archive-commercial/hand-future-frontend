@@ -5,12 +5,4 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import RootLayout from '../components/layouts/root'
-
-export const About = () => (
-  <RootLayout>
-    todo: about
-  </RootLayout>
-)
-
-export default About
+import localFont from '@next/font/local'

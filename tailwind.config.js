@@ -1,17 +1,21 @@
-const {violet, blackA, mauve, green} = require('@radix-ui/colors');
-const {fontFamily} = require('tailwindcss/defaultTheme')
+/**
+ * Copyright (c) Hand-Future @2023. and its affiliates.
+ *
+ * This source code is licensed under the MIT license found in the
+ * LICENSE file in the root directory of this source tree.
+*/
 
+const {violet, blackA, mauve, green} = require('@radix-ui/colors')
+const {fontFamily} = require('tailwindcss/defaultTheme')
 
 const primary = '#109B7B'
 
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx}",
-    "./src/ui/**/*.{js,ts,jsx,tsx}",
+    "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-
 
     extend: {
 
