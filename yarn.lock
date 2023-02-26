@@ -3561,6 +3561,11 @@ react-force-graph-3d@^1.22.0:
     prop-types "^15.8"
     react-kapsule "^2.2"
 
+react-idle-timer@^5.5.2:
+  version "5.5.2"
+  resolved "https://registry.yarnpkg.com/react-idle-timer/-/react-idle-timer-5.5.2.tgz#4062c4decfee082cc9c9ca1ea9dc4b44425edce6"
+  integrity sha512-BQsqL8tJAMQ3+EnlXTfTrXgWKrQC8UpAaZFjujaXyxQECBnJXxYHFYjXMDyo4Dd28YIOC4UUI3XbSyft0jSwhQ==
+
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.npmjs.org/react-is/-/react-is-16.13.1.tgz"

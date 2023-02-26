@@ -2,6 +2,14 @@
 
 ## tips
 
+### `react-idle-timer`
+
+```shell
+npm config set registry "http://registry.npmjs.org"
+```
+
+see: https://stackoverflow.com/a/72178549/9422455
+
 ### monaco-editor typescript support
 
 ```ts

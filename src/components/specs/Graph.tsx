@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import {  useRef, useState } from 'react'
+import { useRef, useState } from 'react'
 
 import clsx from 'clsx'
 
@@ -14,6 +14,8 @@ import { Sprite, SpriteMaterial, TextureLoader } from 'three'
 
 import { useRouter } from 'next/router'
 
+import { useIdleTimer } from 'react-idle-timer'
+
 import useWindowDimensions from '../../hooks/window'
 import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } from '../../hooks/panel_3dgraph'
 
@@ -21,8 +23,8 @@ import { DagModes, ForceEngines, NumDimensions } from '../../ds/panel_3dgraph'
 
 import { useRole } from '../../hooks/role'
 
-import type { DagMode, ForceEngine, NumDimension} from '../../ds/panel_3dgraph'
-import type { ForceGraphMethods , GraphData } from 'react-force-graph-3d'
+import type { DagMode, ForceEngine, NumDimension } from '../../ds/panel_3dgraph'
+import type { ForceGraphMethods, GraphData } from 'react-force-graph-3d'
 
 const Section = ({ title }: { title: string }) => (
   <p className="text-xl text-gray-600 font-bold w-full border-b mt-2 pl-2">
@@ -30,14 +32,25 @@ const Section = ({ title }: { title: string }) => (
   </p>
 )
 
-export const Graph = ({data}: {
+export const Graph = ({ data }: {
   data: GraphData
 }): JSX.Element => {
 
   const isAdmin = useRole() === 'admin'
   console.log('client data: ', data)
   const fgRef = useRef<ForceGraphMethods>()
-  const router  = useRouter()
+  const router = useRouter()
+
+  const [refreshSeconds, refreshSeconds_] = useNumberOption('refreshSeconds', 60)
+
+  useIdleTimer({
+    onIdle: () => {
+      console.log('idle!')
+      router.replace(router.asPath)
+    },
+    timeout: (refreshSeconds || 1)  * 1000,
+    throttle: 500
+  })
 
   const { width, height } = useWindowDimensions()
   const [enableControl, setEnableControl] = useState(false)
@@ -66,17 +79,17 @@ export const Graph = ({data}: {
   const [forceEngine, forceEngine_] = useSelectOption<ForceEngine>('ForceEngine', 'd3', ForceEngines)
 
   return (
-    <div className="w-full h-full flex">
+    <div tabIndex={0} role="button" className="w-full h-full flex">
 
       {
         isAdmin && (
-                <button
-                  type="button"
-                  onClick={() => setEnableControl(!enableControl)}
-                  className="z-10 fixed right-4 top-20 rounded-lg p-2 bg-primary text-white"
-                >
-        Control
-                </button>
+          <button
+            type="button"
+            onClick={() => setEnableControl(!enableControl)}
+            className="z-10 fixed right-4 top-20 rounded-lg p-2 bg-primary text-white"
+          >
+            Control
+          </button>
         )
       }
 
@@ -86,11 +99,14 @@ export const Graph = ({data}: {
 
         <button type="button" className="bg-primary text-white rounded-xl px-3 py-1 m-1"
           onClick={() => {
-            router.push('/data_editor')
-          }}
+                  router.push('/data_editor')
+                }}
         >
           Data Source
         </button>
+
+        <Section title="Customized"/>
+        {refreshSeconds_}
 
         <Section title="Container Layout"/>
         {backgroundColor_}
