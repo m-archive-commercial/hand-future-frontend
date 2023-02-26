@@ -8,6 +8,9 @@
 import dynamic from 'next/dynamic'
 
 import RootLayout from '../components/layouts/root'
+import backendAPI from '../utils/api'
+
+import type { GraphData } from 'react-force-graph-3d'
 
 // ref: https://nextjs.org/docs/advanced-features/dynamic-import
 const Graph = dynamic(
@@ -15,10 +18,21 @@ const Graph = dynamic(
   { ssr: false }
 )
 
-export const Home = () => (
+export const Home = ({data}: {data: GraphData}) => (
   <RootLayout>
-    <Graph/>
+    <Graph data={data}/>
   </RootLayout>
 )
 
 export default Home
+
+export const getServerSideProps  = async  (): Promise<{props: {data: GraphData}}> => {
+  const res=  await backendAPI.get('/data')
+  const {data} = res
+  console.log('server: ', data)
+  return {
+    props: {
+      data
+    }
+  }
+}

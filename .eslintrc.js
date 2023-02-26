@@ -24,8 +24,8 @@ module.exports = {
     'plugin:react-hooks/recommended',
     'plugin:@typescript-eslint/recommended',
     'airbnb',
-    'prettier',
     'plugin:@next/next/recommended',
+    'prettier',
   ],
   plugins: [
     'react',
@@ -207,7 +207,9 @@ module.exports = {
     ],
     '@typescript-eslint/no-non-null-assertion': OFF,
     'no-redeclare': OFF,
-    '@typescript-eslint/no-redeclare': ERROR,
+
+    '@typescript-eslint/no-redeclare':OFF, // 有时候我们需要val和type是一个变量
+
     'no-shadow': OFF,
     '@typescript-eslint/no-shadow': ERROR,
 
@@ -318,9 +320,9 @@ module.exports = {
     "no-unused-vars": WARNING,
     "no-extra-semi": ERROR,
     "no-multiple-empty-lines": ERROR,
-    "react/jsx-indent": [2, 2], // ref: https://github.com/jsx-eslint/eslint-plugin-react/issues/1584#issuecomment-349180874
+    indent: [2, 2], // ref: https://github.com/jsx-eslint/eslint-plugin-react/issues/1584#issuecomment-349180874
     'react/jsx-closing-tag-location': ERROR, // ref: https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-closing-tag-location.md
-    'react/no-unused-prop-types': WARNING
+    'react/no-unused-prop-types': WARNING,
   },
   overrides: [
     // 我们应该允许在一些js文件中使用 require 语法，例如 tailwindcss.config.js

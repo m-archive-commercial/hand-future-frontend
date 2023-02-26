@@ -14,7 +14,7 @@ const inputClass = 'flex-1 min-w-0 max-w-[48px]'
 
 export const useBooleanOption = (label: string, init: boolean | undefined = undefined): [boolean | undefined, ReactNode] => {
   const [val, setVal] = useState<boolean | undefined>(init)
-  console.log({ val })
+  // console.log({ val })
   return [
     val,
     <div key={label} className={lineClass}>
@@ -26,7 +26,7 @@ export const useBooleanOption = (label: string, init: boolean | undefined = unde
 
 export const useNumberOption = (label: string, init: number | undefined = undefined): [number | undefined, ReactNode] => {
   const [val, setVal] = useState<number | undefined>(init)
-  console.log({ val })
+  // console.log({ val })
   return [
     val,
     <div key={label} className={lineClass}>
@@ -41,7 +41,7 @@ export const useNumberOption = (label: string, init: number | undefined = undefi
 
 export const useSelectOption = <T extends string | number, >(label: string, init: T, choices: T[]): [T, ReactNode] => {
   const [val, setVal] = useState<T>(init)
-  console.log({ val })
+  // console.log({ val })
   return [
     val,
     <div key={label} className={lineClass}>
@@ -59,6 +59,7 @@ export const useSelectOption = <T extends string | number, >(label: string, init
 
 export const useColorOption = (label: string, init = undefined): [string | undefined, ReactNode] => {
   const [val, setVal] = useState<string | undefined>(init)
+  // console.log({ val })
 
   return [
     val,

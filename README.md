@@ -1,3 +1,17 @@
+# hand-future-frontend
+
+## tips
+
+### monaco-editor typescript support
+
+```ts
+import Editor from '@monaco-editor/react'
+
+import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
+
+export type Editor = monaco.editor.IStandaloneCodeEditor
+```
+
 ## todo
 
 - [ ] 在html转image时，需要访问该node下的所有html资源，但是会在有中文文件名时（由于转义）无法匹配，所以需要在后端兼容中文的路径查找

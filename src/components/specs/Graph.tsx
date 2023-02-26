@@ -5,14 +5,14 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import { useRef, useState } from 'react'
+import {  useRef, useState } from 'react'
 
 import clsx from 'clsx'
 
 import ForceGraph3D from 'react-force-graph-3d'
 import { Sprite, SpriteMaterial, TextureLoader } from 'three'
 
-import data from '../../../public/avatar/index.json'
+import { useRouter } from 'next/router'
 
 import useWindowDimensions from '../../hooks/window'
 import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } from '../../hooks/panel_3dgraph'
@@ -20,7 +20,7 @@ import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } fr
 import { DagModes, ForceEngines, NumDimensions } from '../../ds/panel_3dgraph'
 
 import type { DagMode, ForceEngine, NumDimension} from '../../ds/panel_3dgraph'
-import type { ForceGraphMethods } from 'react-force-graph-3d'
+import type { ForceGraphMethods , GraphData } from 'react-force-graph-3d'
 
 const Section = ({ title }: { title: string }) => (
   <p className="text-xl text-gray-600 font-bold w-full border-b mt-2 pl-2">
@@ -28,9 +28,13 @@ const Section = ({ title }: { title: string }) => (
   </p>
 )
 
-export const Graph = () => {
+export const Graph = ({data}: {
+  data: GraphData
+}): JSX.Element => {
+  console.log('client data: ', data)
 
   const fgRef = useRef<ForceGraphMethods>()
+  const router  = useRouter()
 
   const { width, height } = useWindowDimensions()
   const [enableControl, setEnableControl] = useState(false)
@@ -72,6 +76,14 @@ export const Graph = () => {
       <div className={clsx('w-64', enableControl || 'hidden')}>
 
         <Section title="Data Input"/>
+
+        <button type="button" className="bg-primary text-white rounded-xl px-3 py-1 m-1"
+          onClick={() => {
+            router.push('/data_editor')
+          }}
+        >
+          Data Source
+        </button>
 
         <Section title="Container Layout"/>
         {backgroundColor_}
