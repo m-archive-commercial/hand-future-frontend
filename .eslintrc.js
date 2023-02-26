@@ -284,6 +284,8 @@ module.exports = {
     'jsx-a11y/no-noninteractive-element-interactions': WARNING,
     'jsx-a11y/html-has-lang': OFF,
 
+    // indent: [2, 2], // 不要用它，不会自己fix，可以用更宽广的react/jsx-indent-xx，ref: https://github.com/jsx-eslint/eslint-plugin-react/issues/1584#issuecomment-349180874
+
     // ref: https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-indent-props.md
     "react/jsx-indent-props": [WARNING, 2],
 
@@ -320,7 +322,6 @@ module.exports = {
     "no-unused-vars": WARNING,
     "no-extra-semi": ERROR,
     "no-multiple-empty-lines": ERROR,
-    indent: [2, 2], // ref: https://github.com/jsx-eslint/eslint-plugin-react/issues/1584#issuecomment-349180874
     'react/jsx-closing-tag-location': ERROR, // ref: https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-closing-tag-location.md
     'react/no-unused-prop-types': WARNING,
   },

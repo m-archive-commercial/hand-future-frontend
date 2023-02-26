@@ -10,8 +10,8 @@ import HeroTable from './HeroTable'
 import type { IHero } from '../../ds/hero'
 
 export const HeroSearch = ({
-                             heroes, searchKey, setSearchKey, onClickHero
-                           }: {
+  heroes, searchKey, setSearchKey, onClickHero
+}: {
   heroes: IHero[]
   searchKey?: string
   setSearchKey?: (s: string) => void
@@ -41,6 +41,6 @@ export const HeroSearch = ({
     <HeroTable heroes={heroes} searchKey={searchKey} onClickHero={onClickHero}/>
 
   </div>
-  )
+)
 
 export default HeroSearch

@@ -25,6 +25,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => (
       <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_RIGHT}/>
     </PersistGate>
   </Provider>
-  )
+)
 
 export default MyApp

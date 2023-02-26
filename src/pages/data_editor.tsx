@@ -17,6 +17,8 @@ import { useRouter } from 'next/router'
 
 import backendAPI from '../utils/api'
 
+import RootLayout from '../components/layouts/root'
+
 import type { GraphData } from 'react-force-graph-3d'
 
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
@@ -86,7 +88,7 @@ export const DataEditor = ({data}: {
   }
 
   return (
-    <div>
+    <RootLayout>
 
       <button
         className="text-sm rounded-lg bg-primary text-white m-2 px-3 py-1"
@@ -127,7 +129,7 @@ export const DataEditor = ({data}: {
         }}
       />
 
-    </div>
+    </RootLayout>
   )
 }
 

@@ -43,6 +43,6 @@ export const HeroCard = ({ data }: HeroCardProps) => (
     </div>
 
   </div>
-  )
+)
 
 export default HeroCard

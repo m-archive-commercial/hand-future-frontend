@@ -35,7 +35,7 @@ export const BilibiliVideo = (props: IBilibiliVideo) => {
     bvid = m[1]
   }
   if (!bvid.startsWith('BV'))
-    {return <div>INVALID URL</div>}
+  {return <div>INVALID URL</div>}
   let url = 'https://player.bilibili.com/player.html'
   url += `?bvid=${bvid}`
   url += `&danmaku=${props.enableDanmu ?? 0}`

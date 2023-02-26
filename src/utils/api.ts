@@ -46,7 +46,7 @@ backendAPI.interceptors.request.use(reqConfig => {
 
 backendAPI.interceptors.response.use(response => 
   // console.debug('res:', response.request.url)
-   response
+  response
 )
 
 export default backendAPI

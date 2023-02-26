@@ -44,37 +44,37 @@ export const BaseAvatar = (props: AvatarProps) => {
   return (
     <div id={props.id}
       className={clsx(
-                'avatar rounded-full',
-                // 'border-2 border-base-500',
-                !url && 'placeholder',
-                'cursor-pointer',
-                props.customClasses
-              )}
+        'avatar rounded-full',
+        // 'border-2 border-base-500',
+        !url && 'placeholder',
+        'cursor-pointer',
+        props.customClasses
+      )}
     >
 
       <div className={clsx(
-      'rounded-full',
-      // size === 'sm' ? 'w-12 h-12' : size == 'md' ? 'w-16 h-16' : 'w-20 h-20',
-      // 'w-36 h-36',
-      // wSizeMap[size],
-      // hSizeMap[size],
-      url ? ''// 'ring ring-primary ring-offset-base-100 ring-offset-2'
-        : 'bg-neutral-focus text-neutral-content'
-    )}
+        'rounded-full',
+        // size === 'sm' ? 'w-12 h-12' : size == 'md' ? 'w-16 h-16' : 'w-20 h-20',
+        // 'w-36 h-36',
+        // wSizeMap[size],
+        // hSizeMap[size],
+        url ? ''// 'ring ring-primary ring-offset-base-100 ring-offset-2'
+          : 'bg-neutral-focus text-neutral-content'
+      )}
       >
         {
-        url ?
+          url ?
           // <img src={url} alt={name || 'avatar'}/>
-          <Image src={url} alt={name || 'avatar'} width={WSizeMap[size]} height={WSizeMap[size]}/>
-          :
-          <div className="w-12 h-12 flex justify-center items-center">
-            {
-              name
-                ? <span className={tSizeMap[size]}>{name[0]}</span>
-                : <IconUser/>
-            }
-          </div>
-      }
+            <Image src={url} alt={name || 'avatar'} width={WSizeMap[size]} height={WSizeMap[size]}/>
+            :
+            <div className="w-12 h-12 flex justify-center items-center">
+              {
+                name
+                  ? <span className={tSizeMap[size]}>{name[0]}</span>
+                  : <IconUser/>
+              }
+            </div>
+        }
       </div>
     </div>
   )

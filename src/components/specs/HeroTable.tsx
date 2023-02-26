@@ -39,34 +39,34 @@ export const HeroTable = (props: HeroTableProps) => {
 
         <tbody>
           {
-          heroes
-            .filter((hero) => !searchKey || hero.name.includes(searchKey))
+            heroes
+              .filter((hero) => !searchKey || hero.name.includes(searchKey))
             // .filter((value, i) => i >= pageNumber * pageSize && i < (pageNumber + 1) * pageSize)
-            .map((hero) => (
-              <tr key={hero.id} onClick={() => {onClickHero && onClickHero(hero.id)}}>
+              .map((hero) => (
+                <tr key={hero.id} onClick={() => {onClickHero && onClickHero(hero.id)}}>
 
-                <td>
-                  <div className="flex items-center space-x-3">
-                    <div className="avatar">
-                      <div className="rounded-full w-12 h-12">
-                        <Image src={hero.avatar} alt={hero.name} width={64} height={64}/>
+                  <td>
+                    <div className="flex items-center space-x-3">
+                      <div className="avatar">
+                        <div className="rounded-full w-12 h-12">
+                          <Image src={hero.avatar} alt={hero.name} width={64} height={64}/>
+                        </div>
+                      </div>
+                      <div>
+                        <div className="font-bold">{hero.name}</div>
+                        <div className="text-sm opacity-50">{hero.cities}</div>
                       </div>
                     </div>
-                    <div>
-                      <div className="font-bold">{hero.name}</div>
-                      <div className="text-sm opacity-50">{hero.cities}</div>
-                    </div>
-                  </div>
-                </td>
+                  </td>
 
-                <td className="max-w-4">
-                  {hero.title}
-                  {/* <br/> */}
-                  {/* <span className="badge badge-ghost badge-sm">Desktop Support Technician</span> */}
-                </td>
-              </tr>
+                  <td className="max-w-4">
+                    {hero.title}
+                    {/* <br/> */}
+                    {/* <span className="badge badge-ghost badge-sm">Desktop Support Technician</span> */}
+                  </td>
+                </tr>
               ))
-        }
+          }
 
         </tbody>
 

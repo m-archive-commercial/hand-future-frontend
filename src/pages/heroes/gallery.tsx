@@ -26,13 +26,13 @@ export const HeroesGallery = ({ data }: HeroesGalleryProps) => (
   <RootLayout>
     <div className="p-4  w-full flex flex-wrap justify-around justify-items-center gap-4">
       {
-          data.map((item) => (
-            <HeroCard data={item} key={item.id}/>
-          ))
-        }
+        data.map((item) => (
+          <HeroCard data={item} key={item.id}/>
+        ))
+      }
     </div>
   </RootLayout>
-  )
+)
 export default HeroesGallery
 
 export const getServerSideProps = async () => {

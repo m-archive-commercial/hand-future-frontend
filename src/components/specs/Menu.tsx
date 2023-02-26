@@ -60,19 +60,19 @@ export interface MenuProps {
  * @constructor
  */
 export const MenuItem = ({ item, icon }: MenuProps) => !isMainMenuItem(item)
-    ? <li className="z-50"><a href={item.path}>{item.name}</a></li>
-    : (
-      <li className="z-50">
-        <div role="link" className="justify-between">
-          {item.name}
-          <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-            viewBox="0 0 24 24"
-          >
-            <path d={icon}/>
-          </svg>
-        </div>
-        <ul className="p-2">
-          {item.children.map((subItem) => <MenuItem item={subItem} icon={icon} key={subItem.name}/>)}
-        </ul>
-      </li>
+  ? <li className="z-50"><a href={item.path}>{item.name}</a></li>
+  : (
+    <li className="z-50">
+      <div role="link" className="justify-between">
+        {item.name}
+        <svg className="fill-current" xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+          viewBox="0 0 24 24"
+        >
+          <path d={icon}/>
+        </svg>
+      </div>
+      <ul className="p-2">
+        {item.children.map((subItem) => <MenuItem item={subItem} icon={icon} key={subItem.name}/>)}
+      </ul>
+    </li>
   )

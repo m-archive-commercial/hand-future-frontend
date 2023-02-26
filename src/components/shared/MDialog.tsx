@@ -53,6 +53,6 @@ export const MDialog = (props: DialogProps) => (
       </Dialog.Content>
     </Dialog.Portal>
   </Dialog.Root>
-  )
+)
 
 export default MDialog

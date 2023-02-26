@@ -24,6 +24,6 @@ export const RootLayout = ({ children }: { children: ReactNode }): JSX.Element =
     </div>
 
   </div>
-  )
+)
 
 export default RootLayout
