@@ -14,7 +14,10 @@ export enum UserWorkType {
 }
 
 export interface UserWork {
+  id: string
+  type: UserWorkType
   title: string
-  type: UserWorkType,
-  content: string
+  description?: string
+  content?: string
+  connections: string[] // id[]
 }

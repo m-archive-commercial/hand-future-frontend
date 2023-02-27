@@ -7,8 +7,8 @@
 
 import type { ReactNode } from 'react'
 
-import Header from '../specs/Header'
-import NavBar from '../specs/NavBar'
+import Header from '../specs/layout/Header'
+import NavBar from '../specs/layout/NavBar'
 
 /**
  * 关于如何定义props，ref: /app-playground/app/layouts/layout.tsx

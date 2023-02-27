@@ -7,7 +7,7 @@
 
 import Image from 'next/image'
 
-import Dialog from './NominateDialog'
+import Dialog from '../specs/hero/NominateDialog'
 
 import type { IHero } from '../../ds/hero'
 

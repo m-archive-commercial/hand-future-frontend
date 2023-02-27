@@ -9,8 +9,8 @@ import React from 'react'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import { BaseAvatar } from '../shared/BaseAvatar'
-import { resetAuth, selectAvatar, selectUser } from '../../redux/features/userSlice'
+import { BaseAvatar } from '../../shared/BaseAvatar'
+import { resetAuth, selectAvatar, selectUser } from '../../../redux/features/userSlice'
 
 import ProfileDialog from './ProfileDialog'
 

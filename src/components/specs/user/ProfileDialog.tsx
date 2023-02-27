@@ -7,7 +7,7 @@
 
 import React from 'react'
 
-import MDialog from '../shared/MDialog'
+import MDialog from '../../shared/MDialog'
 import ProfileCore from './ProfileCore'
 
 export const ProfileDialog = () => <MDialog

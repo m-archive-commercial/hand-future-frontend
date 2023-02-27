@@ -8,7 +8,7 @@
 import React, { useState } from 'react'
 
 import { RegisterCore } from './RegisterCore'
-import MDialog from '../shared/MDialog'
+import MDialog from '../../shared/MDialog'
 
 const RegisterDialog = () => {
   // 默认已经注册了！

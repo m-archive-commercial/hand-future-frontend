@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import type { ChangeEvent} from 'react'
+import type { ChangeEvent } from 'react'
 import { useRef, useState } from 'react'
 
 import { LoremIpsum, loremIpsum } from 'lorem-ipsum'
@@ -16,21 +16,22 @@ import * as htmlToImage from 'html-to-image'
 
 import localFont from '@next/font/local'
 
-import HeroSearch from '../../components/specs/HeroSearch'
+import HeroSearch from '../../components/specs/hero/HeroSearch'
 
 import { FONT_WEIGHTS } from '../../ds/font'
-import RenderShareCard from '../../components/specs/RenderShareCard'
+import RenderShareCard from '../../components/specs/hero/RenderShareCard'
 import RootLayout from '../../components/layouts/root'
 import backendAPI from '../../utils/api'
-import InputText from '../../components/specs/InputText'
-import InputTextArea from '../../components/specs/InputTextArea'
+
+import InputText from '../../components/shared/InputText'
+import InputTextArea from '../../components/shared/InputTextArea'
 import BaseAvatar from '../../components/shared/BaseAvatar'
 
-import type { FONT_WEIGHT} from '../../ds/font'
-
-import type { InputAction } from '../../components/specs/InputText'
+import { getSampleHero } from '../../ds/hero'
 
 import type { IHero, IShareCard } from '../../ds/hero'
+import type { InputAction } from '../../components/shared/InputText'
+import type { FONT_WEIGHT } from '../../ds/font'
 import type { NextFontWithVariable } from '@next/font'
 
 /**
@@ -73,25 +74,8 @@ export const Fonts: IFontItem[] = [
   }
 ]
 
-// cao ！ 不能写死 url 啊 ！
-const SAMPLE_HERO: IHero = {
-  'id': '',
-  'avatar': '/cover_growth.jpg',
-  'cities': '',
-  'name': loremIpsum({
-    sentenceLowerBound: 1,
-    sentenceUpperBound: 2
-  }),
-  'title': loremIpsum({
-    sentenceLowerBound: 3,
-    sentenceUpperBound: 4,
-    paragraphLowerBound: 1,
-    paragraphUpperBound: 2
-  })
-}
-
 const SAMPLE_DATA: IShareCard = {
-  ...SAMPLE_HERO,
+  ...getSampleHero(),
   articleTitle: loremIpsum(),
   articleContent: new LoremIpsum({
     sentencesPerParagraph: {

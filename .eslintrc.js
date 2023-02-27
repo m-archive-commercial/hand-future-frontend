@@ -285,7 +285,7 @@ module.exports = {
     'jsx-a11y/html-has-lang': OFF,
 
     // indent: [2, 2], // 不要用它，不会自己fix，可以用更宽广的react/jsx-indent-xx，ref: https://github.com/jsx-eslint/eslint-plugin-react/issues/1584#issuecomment-349180874
-
+    "react/jsx-indent": [WARNING, 2], // https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-indent.md
     // ref: https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-indent-props.md
     "react/jsx-indent-props": [WARNING, 2],
 

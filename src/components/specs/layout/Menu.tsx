@@ -7,9 +7,9 @@
 
 import { it } from 'node:test'
 
-import { isMainMenuItem } from '../../ds/menu'
+import { isMainMenuItem } from '../../../ds/menu'
 
-import type { IMenuItem} from '../../ds/menu'
+import type { IMenuItem} from '../../../ds/menu'
 
 /**
  * small:

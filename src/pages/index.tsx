@@ -14,7 +14,7 @@ import type { GraphData } from 'react-force-graph-3d'
 
 // ref: https://nextjs.org/docs/advanced-features/dynamic-import
 const Graph = dynamic(
-  () => import('../components/specs/Graph'),
+  () => import('../components/specs/graph/Graph'),
   { ssr: false }
 )
 

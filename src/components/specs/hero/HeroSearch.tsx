@@ -7,7 +7,7 @@
 
 import HeroTable from './HeroTable'
 
-import type { IHero } from '../../ds/hero'
+import type { IHero } from '../../../ds/hero'
 
 export const HeroSearch = ({
   heroes, searchKey, setSearchKey, onClickHero

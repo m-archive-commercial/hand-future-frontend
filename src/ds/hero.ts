@@ -5,15 +5,47 @@
  * LICENSE file in the root directory of this source tree.
 */
 
+import { loremIpsum } from 'lorem-ipsum'
+
 export interface IHero {
   id: string
   name: string
   title: string
   cities: string
   avatar: string
+  description: string
+
+  /**
+   * 基于作品的二度链接
+   */
+  connections: string[]
 }
 
 export interface IShareCard extends IHero {
   articleTitle: string
   articleContent: string
 }
+
+export const mockName = (): string => loremIpsum({
+  units: 'words',
+  count: 2
+})
+
+export const getSampleHero = (): IHero => ({
+  'id': '',
+  'avatar': '/cover_growth.jpg',
+  'cities': '',
+  'name': mockName(),
+  'title': loremIpsum({
+    sentenceLowerBound: 3,
+    sentenceUpperBound: 4,
+    paragraphLowerBound: 1,
+    paragraphUpperBound: 2
+  }),
+  description: loremIpsum({
+    paragraphUpperBound: 4,
+    paragraphLowerBound: 2,
+    units: 'paragraphs'
+  }),
+  connections: Array.from(Array(Math.ceil(1 + Math.random() * 5))).map(() => mockName())
+})

@@ -9,8 +9,8 @@ import React from 'react'
 
 import { useSelector } from 'react-redux'
 
-import { selectUser } from '../../redux/features/userSlice'
-import BilibiliVideo from '../shared/BilibiliVideo'
+import { selectUser } from '../../../redux/features/userSlice'
+import BilibiliVideo from '../../shared/BilibiliVideo'
 import UserAvatar from './UserAvatar'
 
 export const SocialCell = (props: { text: string, cnt: number }) => (

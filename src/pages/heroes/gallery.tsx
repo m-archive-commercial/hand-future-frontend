@@ -8,8 +8,8 @@
 import RootLayout from '../../components/layouts/root'
 import { backendAPI } from '../../utils/api'
 
-import HeroCard from '../../components/specs/HeroCard'
-import Dialog from '../../components/specs/NominateDialog'
+import HeroCard from '../../components/shared/HeroCard'
+import Dialog from '../../components/specs/hero/NominateDialog'
 
 import type { IHero } from '../../ds/hero'
 

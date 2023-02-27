@@ -16,14 +16,14 @@ import { useRouter } from 'next/router'
 
 import { useIdleTimer } from 'react-idle-timer'
 
-import useWindowDimensions from '../../hooks/window'
-import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } from '../../hooks/panel_3dgraph'
+import useWindowDimensions from '../../../hooks/window'
+import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } from '../../../hooks/panel_3dgraph'
 
-import { DagModes, ForceEngines, NumDimensions } from '../../ds/panel_3dgraph'
+import { DagModes, ForceEngines, NumDimensions } from '../../../ds/panel_3dgraph'
 
-import { useRole } from '../../hooks/role'
+import { useRole } from '../../../hooks/role'
 
-import type { DagMode, ForceEngine, NumDimension } from '../../ds/panel_3dgraph'
+import type { DagMode, ForceEngine, NumDimension } from '../../../ds/panel_3dgraph'
 import type { ForceGraphMethods, GraphData } from 'react-force-graph-3d'
 
 const Section = ({ title }: { title: string }) => (

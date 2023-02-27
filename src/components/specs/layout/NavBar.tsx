@@ -8,12 +8,12 @@
 import { useSelector } from 'react-redux'
 
 import { MenuItem } from './Menu'
-import RegisterDialog from './RegisterDialog'
-import RegisteredDropdown from './RegisteredDropdown'
+import RegisterDialog from '../user/RegisterDialog'
+import RegisteredDropdown from '../user/RegisteredDropdown'
 
-import { selectUser } from '../../redux/features/userSlice'
-import menus from '../../../config/menus.json'
-import { useRole } from '../../hooks/role'
+import { selectUser } from '../../../redux/features/userSlice'
+import menus from '../../../../config/menus.json'
+import { useRole } from '../../../hooks/role'
 
 export const SVG_PATH_ARROW_RIGHT = 'M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z'
 export const SVG_PATH_ARROW_DOWN = 'M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z'
@@ -51,7 +51,7 @@ export const NavBar = () => {
         {/* 小屏菜单 << */}
 
         {/* logo 应该始终位于左边，所以可以和小屏菜单封装在同一个组件里 */}
-        <a href="/" className="btn btn-ghost normal-case text-xl">携手未来</a>
+        <a href="/src/pages" className="btn btn-ghost normal-case text-xl">携手未来</a>
       </div>
 
       <div className="navbar-center hidden md:flex">
@@ -62,10 +62,10 @@ export const NavBar = () => {
                 !menuItem.admin || isAdmin
               ))
               .map((menuItem) => (
-              <MenuItem item={menuItem}
-                icon={SVG_PATH_ARROW_DOWN}
-                key={menuItem.name}
-              />
+                <MenuItem item={menuItem}
+                  icon={SVG_PATH_ARROW_DOWN}
+                  key={menuItem.name}
+                />
             ))
           }
         </ul>

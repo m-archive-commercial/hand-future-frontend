@@ -16,15 +16,15 @@ import { toast } from 'react-toastify'
 
 import { useDispatch, useSelector } from 'react-redux'
 
-import InputText from './InputText'
-import backendAPI from '../../utils/api'
+import InputText from '../../shared/InputText'
+import backendAPI from '../../../utils/api'
 
-import { INIT_USER } from '../../ds/user'
+import { INIT_USER } from '../../../ds/user'
 
-import { BaseAvatar } from '../shared/BaseAvatar'
-import { selectAvatar, setAvatar, setToken, setUser, setWorks } from '../../redux/features/userSlice'
+import { BaseAvatar } from '../../shared/BaseAvatar'
+import { selectAvatar, setAvatar, setToken, setUser, setWorks } from '../../../redux/features/userSlice'
 
-import type { TokenData, UserProfile } from '../../ds/user'
+import type { TokenData, UserProfile } from '../../../ds/user'
 
 export interface RegisterProps {
   isRegistered: boolean

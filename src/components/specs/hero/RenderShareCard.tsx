@@ -13,9 +13,9 @@ import Image from 'next/image'
 
 import { QRCodeSVG } from 'qrcode.react'
 
-import BaseAvatar from '../shared/BaseAvatar'
+import BaseAvatar from '../../shared/BaseAvatar'
 
-import type { IShareCard } from '../../ds/hero'
+import type { IShareCard } from '../../../ds/hero'
 
 export interface RenderShareCardProps {
   refCanvas: Ref<HTMLDivElement>
