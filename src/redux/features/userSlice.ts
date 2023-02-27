@@ -12,12 +12,12 @@ import backendAPI from '../../utils/api'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { UserProfile } from '../../ds/user'
 import type { AppState } from '../store'
-import type { UserWork } from '../../ds/userWork'
+import type { Work } from '../../ds/userWork'
 
 export interface UserState {
   token?: string
   basic?: UserProfile
-  works: UserWork[]
+  works: Work[]
   avatar?: string
   role?: string
 }
@@ -52,7 +52,7 @@ export const userSlice = createSlice({
       state.basic = action.payload
       // todo: bind async getWork to after setUser
     },
-    setWorks: (state, action: PayloadAction<UserWork[]>) => {
+    setWorks: (state, action: PayloadAction<Work[]>) => {
       state.works = action.payload
     },
     setAvatar: (state, action: PayloadAction<string>) => {

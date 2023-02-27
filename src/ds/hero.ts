@@ -28,24 +28,28 @@ export interface IShareCard extends IHero {
 
 export const mockName = (): string => loremIpsum({
   units: 'words',
-  count: 2
+  count: 1
 })
+
+export const mockTitle = (): string => loremIpsum({
+  count: 4,
+  units: 'words'
+})
+
+export const mockDesc = (): string => loremIpsum({
+  paragraphUpperBound: 4,
+  paragraphLowerBound: 2,
+  units: 'paragraphs'
+})
+
+export const mockConnections = (): string[] => Array.from(Array(Math.ceil(1 + Math.random() * 5))).map(() => mockName())
 
 export const getSampleHero = (): IHero => ({
   'id': '',
   'avatar': '/cover_growth.jpg',
   'cities': '',
   'name': mockName(),
-  'title': loremIpsum({
-    sentenceLowerBound: 3,
-    sentenceUpperBound: 4,
-    paragraphLowerBound: 1,
-    paragraphUpperBound: 2
-  }),
-  description: loremIpsum({
-    paragraphUpperBound: 4,
-    paragraphLowerBound: 2,
-    units: 'paragraphs'
-  }),
-  connections: Array.from(Array(Math.ceil(1 + Math.random() * 5))).map(() => mockName())
+  'title': mockTitle(),
+  description: mockDesc(),
+  connections: mockConnections()
 })

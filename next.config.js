@@ -46,7 +46,18 @@ const nextConfig = {
       {
         protocol: "https",
         hostname: "s3-us-west-2.amazonaws.com"
+      },
+
+      // random images
+      {
+        protocol: 'http',
+        hostname: 'picsum.photos'
+      },
+      {
+        protocol: 'https',
+        hostname: 'picsum.photos'
       }
+
     ]
   }
 
