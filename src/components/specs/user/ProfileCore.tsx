@@ -70,7 +70,7 @@ export const ProfileCore = (): JSX.Element => {
             <div key={index} className="w-2/5">
               <h3>{work.title}</h3>
               {
-                work.type === 'bilibiliVideo' && <BilibiliVideo bvid={work.content} enableDanmu={0}/>
+                // work.type === 'bilibiliVideo' && <BilibiliVideo bvid={work.content} enableDanmu={0}/>
               }
             </div>
           ))

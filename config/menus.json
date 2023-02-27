@@ -5,16 +5,11 @@
   },
   {
     "name": "嘉宾相册",
-    "path": "/heroes/gallery"
+    "path": "/heroes/"
   },
   {
     "name": "嘉宾卡片",
     "path": "/heroes/card",
-    "admin": true
-  },
-  {
-    "name": "嘉宾上传",
-    "path": "/heroes/upload",
     "admin": true
   },
   {

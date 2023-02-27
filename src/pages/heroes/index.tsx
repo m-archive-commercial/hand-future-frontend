@@ -6,17 +6,12 @@
 */
 
 import RootLayout from '../../components/layouts/root'
-import { backendAPI } from '../../utils/api'
 
 import HeroCard from '../../components/shared/HeroCard'
-import Dialog from '../../components/specs/hero/NominateDialog'
+
+import { fetchHeroes } from '../../utils/heroes'
 
 import type { IHero } from '../../ds/hero'
-
-export interface IResArr {
-  size: number
-  list: any[]
-}
 
 export interface HeroesGalleryProps {
   data: IHero[]
@@ -35,8 +30,4 @@ export const HeroesGallery = ({ data }: HeroesGalleryProps) => (
 )
 export default HeroesGallery
 
-export const getServerSideProps = async () => {
-  const res = await backendAPI.get('/heroes/list')
-  const {data} = res
-  return { props: { data: data.list } }
-}
+export const getServerSideProps = async () => ({ props: { data: await fetchHeroes()} })

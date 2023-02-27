@@ -11,11 +11,9 @@ import { persistReducer } from 'redux-persist'
 import thunk from 'redux-thunk'
 
 import { userReducer } from './features/userSlice'
-import { heroesReducer } from './features/heroesSlice'
 
 const reducers = combineReducers({
   user: userReducer,
-  heroes: heroesReducer
 })
 
 const persistConfig = {

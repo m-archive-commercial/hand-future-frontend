@@ -7,6 +7,8 @@
 
 import { loremIpsum } from 'lorem-ipsum'
 
+import type { IWork } from './work'
+
 export interface IHero {
   id: string
   name: string
@@ -19,6 +21,8 @@ export interface IHero {
    * 基于作品的二度链接
    */
   connections: string[]
+  cover: string
+  works: IWork[]
 }
 
 export interface IShareCard extends IHero {
@@ -46,10 +50,12 @@ export const mockConnections = (): string[] => Array.from(Array(Math.ceil(1 + Ma
 
 export const getSampleHero = (): IHero => ({
   'id': '',
-  'avatar': '/cover_growth.jpg',
+  'avatar': '/avatar/003.png',
   'cities': '',
   'name': mockName(),
   'title': mockTitle(),
   description: mockDesc(),
-  connections: mockConnections()
+  connections: mockConnections(),
+  cover: '/cover_growth.jpg',
+  works: []
 })

@@ -12,12 +12,12 @@ import backendAPI from '../../utils/api'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import type { UserProfile } from '../../ds/user'
 import type { AppState } from '../store'
-import type { Work } from '../../ds/userWork'
+import type { IWork } from '../../ds/work'
 
 export interface UserState {
   token?: string
   basic?: UserProfile
-  works: Work[]
+  works: IWork[]
   avatar?: string
   role?: string
 }
@@ -46,13 +46,13 @@ export const userSlice = createSlice({
     setToken: (state, action: PayloadAction<string>) => {
       const token = action.payload
       state.token = token
-      backendAPI.defaults.headers.common.Authorization = `Bearer ${  token}` // inject token into headers
+      backendAPI.defaults.headers.common.Authorization = `Bearer ${token}` // inject token into headers
     },
     setUser: (state, action: PayloadAction<UserProfile>) => {
       state.basic = action.payload
       // todo: bind async getWork to after setUser
     },
-    setWorks: (state, action: PayloadAction<Work[]>) => {
+    setWorks: (state, action: PayloadAction<IWork[]>) => {
       state.works = action.payload
     },
     setAvatar: (state, action: PayloadAction<string>) => {
@@ -65,5 +65,5 @@ export const { setToken, resetAuth, setUser, setWorks, setAvatar } = userSlice.a
 
 export const userReducer = userSlice.reducer
 
-export const selectUser = (state: AppState) => state.user
-export const selectAvatar = (state: AppState) => state.user.avatar
+export const selectUser = (state: AppState): UserState => state.user
+export const selectAvatar = (state: AppState): string => state.user.avatar || ''
