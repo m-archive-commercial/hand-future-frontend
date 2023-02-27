@@ -16,5 +16,10 @@
     "name": "关于我们",
     "path": "/about",
     "admin": true
+  },
+  {
+    "name": "测试-嘉宾详情",
+    "path": "/heroes/7dcbe16b-6f3e-491d-a6eb-6dd3929abe00",
+    "admin": true
   }
 ]

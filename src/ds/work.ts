@@ -56,7 +56,7 @@ export const mockWork = (type: WorkLayout): IWork => ({
 
 export const mockAllTypeOfWorks = (): IWork[] => {
   const workTypes = Object.keys(WorkLayout)
-  console.log({ WorkType: WorkLayout, workTypes })
+  // console.log({ WorkType: WorkLayout, workTypes })
   return workTypes.map((val) => mockWork(val as WorkLayout))
 }
 

@@ -7,9 +7,7 @@
 
 import Image from 'next/image'
 
-import { useRouter } from 'next/router'
-
-import Dialog from '../specs/hero/NominateDialog'
+import Link from 'next/link'
 
 import type { IHero } from '../../ds/hero'
 
@@ -17,10 +15,7 @@ export interface HeroCardProps {
   data: IHero
 }
 
-export const HeroCard = ({ data }: HeroCardProps) => {
-  const router = useRouter()
-
-  return (
+export const HeroCard = ({ data }: HeroCardProps): JSX.Element => (
     (
       <div className="card w-64 h-96 bg-base-100 image-full2">
         <figure><Image src={data.avatar} alt="avatar" width={256} height={256}/></figure>
@@ -31,11 +26,9 @@ export const HeroCard = ({ data }: HeroCardProps) => {
           </h2>
           <p>{data.title}</p>
           <div className="card-actions justify-end">
-            <button type="button" className="badge badge-outline" onClick={() => {
-          router.push(`/heroes/${  data.id}`)
-        }}
-            >查看详情
-            </button>
+            <Link href={`/heroes/${data.id}`} className="badge badge-outline" >
+              查看详情
+            </Link>
 
             {/*  我要提名 */}
             {/* <Dialog hero={{ name: data.name, avatar: data.avatar }} */}
@@ -46,8 +39,7 @@ export const HeroCard = ({ data }: HeroCardProps) => {
         </div>
 
       </div>
-)
+    )
   )
-}
 
 export default HeroCard

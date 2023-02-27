@@ -21,11 +21,12 @@ import { fetchHero } from '../../utils/heroes'
 
 import type { IHero } from '../../ds/hero'
 
-export const HeroesUpload = (): JSX.Element => {
+export const HeroProfilePage = (): JSX.Element => {
   const router = useRouter()
   const isAdmin = useRole() === 'admin'
   const [hero, setHero] = useState<IHero>()
   const id = router.query.id as string
+  console.log('hero profile page: id=', id)
 
   useEffect(() => {
     const updateHero = async () => {
@@ -44,4 +45,9 @@ export const HeroesUpload = (): JSX.Element => {
 
 }
 
-export default HeroesUpload
+export default HeroProfilePage
+
+export const getServerSideProps = () => {
+  console.log('server: heroes/[id]')
+  return {props: {}}
+}
