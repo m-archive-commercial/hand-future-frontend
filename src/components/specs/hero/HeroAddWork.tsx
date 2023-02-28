@@ -29,6 +29,8 @@ import backendAPI from '../../../utils/api'
 
 import { useRefresh } from '../../../utils/router'
 
+import { HeroInputBilibili } from '../work/HeroInputBilibili'
+
 import type { IWork } from '../../../ds/work'
 
 export const HeroAddWork = ({ user_id }: {
@@ -67,11 +69,7 @@ export const HeroAddWork = ({ user_id }: {
 
             <HeroInputWechat data={work} setData={setWork} onSubmit={onSubmit}/>
 
-            {/* todo: bilibili */}
-            <AccordionItem value={SourcePlatform.bilibiliVideo}>
-              <AccordionTrigger>A Bilibili Video </AccordionTrigger>
-              <AccordionContent>Input info about the bilibili video. </AccordionContent>
-            </AccordionItem>
+            <HeroInputBilibili data={work} setData={setWork} onSubmit={onSubmit}/>
 
           </Accordion.Root>
         </Section>

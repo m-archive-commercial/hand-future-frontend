@@ -5,15 +5,13 @@
  * LICENSE file in the root directory of this source tree.
 */
 
+import clsx from 'clsx'
+
 import Image from 'next/image'
 
 import { toast } from 'react-toastify'
 
-import { TypographyLayout } from '../../../ds/work'
-
-import MyDialog from '../../shared/MyDialog'
-
-import { ConnectionsLine } from '../../shared/ConnectionsLine'
+import { SourcePlatform, TypographyLayout } from '../../../ds/work'
 
 import settings from '../../../ds/settings'
 
@@ -22,6 +20,9 @@ import { useRole } from '../../../hooks/role'
 import backendAPI from '../../../utils/api'
 
 import { useRefresh } from '../../../utils/router'
+import { BilibiliVideo, getBvidFromUrl } from '../../shared/BilibiliVideo'
+import MyDialog from '../../shared/MyDialog'
+import { ConnectionsLine } from '../../shared/ConnectionsLine'
 
 import type { IWork } from '../../../ds/work'
 
@@ -60,6 +61,15 @@ export const genPlainWorkPresentation = (work: IWork): JSX.Element => (
 
 export const genInnerWorkPresentation = (work: IWork): JSX.Element => {
   console.log('generating work presentation: ', work)
+
+  if (work.source.platform === SourcePlatform.bilibiliVideo) {
+    return (
+      <BilibiliVideo video={{
+        bvid: getBvidFromUrl(work.id)!
+      }}
+      />
+    )
+  }
 
   switch (work.layout) {
     case TypographyLayout.typography_plain:
@@ -140,40 +150,48 @@ export const WorkPresentation = ({ work }: { work: IWork }): JSX.Element => {
 
         {isAdmin && <button type="button" className="btn btn-error btn-xs" onClick={onDelete}>Delete</button>}
 
+        {/* 视频没有 detail 页 */}
+
         <MyDialog
           trigger={
-            <button type="button" className="btn btn-primary btn-xs">
+            <button type="button" className={clsx(
+                  "btn btn-primary btn-xs" ,
+                  work.source.platform === SourcePlatform.bilibiliVideo && 'invisible',
+                )}
+              disabled={work.source.platform === SourcePlatform.bilibiliVideo}
+            >
               Detail
             </button>
-          }
+              }
           asChild
         >
           <article className="w-[80vw] p-2 prose lg:prose-xl max-h-[72] overflow-y-hidden">
             <h2 className="my-8 text-xl font-semibold">{work.title}</h2>
 
             {
-              work.cover && (
-                <Image src={work.cover} alt={work.title} width={300} height={200} className="w-full object-contain"/>
-              )
-            }
+                  work.cover && (
+                    <Image src={work.cover} alt={work.title} width={300} height={200} className="w-full object-contain"/>
+                  )
+                }
 
             <blockquote className="text-lg font-medium">{work.description}</blockquote>
 
             {
-              work.content.split('\n')
-                .map((para, index) => (
-                  <p key={index} className="text-sm font-medium text-gray-500 ">{para}</p>
-                ))
-            }
+                  work.content.split('\n')
+                    .map((para, index) => (
+                      <p key={index} className="text-sm font-medium text-gray-500 ">{para}</p>
+                    ))
+                }
 
             {
-              settings.features.enable_connection_between_works && (
-                <ConnectionsLine connections={work.connections}/>
-              )
-            }
+                  settings.features.enable_connection_between_works && (
+                    <ConnectionsLine connections={work.connections}/>
+                  )
+                }
 
           </article>
         </MyDialog>
+
       </div>
 
     </div>

@@ -7,13 +7,15 @@
 
 export interface IBilibiliVideo {
   bvid: string
-  enableDanmu?: number // 0: disable; 1: enable; default: 0
-  enableHighQuality?: number // 0: disable; 1: enable; default: 1
   width?: number // default: 1080
   height?: number // default: 720
+  enableDanmu?: number // 0: disable; 1: enable; default: 0
+  enableHighQuality?: number // 0: disable; 1: enable; default: 1
 }
 
-export const BilibiliVideo = (props: IBilibiliVideo) => {
+export const BilibiliVideo = ({ video }: {
+  video: IBilibiliVideo
+}): JSX.Element => {
   /**
    * -- 参考
    * - 「馨客栈研究院」网站嵌入bilibili视频的一些总结 - 哔哩哔哩, https://www.bilibili.com/read/cv6775208
@@ -28,28 +30,29 @@ export const BilibiliVideo = (props: IBilibiliVideo) => {
    * 分辨率虽然在右下角可以选择360/720/1080，但是实测在 iFrame 里最大只能选 720，选 1080 会失败
    * 它通过 high_quality={1,0} 控制低清（360）与高清（720）分辨率的切换
    */
-  let { bvid } = props
-  if (bvid.startsWith('http')) {
-    const m = props.bvid.match(/(BV.*?)(?=$|\/)/)
-    if (!m) {return <div>INVALID URL</div>}
-    bvid = m[1]
-  }
-  if (!bvid.startsWith('BV'))
-  {return <div>INVALID URL</div>}
-  let url = 'https://player.bilibili.com/player.html'
-  url += `?bvid=${bvid}`
-  url += `&danmaku=${props.enableDanmu ?? 0}`
-  url += `&high_quality=${props.enableHighQuality ?? 1}`
+  let url = '//player.bilibili.com/player.html'
+  url += `?bvid=${video.bvid}`
+  url += `&danmaku=${video.enableDanmu ?? 0}`
+  url += `&high_quality=${video.enableHighQuality ?? 1}`
   return (
     <iframe
-      title={bvid}
+      title={url} // todo: title from bilibili
       src={url}
-      width="100%"
-      height={360}
+      width={video.width ?? '100%'}
+      height={video.height ?? '100%'}
       allowFullScreen
-      scrolling="yes"
     />
   )
 }
 
-export default BilibiliVideo
+export const SAMPLE_BILIBILI_VIDEO_URL = 'https://www.bilibili.com/video/BV1yW4y1L7wA'
+
+/**
+ * sample: https://www.bilibili.com/video/BV1yW4y1L7wA/?spm_id_from=333.880.my_history.page.click
+ * @param {string} url
+ * @returns {string}
+ */
+export const getBvidFromUrl = (url: string): string | null => {
+  const m = url.match(/(BV.*?)(?=(\/|$))/)
+  return m ? m[1] : m
+}

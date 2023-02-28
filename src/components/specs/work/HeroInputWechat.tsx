@@ -73,7 +73,7 @@ export const HeroInputWechat = ({ data, setData, onSubmit }: {
       }}
       >
 
-        <SimpleInputLine id="url" label="Source URL" required placeholder={SAMPLE_WECHAT_ARTICLE_URL}/>
+        <SimpleInputLine id="url" label="Source" required placeholder={SAMPLE_WECHAT_ARTICLE_URL}/>
         <HeroControls onSubmit={onSubmit}/>
 
       </form>
