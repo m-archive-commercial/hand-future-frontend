@@ -23,7 +23,17 @@ export const SVG_PATH_ARROW_DOWN = 'M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6
 export const NavBar = (): JSX.Element => {
   const user = useSelector(selectUser)
   const isAdmin = useRole() === 'admin'
-  const menus = settings.menus as IMenuItem[]
+  const menus = (settings.menus as IMenuItem[])
+                .filter((menuItem) => (
+                !menuItem.admin || isAdmin
+                ))
+                .map((menuItem) => (
+                  <MenuItem
+                    key={menuItem.name}
+                    item={menuItem}
+                    icon={SVG_PATH_ARROW_RIGHT}
+                  />
+              ))
 
   return (
     <div className="navbar bg-base-100 border-b-2 w-full inline-flex justify-between">
@@ -44,12 +54,7 @@ export const NavBar = (): JSX.Element => {
           {/* 小屏下的菜单logo << */}
 
           <ul className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-            {
-              menus.map((menuItem) => <MenuItem item={menuItem}
-                icon={SVG_PATH_ARROW_RIGHT}
-                key={menuItem.name}
-                                      />)
-            }
+            {menus}
           </ul>
         </div>
         {/* 小屏菜单 << */}
@@ -61,18 +66,7 @@ export const NavBar = (): JSX.Element => {
       {/* 导航栏 */}
       <div className="hidden md:flex flex-1 justify-center">
         <ul className="menu menu-horizontal px-1">
-          {
-            menus
-              .filter((menuItem) => (
-                !menuItem.admin || isAdmin
-              ))
-              .map((menuItem) => (
-                <MenuItem item={menuItem}
-                  icon={SVG_PATH_ARROW_DOWN}
-                  key={menuItem.name}
-                />
-              ))
-          }
+          {menus}
         </ul>
       </div>
 
