@@ -5,22 +5,28 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import { useState } from 'react'
-
-import * as AspectRatio from '@radix-ui/react-aspect-ratio'
+import { useRef, useState } from 'react'
 
 import Link from 'next/link'
+
+import * as AspectRatio from '@radix-ui/react-aspect-ratio'
 
 import Image from 'next/image'
 
 import BaseAvatar from '../../shared/BaseAvatar'
 import { WorkPresentation } from '../work/presentations'
 
-import backendAPI from '../../../utils/api'
-
 import { HeroAddWork } from './HeroAddWork'
 
 import { Section } from '../../shared/Section'
+
+import { HeroCover } from './HeroCover'
+
+import { HeroImageUploader } from './HeroAvatar'
+
+import backendAPI from '../../../utils/api'
+
+import { useRole } from '../../../hooks/role'
 
 import type { IWork } from '../../../ds/work'
 
@@ -31,74 +37,107 @@ export const HeroEditableProfile = ({ hero, works }: {
   works: IWork[]
 }): JSX.Element => {
   const [heroState, setHeroState] = useState<IHero>(hero)
+  const isAdmin = useRole() === 'admin'
 
-  console.log('works: ', works)
+  const updateField = async (field: string, val: string) => {
+    const data = {
+      id: hero.id,
+      [field]: val
+    }
+    await backendAPI.patch('/heroes/update', data)
+    setHeroState({ ...hero, [field]: val })
+  }
 
   return (
     <div className="w-full h-full lg:max-w-screen-lg flex flex-col gap-2">
 
-      {/* cover */}
+      {/* cover with frontend captains */}
       <div className="shadow-blackA7 w-full max-auto overflow-hidden rounded-md shadow-[0_2px_10px] relative">
-        <label htmlFor="change_cover" className="cursor-pointer">
-          <AspectRatio.Root ratio={16 / 5}>
-            <Image
-              className="h-full w-full object-cover"
-              src={hero.cover || hero.avatar}
-              alt="cover"
-              width={640} height={480}
-            />
-            <input id="change_cover" hidden type="file" accept={'image/*'} onChange={async (e) => {
-            if (!e.target.files) {
-              return
-            }
-            const file = e.target.files[0]
-            console.log({ file })
-            const formData = new FormData()
-            formData.append('file', e.target.files[0])
-            const resUploadAvatar = await backendAPI.post('/files/upload', formData)
-            console.log({ resUploadAvatar })
-            const newCover = resUploadAvatar.data.data
-            console.log({ newCover })
-            await backendAPI.patch('/heroes/update', {
-              id: heroState.id,
-              cover: newCover
-            })
-            setHeroState({...heroState, cover: newCover})
-          }}
-            />
-          </AspectRatio.Root>
-        </label>
+
+        <AspectRatio.Root ratio={16 / 5}>
+          <Image
+            className="h-full w-full object-cover"
+            src={hero.cover || hero.avatar}
+            alt="cover"
+            width={640} height={480}
+          />
+          <label className="btn btn-primary btn-sm absolute bottom-2 right-2">
+            Change Cover
+            <HeroImageUploader field="cover" hero={heroState} setHero={setHeroState}/>
+          </label>
+        </AspectRatio.Root>
 
         <div className="absolute p-12 left-0 bottom-0 max-w-screen-sm">
 
-          <div className="inline-flex items-center gap-4">
-            <BaseAvatar url={heroState.avatar} name={heroState.name} size="lg"/>
-            <p className="text-white text-2xl">{heroState.name}</p>
+          <div className="inline-flex items-center gap-4 text-2xl">
+            <label>
+              <BaseAvatar url={hero.avatar} name={hero.name} size="lg"/>
+              <HeroImageUploader field="avatar" hero={heroState} setHero={setHeroState}/>
+            </label>
+            {
+              isAdmin
+                ? <input
+                    placeholder="No Name Found !"
+                    type="text" className="input input-ghost" value={heroState.name}
+                    onChange={(e) => updateField('name', e.target.value)}
+                  />
+                : <p>{heroState.name}</p>
+            }
           </div>
 
-          <p className="text-white text-lg">{heroState.title}</p>
+          <div className="text-lg">
+            {
+            isAdmin
+              ? <input
+                  placeholder="No Title Found !"
+                  type="text"
+                  className="input input-ghost" value={heroState.title}
+                  onChange={(e) => updateField('title', e.target.value)}
+                />
+              : <p>{heroState.title}</p>
+          }
+          </div>
 
-          <p className="mt-8 text-white text-md text-gray-100">{heroState.description}</p>
+          <div className="mt-8 text-md">
+            {
+            isAdmin
+              ? <input
+                  placeholder="No Description Found !"
+                  type="text"
+                  className="input input-ghost"
+                  value={heroState.description} onChange={(e) => updateField('description', e.target.value)}
+                />
+              : <p>{heroState.description}</p>
+          }
+          </div>
 
           <div className="mt-8 flex flx-wrap gap-2">
             {
-            heroState.connections?.map((connection) => (
-              <Link href={`/heroes/${connection}`} className="bg-primary rounded-md px-3 py-1" key={connection}>
-                {connection}
-              </Link>
-            ))
-          }
+              heroState.connections?.map((connection) => (
+                <Link href={`/heroes/${connection}`} className="bg-primary rounded-md px-3 py-1" key={connection}>
+                  {connection}
+                </Link>
+              ))
+            }
           </div>
 
         </div>
       </div>
 
       <Section title="Collection of Works"/>
-      
+
       {/*  works */}
-      <div className="gap-2 grid md:grid-cols-2">
-        {works.map((work) => <WorkPresentation key={work.id} work={work}/>)}
-      </div>
+      {
+        works.length
+          ?
+            <div className="gap-2 grid md:grid-cols-2">
+              {works.map((work) => <WorkPresentation key={work.id} work={work}/>)}
+            </div>
+          :
+            <div className="h-24 w-full flex justify-center items-center text-xl font-medium text-gray-500">
+              Empty Here
+            </div>
+      }
 
       <HeroAddWork user_id={hero.id}/>
 

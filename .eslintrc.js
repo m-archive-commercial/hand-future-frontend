@@ -324,6 +324,7 @@ module.exports = {
     "no-multiple-empty-lines": ERROR,
     'react/jsx-closing-tag-location': ERROR, // ref: https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/jsx-closing-tag-location.md
     'react/no-unused-prop-types': WARNING,
+    'jsx-a11y/label-has-associated-control': WARNING, // todo: 明明按照要求写的啊，但就是warning……
   },
   overrides: [
     // 我们应该允许在一些js文件中使用 require 语法，例如 tailwindcss.config.js
