@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 
 import { selectUser } from '../redux/features/userSlice'
 
-export const useRole = (): string|undefined => {
-  const user =useSelector(selectUser)
+export const useRole = (): string | undefined => {
+  const user = useSelector(selectUser)
   return user.basic?.role
 }

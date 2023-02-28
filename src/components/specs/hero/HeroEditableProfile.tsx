@@ -61,10 +61,14 @@ export const HeroEditableProfile = ({ hero, works }: {
             alt="cover"
             width={640} height={480}
           />
-          <label className="btn btn-primary btn-sm absolute bottom-2 right-2">
-            Change Cover
-            <HeroImageUploader field="cover" hero={heroState} setHero={setHeroState}/>
-          </label>
+          {
+            isAdmin && (
+            <label className="btn btn-primary btn-sm absolute bottom-2 right-2">
+              Change Cover
+              <HeroImageUploader field="cover" hero={heroState} setHero={setHeroState}/>
+            </label>
+            )
+          }
         </AspectRatio.Root>
 
         <div className="absolute p-12 left-0 bottom-0 max-w-screen-sm">
@@ -139,7 +143,7 @@ export const HeroEditableProfile = ({ hero, works }: {
             </div>
       }
 
-      <HeroAddWork user_id={hero.id}/>
+      {isAdmin && <HeroAddWork user_id={hero.id}/>}
 
     </div>
 
