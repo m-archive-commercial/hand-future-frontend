@@ -5,9 +5,6 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import { useRouter } from 'next/router'
+import settings from '../../config/sys/settings.json'
 
-export const useRefresh = (): () => void => {
-  const router = useRouter()
-  return () => router.replace(router.asPath)
-}
+export default settings

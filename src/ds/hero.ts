@@ -5,6 +5,8 @@
  * LICENSE file in the root directory of this source tree.
 */
 
+import _ from 'lodash'
+
 import { loremIpsum } from 'lorem-ipsum'
 
 import type { IWork } from './work'
@@ -21,8 +23,7 @@ export interface IHero {
    * 基于作品的二度链接
    */
   connections: string[]
-  cover: string
-  works: IWork[]
+  cover?: string
 }
 
 export interface IShareCard extends IHero {
@@ -46,7 +47,7 @@ export const mockDesc = (): string => loremIpsum({
   units: 'paragraphs'
 })
 
-export const mockConnections = (): string[] => Array.from(Array(Math.ceil(1 + Math.random() * 5))).map(() => mockName())
+export const mockConnections = (): string[] => _.uniq(Array.from(Array(Math.ceil(1 + Math.random() * 5))).map(() => mockName()))
 
 export const getSampleHero = (): IHero => ({
   'id': '',
@@ -57,5 +58,4 @@ export const getSampleHero = (): IHero => ({
   description: mockDesc(),
   connections: mockConnections(),
   cover: '/cover_growth.jpg',
-  works: []
 })

@@ -22,15 +22,10 @@ import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } fr
 import { DagModes, ForceEngines, NumDimensions } from '../../../ds/panel_3dgraph'
 
 import { useRole } from '../../../hooks/role'
+import { Section } from '../../shared/Section'
 
 import type { DagMode, ForceEngine, NumDimension } from '../../../ds/panel_3dgraph'
 import type { ForceGraphMethods, GraphData } from 'react-force-graph-3d'
-
-const Section = ({ title }: { title: string }) => (
-  <p className="text-xl text-gray-600 font-bold w-full border-b mt-2 pl-2">
-    {title}
-  </p>
-)
 
 export const Graph = ({ data }: {
   data: GraphData

@@ -8,9 +8,9 @@
 import React, { useState } from 'react'
 
 import { RegisterCore } from './RegisterCore'
-import MDialog from '../../shared/MDialog'
+import MyDialog from '../../shared/MyDialog'
 
-const RegisterDialog = () => {
+const RegisterDialog = (): JSX.Element => {
   // 默认已经注册了！
   const [isRegistered, setRegistered] = useState(true)
 
@@ -24,15 +24,13 @@ const RegisterDialog = () => {
     </div>
   )
 
-  const content = (
-    <RegisterCore
-      isRegistered={isRegistered}
-      dispatchSetRegister={() => setRegistered(!isRegistered)}
-    />
-  )
-
   return (
-    <MDialog trigger={trigger} title="注册/登录" content={content}/>
+    <MyDialog trigger={trigger} title="注册/登录">
+      <RegisterCore
+        isRegistered={isRegistered}
+        dispatchSetRegister={() => setRegistered(!isRegistered)}
+      />
+    </MyDialog>
   )
 }
 

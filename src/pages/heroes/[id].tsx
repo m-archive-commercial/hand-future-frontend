@@ -5,49 +5,43 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import { useEffect, useState } from 'react'
-
-import { useRouter } from 'next/router'
-
 import RootLayout from '../../components/layouts/root'
-
-import { useRole } from '../../hooks/role'
 
 import { HeroEditableProfile } from '../../components/specs/hero/HeroEditableProfile'
 
-import { HeroProfile } from '../../components/specs/hero/HeroProfile'
-
 import { fetchHero } from '../../utils/heroes'
 
+import backendAPI from '../../utils/api'
+
+import type { IWork } from '../../ds/work'
+
+import type { GetServerSidePropsContext } from 'next'
 import type { IHero } from '../../ds/hero'
 
-export const HeroProfilePage = (): JSX.Element => {
-  const router = useRouter()
-  const isAdmin = useRole() === 'admin'
-  const [hero, setHero] = useState<IHero>()
-  const id = router.query.id as string
-  console.log('hero profile page: id=', id)
-
-  useEffect(() => {
-    const updateHero = async () => {
-      setHero(await fetchHero(id))
-    }
-    updateHero()
-  }, [id])
-
-  return (
-    <RootLayout>
-      {!hero && 'loading'}
-      {hero && !isAdmin &&  <HeroProfile hero={hero}/>}
-      {hero && isAdmin &&  <HeroEditableProfile hero={hero}/>}
-    </RootLayout>
+export const HeroProfilePage = ({ hero, works }: {
+  hero: IHero
+  works: IWork[]
+}): JSX.Element => (
+  <RootLayout>
+    <HeroEditableProfile hero={hero} works={works}/>
+  </RootLayout>
   )
-
-}
 
 export default HeroProfilePage
 
-export const getServerSideProps = () => {
+export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   console.log('server: heroes/[id]')
-  return {props: {}}
+  const id = ctx.query.id as unknown as string
+
+  const hero = await fetchHero(id)
+  console.log('got hero: ', hero)
+  const resWorks = await backendAPI.get(`/works?user_id=${id}`)
+  const works = resWorks.data.data.data
+  console.log('got works: ', works)
+  return {
+    props: {
+      works,
+      hero
+    }
+  }
 }

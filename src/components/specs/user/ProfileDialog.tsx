@@ -7,13 +7,13 @@
 
 import React from 'react'
 
-import MDialog from '../../shared/MDialog'
 import ProfileCore from './ProfileCore'
+import MyDialog from '../../shared/MyDialog'
 
-export const ProfileDialog = () => <MDialog
-  trigger="Profile"
-  title="编辑资料"
-  content={<ProfileCore/>}
-                                   />
+export const ProfileDialog = ():JSX.Element => (
+  <MyDialog trigger="Profile" title="编辑资料">
+    <ProfileCore/>
+  </MyDialog>
+)
 
 export default ProfileDialog

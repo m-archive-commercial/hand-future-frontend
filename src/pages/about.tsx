@@ -5,11 +5,13 @@
  * LICENSE file in the root directory of this source tree.
 */
 
+import React from 'react'
+
 import RootLayout from '../components/layouts/root'
 
-export const About = () => (
+export const About = (): JSX.Element => (
   <RootLayout>
-    todo: about
+    <div>todo: about</div>
   </RootLayout>
 )
 

@@ -12,15 +12,18 @@ import RegisterDialog from '../user/RegisterDialog'
 import RegisteredDropdown from '../user/RegisteredDropdown'
 
 import { selectUser } from '../../../redux/features/userSlice'
-import menus from '../../../../config/menus.json'
+import settings from '../../../../config/sys/settings.json'
 import { useRole } from '../../../hooks/role'
+
+import type { IMenuItem } from '../../../ds/menu'
 
 export const SVG_PATH_ARROW_RIGHT = 'M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L10,18L8.59,16.58Z'
 export const SVG_PATH_ARROW_DOWN = 'M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z'
 
-export const NavBar = () => {
+export const NavBar = (): JSX.Element => {
   const user = useSelector(selectUser)
   const isAdmin = useRole() === 'admin'
+  const menus = settings.menus as IMenuItem[]
 
   return (
     <div className="navbar bg-base-100 border-b-2">

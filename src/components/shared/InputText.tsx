@@ -25,7 +25,7 @@ export interface InputTextProps {
   containerStyle?: string
   defaultValue?: string
   placeholder?: string
-  update: (props: InputAction) => void
+  update?: (props: InputAction) => void
   addonRight?: React.ReactNode
   maxLen?: number
   textClasses?: string
@@ -35,11 +35,11 @@ export interface InputTextProps {
 const InputText = (props: InputTextProps) => {
   const { type = 'text', update } = props
   const updateInputValue = (value: string) => {
-    update({ type, value })
+    if(update) {update({ type, value })}
   }
 
   return (
-    <div className="form-control mt-4 w-full">
+    <div className="form-control w-full">
       <label className="input-group" htmlFor={props.id}>
         <span className="w-28">{props.label ?? genPascalWithSpace(type)}</span>
         <input

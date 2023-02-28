@@ -2,6 +2,20 @@
 
 ## tips
 
+### `img` or `Image`
+
+同一个微信图片url，普通 img tag 无法加载，nextjs 可以
+
+nextjs/image 会先把图片用后端手段拉到本地，再从本地读取，避免了 CORS
+
+所以尽量用 nextjs/image 提供的 Image tag，还是挺方便的
+
+不过也有要注意的 side effect
+
+Image 会强制你确定图片的 dimension，这是因为它要对图像大小做优化
+
+这导致大小确定有问题时，会有一些 bizarre现象
+
 ### `react-idle-timer`
 
 ```shell
