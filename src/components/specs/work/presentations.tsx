@@ -143,7 +143,7 @@ export const WorkPresentation = ({ work }: { work: IWork }): JSX.Element => {
   console.log('work presentation: ', work)
 
   return (
-    <div key={work.title} className="bg-gray-50 rounded-md relative">
+    <div key={work.title} className="bg-gray-50 rounded-xl relative border-2 border-primary">
       {genInnerWorkPresentation(work)}
 
       <div className="absolute bottom-2 right-2 flex w-full justify-end gap-2">

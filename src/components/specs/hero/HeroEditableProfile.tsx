@@ -134,7 +134,7 @@ export const HeroEditableProfile = ({ hero, works }: {
       {
         works.length
           ?
-            <div className="gap-2 grid md:grid-cols-2">
+            <div className="gap-4 grid md:grid-cols-2">
               {works.map((work) => <WorkPresentation key={work.id} work={work}/>)}
             </div>
           :
