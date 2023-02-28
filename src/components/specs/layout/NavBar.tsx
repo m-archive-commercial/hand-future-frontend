@@ -26,14 +26,15 @@ export const NavBar = (): JSX.Element => {
   const menus = settings.menus as IMenuItem[]
 
   return (
-    <div className="navbar bg-base-100 border-b-2">
+    <div className="navbar bg-base-100 border-b-2 w-full inline-flex justify-between">
 
-      <div className="navbar-start">
+      {/* 大屏：logo；小屏：折叠菜单 */}
+      <div>
 
         {/* 小屏菜单 + logo >> dropdown 就是一行，里面可以包含其他东西 */}
         <div className="dropdown">
           {/* 小屏下的菜单logo >> */}
-          <div className="btn btn-ghost md:hidden">
+          <div tabIndex={0} role="button" className="btn btn-ghost md:hidden">
             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24"
               stroke="currentColor"
             >
@@ -54,14 +55,15 @@ export const NavBar = (): JSX.Element => {
         {/* 小屏菜单 << */}
 
         {/* logo 应该始终位于左边，所以可以和小屏菜单封装在同一个组件里 */}
-        <a href="/src/pages" className="btn btn-ghost normal-case text-xl">携手未来</a>
+        <p className="ml-2 normal-case text-xl">携手未来</p>
       </div>
 
-      <div className="navbar-center hidden md:flex">
+      {/* 导航栏 */}
+      <div className="hidden md:flex flex-1 justify-center">
         <ul className="menu menu-horizontal px-1">
           {
             menus
-              .filter((menuItem)=> (
+              .filter((menuItem) => (
                 !menuItem.admin || isAdmin
               ))
               .map((menuItem) => (
@@ -69,24 +71,22 @@ export const NavBar = (): JSX.Element => {
                   icon={SVG_PATH_ARROW_DOWN}
                   key={menuItem.name}
                 />
-            ))
+              ))
           }
         </ul>
       </div>
 
-      {/* 尾部 */}
-      <div className="navbar-end">
-
-        <div className="inline-flex items-center flex-none gap-2 mr-4">
-          <div className="form-control">
-            <input type="text" placeholder="Search" className="input input-bordered"/>
-          </div>
-          {
+      {/* 尾部 （搜索栏+头像） */}
+      <div className="inline-flex items-center gap-2">
+        {/* <div className="form-control flex-1 md:block"> */}
+        {/*  <input type="text" placeholder="Search" className="input input-bordered"/> */}
+        {/* </div> */}
+        {
             user.basic ? <RegisteredDropdown/> : <RegisterDialog/>
           }
 
-        </div>
       </div>
+
     </div>
   )
 }

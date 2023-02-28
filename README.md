@@ -2,6 +2,10 @@
 
 ## tips
 
+### `tabIndex={0} role='button'`
+
+这个不可以用在 label 上，div 可以。
+
 ### `img` or `Image`
 
 同一个微信图片url，普通 img tag 无法加载，nextjs 可以
