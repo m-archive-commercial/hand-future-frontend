@@ -76,7 +76,7 @@ export const HeroEditableProfile = ({ hero, works }: {
           <div className="inline-flex items-center gap-4 text-2xl">
             <label>
               <BaseAvatar url={hero.avatar} name={hero.name} size="lg"/>
-              <HeroImageUploader field="avatar" hero={heroState} setHero={setHeroState}/>
+              {isAdmin && <HeroImageUploader field="avatar" hero={heroState} setHero={setHeroState}/>}
             </label>
             {
               isAdmin
