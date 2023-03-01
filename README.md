@@ -2,6 +2,24 @@
 
 ## todo
 
+## screenshots
+
+### 01. home page
+
+![screenshot-home-page.png](./assets/images/screenshot-home-page.png)
+
+### 02. album page
+
+![screenshot-album-page.png](./assets/images/screenshot-album-page.png)
+
+### 03. detail page
+
+![screenshot-detail-page.png](./assets/images/screenshot-detail-page.png)
+
+### 04. card page
+
+![screenshot-card-page.png](./assets/images/screenshot-card-page.png)
+
 ## next.js relative
 
 ### Getting Started
