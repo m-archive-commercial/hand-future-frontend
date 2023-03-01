@@ -62,12 +62,13 @@ export const Graph = ({ data }: {
   const [dagMode, dagMode_] = useSelectOption<DagMode>('dagMode', 'td', DagModes)
   const [forceEngine, forceEngine_] = useSelectOption<ForceEngine>('ForceEngine', 'd3', ForceEngines)
 
-  const [cameraDistance, cameraDistance_] = useNumberOption('cameraDistance', 200)
   const [cameraRotationFPS, cameraRotationFPS_] = useNumberOption('cameraRotationFPS', 24)
+  const [cameraRotationDegree, cameraRotationDegree_] = useNumberOption('cameraRotationDegree', 0.1)
+  const [cameraFocusDistance, cameraFocusDistance_] = useNumberOption('cameraFocusDistance', 200)
   const [cameraFocusDuration, cameraFocusDuration_] = useNumberOption('cameraFocusDuration', 2000)
   const [refreshSeconds, refreshSeconds_] = useNumberOption('refreshSeconds', 60)
 
-  const rotationMatrix = new Matrix4().makeRotationY(Math.PI / 3600)
+  const rotationRef = useRef<ReturnType<typeof setInterval>>()
 
   /**
    * 每隔一段空闲时间就重置布局（馆长要求）
@@ -86,11 +87,13 @@ export const Graph = ({ data }: {
    * 让相机始终旋转（提升用户体验）
    */
   useEffect(() => {
-    setInterval(() => {
+    if(rotationRef.current) {clearInterval(rotationRef.current)}
+    rotationRef.current = setInterval(() => {
+        const rotationMatrix = new Matrix4().makeRotationY(Math.PI / 360 * (cameraRotationDegree || 0.1))
       // ref: https://stackoverflow.com/a/37374618/9422455
       fgRef.current?.camera().position.applyMatrix4(rotationMatrix)
     }, Math.ceil(1000 / (cameraRotationFPS || 24)))
-  }, [cameraRotationFPS, rotationMatrix])
+  }, [cameraRotationFPS, cameraRotationDegree])
 
   const onNodeClick = (node: NodeObject) => {
 
@@ -102,11 +105,11 @@ export const Graph = ({ data }: {
     const targetPos = curPos
       .sub(objPos)
       .normalize()
-      .multiplyScalar(cameraDistance || 200)
+      .multiplyScalar(cameraFocusDistance || 200)
       .add(objPos)
     const distanceToTargetPos = objPos.distanceTo(targetPos)
 
-    console.log({ targetDistance: cameraDistance, curPos, objPos, targetPos, distanceToTargetPos })
+    console.log({ targetDistance: cameraFocusDistance, curPos, objPos, targetPos, distanceToTargetPos })
 
     // Aim at node from outside it
     fgRef.current.cameraPosition(
@@ -131,7 +134,7 @@ export const Graph = ({ data }: {
         )
       }
 
-      <div className={clsx('w-64', enableControl || 'hidden')}>
+      <div className={clsx(enableControl || 'hidden')}>
 
         <Section title="Data Input"/>
 
@@ -143,8 +146,9 @@ export const Graph = ({ data }: {
 
         <Section title="Customized"/>
         {refreshSeconds_}
-        {cameraDistance_}
         {cameraRotationFPS_}
+        {cameraRotationDegree_}
+        {cameraFocusDistance_}
         {cameraFocusDuration_}
 
         <Section title="Container Layout"/>

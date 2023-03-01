@@ -8,9 +8,9 @@
 import type { ReactNode} from 'react'
 import { useState } from 'react'
 
-const lineClass = 'w-full inline-flex'
+const lineClass = 'inline-flex'
 const labelClass = 'px-2 w-52 shrink-0'
-const inputClass = 'flex-1 min-w-0 max-w-[48px]'
+const inputClass = 'w-16'
 
 export const useBooleanOption = (label: string, init: boolean | undefined = undefined): [boolean | undefined, ReactNode] => {
   const [val, setVal] = useState<boolean | undefined>(init)
