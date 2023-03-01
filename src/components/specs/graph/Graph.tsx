@@ -5,12 +5,12 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 
 import clsx from 'clsx'
 
 import ForceGraph3D from 'react-force-graph-3d'
-import { Sprite, SpriteMaterial, TextureLoader } from 'three'
+import { Matrix4, Sprite, SpriteMaterial, TextureLoader, Vector3 } from 'three'
 
 import { useRouter } from 'next/router'
 
@@ -25,7 +25,7 @@ import { useRole } from '../../../hooks/role'
 import { Section } from '../../shared/Section'
 
 import type { DagMode, ForceEngine, NumDimension } from '../../../ds/panel_3dgraph'
-import type { ForceGraphMethods, GraphData } from 'react-force-graph-3d'
+import type { ForceGraphMethods, GraphData, NodeObject } from 'react-force-graph-3d'
 
 export const Graph = ({ data }: {
   data: GraphData
@@ -35,17 +35,6 @@ export const Graph = ({ data }: {
   console.log('client data: ', data)
   const fgRef = useRef<ForceGraphMethods>()
   const router = useRouter()
-
-  const [refreshSeconds, refreshSeconds_] = useNumberOption('refreshSeconds', 60)
-
-  useIdleTimer({
-    onIdle: () => {
-      console.log('idle!')
-      router.replace(router.asPath)
-    },
-    timeout: (refreshSeconds || 1)  * 1000,
-    throttle: 500
-  })
 
   const { width, height } = useWindowDimensions()
   const [enableControl, setEnableControl] = useState(false)
@@ -73,6 +62,60 @@ export const Graph = ({ data }: {
   const [dagMode, dagMode_] = useSelectOption<DagMode>('dagMode', 'td', DagModes)
   const [forceEngine, forceEngine_] = useSelectOption<ForceEngine>('ForceEngine', 'd3', ForceEngines)
 
+  const [cameraDistance, cameraDistance_] = useNumberOption('cameraDistance', 200)
+  const [cameraRotationFPS, cameraRotationFPS_] = useNumberOption('cameraRotationFPS', 24)
+  const [cameraFocusDuration, cameraFocusDuration_] = useNumberOption('cameraFocusDuration', 2000)
+  const [refreshSeconds, refreshSeconds_] = useNumberOption('refreshSeconds', 60)
+
+  const rotationMatrix = new Matrix4().makeRotationY(Math.PI / 3600)
+
+  /**
+   * 每隔一段空闲时间就重置布局（馆长要求）
+   */
+  useIdleTimer({
+    onIdle: () => {
+      console.log('idle!')
+      router.replace(router.asPath)
+      // router.reload() // it's too slow (full refresh)
+    },
+    timeout: (refreshSeconds || 1) * 1000,
+    throttle: 500
+  })
+
+  /**
+   * 让相机始终旋转（提升用户体验）
+   */
+  useEffect(() => {
+    setInterval(() => {
+      // ref: https://stackoverflow.com/a/37374618/9422455
+      fgRef.current?.camera().position.applyMatrix4(rotationMatrix)
+    }, Math.ceil(1000 / (cameraRotationFPS || 24)))
+  }, [cameraRotationFPS, rotationMatrix])
+
+  const onNodeClick = (node: NodeObject) => {
+
+    if (!fgRef.current) {
+      return
+    }
+    const curPos = fgRef.current.camera().position
+    const objPos = new Vector3(node.x, node.y, node.z)
+    const targetPos = curPos
+      .sub(objPos)
+      .normalize()
+      .multiplyScalar(cameraDistance || 200)
+      .add(objPos)
+    const distanceToTargetPos = objPos.distanceTo(targetPos)
+
+    console.log({ targetDistance: cameraDistance, curPos, objPos, targetPos, distanceToTargetPos })
+
+    // Aim at node from outside it
+    fgRef.current.cameraPosition(
+      targetPos, // new position
+      objPos, // lookAt ({ x, y, z })
+      cameraFocusDuration  // ms transition duration
+    )
+  }
+
   return (
     <div tabIndex={0} role="button" className="w-full h-full flex">
 
@@ -93,15 +136,16 @@ export const Graph = ({ data }: {
         <Section title="Data Input"/>
 
         <button type="button" className="bg-primary text-white rounded-xl px-3 py-1 m-1"
-          onClick={() => {
-                  router.push('/data_editor')
-                }}
+          onClick={() => router.push('/data_editor')}
         >
           Data Source
         </button>
 
         <Section title="Customized"/>
         {refreshSeconds_}
+        {cameraDistance_}
+        {cameraRotationFPS_}
+        {cameraFocusDuration_}
 
         <Section title="Container Layout"/>
         {backgroundColor_}
@@ -181,24 +225,7 @@ export const Graph = ({ data }: {
         enableNodeDrag={enableNodeDrag}
         enableNavigationControls={enableNavigationControls}
         enablePointerInteraction={enablePointerInteraction}
-        onNodeClick={(node) => {
-
-          const distance = 150 // the smaller distance, the bigger object in the camera
-          const { x = 0, y = 0, z = 0 } = node
-          const ratio = 1 - distance / Math.hypot(x, y, z) // <--- target ratio
-
-          const newPos = x || y || z
-            ? { x: x * ratio, y: y * ratio, z: z * ratio }
-            : { x: 0, y: 0, z: distance } // special case if node is in (0,0,0)
-          console.log({ x, y, z, ratio, newPos })
-
-          // Aim at node from outside it
-          fgRef.current?.cameraPosition(
-            newPos, // new position
-            { x, y, z }, // lookAt ({ x, y, z })
-            2000  // ms transition duration
-          )
-        }}
+        onNodeClick={onNodeClick}
       />
     </div>
   )
