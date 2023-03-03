@@ -5,13 +5,12 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import type { HTMLAttributes } from 'react'
 
 import clsx from 'clsx'
-
 import { IconUser } from '@tabler/icons-react'
-
 import Image from 'next/image'
+
+import type { HTMLAttributes } from 'react'
 
 export const SIZE_TYPES = ['sm', 'md', 'lg', 'xl', '2xl'] as const
 export type SIZE_TYPE = typeof SIZE_TYPES[number]

@@ -5,10 +5,11 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import type { ReactNode } from 'react'
 
 import Header from '../specs/layout/Header'
 import NavBar from '../specs/layout/NavBar'
+
+import type { ReactNode } from 'react'
 
 /**
  * 关于如何定义props，ref: /app-playground/app/layouts/layout.tsx

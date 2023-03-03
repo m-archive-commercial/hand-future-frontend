@@ -6,7 +6,6 @@
 */
 
 import _ from 'lodash'
-
 import { loremIpsum } from 'lorem-ipsum'
 
 import type { IWork } from './work'
@@ -18,12 +17,12 @@ export interface IHero {
   cities: string
   avatar: string
   description: string
+  cover?: string
 
   /**
-   * 基于作品的二度链接
+   * todo: 基于作品的二度链接
    */
   connections: string[]
-  cover?: string
 }
 
 export interface IShareCard extends IHero {

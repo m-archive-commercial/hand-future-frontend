@@ -6,29 +6,21 @@
 */
 
 import React, { useState } from 'react'
-
 import * as Accordion from '@radix-ui/react-accordion'
-
 import { toast } from 'react-toastify'
 
 import { mockWork, SourcePlatform } from '../../../ds/work'
 import MyDialog from '../../shared/MyDialog'
 import { Section } from '../../shared/Section'
-
 import { genPlainWorkPresentation, WorkPresentation } from '../work/presentations'
 import { AccordionContent, AccordionItem, AccordionTrigger } from '../../shared/MyAccordion'
 import { HeroInputPlain } from '../work/HeroInputPlain'
 import { HeroInputWechat } from '../work/HeroInputWechat'
 import { HeroSettingLayout } from '../work/HeroSettingLayout'
-
 import { ConnectionsLine } from '../../shared/ConnectionsLine'
-
 import settings from '../../../ds/settings'
-
 import backendAPI from '../../../utils/api'
-
 import { useRefresh } from '../../../utils/router'
-
 import { HeroInputBilibili } from '../work/HeroInputBilibili'
 
 import type { IWork } from '../../../ds/work'

@@ -6,30 +6,22 @@
 */
 
 import { useRef, useState } from 'react'
-
 import Link from 'next/link'
-
 import * as AspectRatio from '@radix-ui/react-aspect-ratio'
-
 import Image from 'next/image'
 
 import BaseAvatar from '../../shared/BaseAvatar'
 import { WorkPresentation } from '../work/presentations'
-
-import { HeroAddWork } from './HeroAddWork'
-
 import { Section } from '../../shared/Section'
-
-import { HeroCover } from './HeroCover'
-
-import { HeroImageUploader } from './HeroAvatar'
-
 import backendAPI from '../../../utils/api'
-
 import { useRole } from '../../../hooks/role'
 
-import type { IWork } from '../../../ds/work'
+import { HeroAddWork } from './HeroAddWork'
+import { HeroCover } from './HeroCover'
+import { HeroImageUploader } from './HeroAvatar'
 
+
+import type { IWork } from '../../../ds/work'
 import type { IHero } from '../../../ds/hero'
 
 export const HeroEditableProfile = ({ hero, works }: {

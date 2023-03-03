@@ -6,7 +6,6 @@
 */
 
 import { useRef } from 'react'
-
 import * as AspectRatio from '@radix-ui/react-aspect-ratio'
 import Image from 'next/image'
 

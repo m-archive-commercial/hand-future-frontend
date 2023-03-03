@@ -5,13 +5,12 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import type { HTMLAttributes } from 'react'
 import { useRef } from 'react'
 
 import backendAPI from '../../../utils/api'
-
 import { useRefresh } from '../../../utils/router'
 
+import type { HTMLAttributes } from 'react'
 import type { IHero } from '../../../ds/hero'
 
 export const HeroImageUploader = ({ hero, setHero, field, ...props }: HTMLAttributes<HTMLDivElement> & {

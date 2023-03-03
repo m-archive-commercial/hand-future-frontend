@@ -5,8 +5,9 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import type { HTMLAttributes } from 'react'
 import React from 'react'
+
+import type { HTMLAttributes } from 'react'
 
 export const SimpleInputLine = ({ label, id, required, ...props }: HTMLAttributes<HTMLInputElement> & {
   id: string

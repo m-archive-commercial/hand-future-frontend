@@ -5,15 +5,12 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import type { ForwardedRef } from 'react'
 import React from 'react'
-
 import clsx from 'clsx'
-
 import * as Accordion from '@radix-ui/react-accordion'
-
 import { ChevronDownIcon } from '@radix-ui/react-icons'
 
+import type { ForwardedRef } from 'react'
 import type { AccordionContentProps, AccordionItemProps, AccordionTriggerProps } from '@radix-ui/react-accordion'
 
 export const AccordionItem = React.forwardRef((

@@ -7,8 +7,9 @@
 
 import { v4 } from 'uuid'
 
-import { mockConnections, mockDesc, mockTitle } from './hero'
 import { genRandomImage } from '../utils/random'
+
+import { mockConnections, mockDesc, mockTitle } from './hero'
 
 export enum SourcePlatform {
   plain = 'plain',

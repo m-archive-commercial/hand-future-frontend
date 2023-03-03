@@ -5,25 +5,19 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import type { ChangeEvent, FormEvent} from 'react'
 import { useRef, useState } from 'react'
-
 import Link from 'next/link'
-
 import { AxiosError } from 'axios'
-
 import { toast } from 'react-toastify'
-
 import { useDispatch, useSelector } from 'react-redux'
 
 import InputText from '../../shared/InputText'
 import backendAPI from '../../../utils/api'
-
 import { INIT_USER } from '../../../ds/user'
-
 import { BaseAvatar } from '../../shared/BaseAvatar'
 import { selectAvatar, setAvatar, setToken, setUser, setWorks } from '../../../redux/features/userSlice'
 
+import type { ChangeEvent, FormEvent} from 'react'
 import type { TokenData, UserProfile } from '../../../ds/user'
 
 export interface RegisterProps {

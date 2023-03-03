@@ -5,12 +5,11 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import type { ReactNode} from 'react'
 import React, { useState } from 'react'
-
 import * as Dialog from '@radix-ui/react-dialog'
 import { Cross2Icon } from '@radix-ui/react-icons'
 
+import type { ReactNode} from 'react'
 import type { DialogProps } from '@radix-ui/react-dialog'
 
 export const MyDialog = ({trigger, title, children, asChild, ...props}: DialogProps & {

@@ -5,16 +5,14 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import type { Ref } from 'react'
 
 import clsx from 'clsx'
-
 import Image from 'next/image'
-
 import { QRCodeSVG } from 'qrcode.react'
 
 import BaseAvatar from '../../shared/BaseAvatar'
 
+import type { Ref } from 'react'
 import type { IShareCard } from '../../../ds/hero'
 
 export interface RenderShareCardProps {

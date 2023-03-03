@@ -6,16 +6,12 @@
 */
 
 import React from 'react'
-
 import { AxiosError } from 'axios'
-
 import { toast } from 'react-toastify'
 
 import { AccordionContent, AccordionItem, AccordionTrigger } from '../../shared/MyAccordion'
-
 import { SourcePlatform } from '../../../ds/work'
 import backendAPI from '../../../utils/api'
-
 import { SimpleInputLine } from '../../shared/SimpleInputLine'
 
 import { HeroControls } from './HeroControls'

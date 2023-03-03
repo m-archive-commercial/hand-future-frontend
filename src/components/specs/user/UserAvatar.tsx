@@ -5,14 +5,14 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import type { ChangeEvent} from 'react'
 import { useRef } from 'react'
-
 import { useDispatch, useSelector } from 'react-redux'
 
 import backendAPI from '../../../utils/api'
 import { selectAvatar, setUser } from '../../../redux/features/userSlice'
 import { BaseAvatar } from '../../shared/BaseAvatar'
+
+import type { ChangeEvent} from 'react'
 
 export const UserAvatar = () => {
   const refAvatar = useRef<HTMLInputElement>(null)

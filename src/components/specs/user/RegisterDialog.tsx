@@ -7,8 +7,9 @@
 
 import React, { useState } from 'react'
 
-import { RegisterCore } from './RegisterCore'
 import MyDialog from '../../shared/MyDialog'
+
+import { RegisterCore } from './RegisterCore'
 
 const RegisterDialog = (): JSX.Element => {
   // 默认已经注册了！

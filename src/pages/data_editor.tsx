@@ -6,21 +6,15 @@
 */
 
 import { useRef } from 'react'
-
 import Editor from '@monaco-editor/react'
-
 import { toast } from 'react-toastify'
-
 import { AxiosError } from 'axios'
-
 import { useRouter } from 'next/router'
 
 import backendAPI from '../utils/api'
-
 import RootLayout from '../components/layouts/root'
 
 import type { GraphData } from 'react-force-graph-3d'
-
 import type * as monaco from 'monaco-editor/esm/vs/editor/editor.api'
 
 export type Editor = monaco.editor.IStandaloneCodeEditor

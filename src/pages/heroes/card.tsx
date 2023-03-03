@@ -5,30 +5,24 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import type { ChangeEvent } from 'react'
 import { useRef, useState } from 'react'
-
 import { LoremIpsum, loremIpsum } from 'lorem-ipsum'
 import { toast } from 'react-toastify'
-
 import { IconRotateClockwise2 } from '@tabler/icons-react'
 import * as htmlToImage from 'html-to-image'
-
 import localFont from '@next/font/local'
 
 import HeroSearch from '../../components/specs/hero/HeroSearch'
-
 import { FONT_WEIGHTS } from '../../ds/font'
 import RenderShareCard from '../../components/specs/hero/RenderShareCard'
 import RootLayout from '../../components/layouts/root'
 import backendAPI from '../../utils/api'
-
 import InputText from '../../components/shared/InputText'
 import InputTextArea from '../../components/shared/InputTextArea'
 import BaseAvatar from '../../components/shared/BaseAvatar'
-
 import { getSampleHero } from '../../ds/hero'
 
+import type { ChangeEvent } from 'react'
 import type { IHero, IShareCard } from '../../ds/hero'
 import type { InputAction } from '../../components/shared/InputText'
 import type { FONT_WEIGHT } from '../../ds/font'

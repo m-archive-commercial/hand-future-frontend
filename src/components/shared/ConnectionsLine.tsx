@@ -6,7 +6,6 @@
 */
 
 import React from 'react'
-
 import { IconCirclePlus } from '@tabler/icons-react'
 
 export const ConnectionsLine = ({connections, enableAdd}: {

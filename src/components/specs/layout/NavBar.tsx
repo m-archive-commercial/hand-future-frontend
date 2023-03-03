@@ -7,13 +7,13 @@
 
 import { useSelector } from 'react-redux'
 
-import { MenuItem } from './Menu'
 import RegisterDialog from '../user/RegisterDialog'
 import RegisteredDropdown from '../user/RegisteredDropdown'
-
 import { selectUser } from '../../../redux/features/userSlice'
 import settings from '../../../../config/sys/settings.json'
 import { useRole } from '../../../hooks/role'
+
+import { MenuItem } from './Menu'
 
 import type { IMenuItem } from '../../../ds/menu'
 

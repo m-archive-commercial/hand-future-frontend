@@ -5,8 +5,9 @@
  * LICENSE file in the root directory of this source tree.
 */
 
-import type { ReactNode} from 'react'
 import { useState } from 'react'
+
+import type { ReactNode} from 'react'
 
 const lineClass = 'inline-flex'
 const labelClass = 'px-2 w-52 shrink-0'

@@ -6,16 +6,15 @@
 */
 
 import React from 'react'
-
 import { toast } from 'react-toastify'
 
 import { SourcePlatform } from '../../../ds/work'
 import { AccordionContent, AccordionItem, AccordionTrigger } from '../../shared/MyAccordion'
-
 import { SimpleInputLine } from '../../shared/SimpleInputLine'
+import { getBvidFromUrl, SAMPLE_BILIBILI_VIDEO_URL } from '../../shared/BilibiliVideo'
+
 import { HeroControls } from './HeroControls'
 
-import { getBvidFromUrl, SAMPLE_BILIBILI_VIDEO_URL } from '../../shared/BilibiliVideo'
 
 import type { IWork} from '../../../ds/work'
 

@@ -7,8 +7,9 @@
 
 import React from 'react'
 
-import ProfileCore from './ProfileCore'
 import MyDialog from '../../shared/MyDialog'
+
+import ProfileCore from './ProfileCore'
 
 export const ProfileDialog = ():JSX.Element => (
   <MyDialog trigger="Profile" title="编辑资料">

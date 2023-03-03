@@ -6,15 +6,11 @@
 */
 
 import RootLayout from '../../components/layouts/root'
-
 import { HeroEditableProfile } from '../../components/specs/hero/HeroEditableProfile'
-
 import { fetchHero } from '../../utils/heroes'
-
 import backendAPI from '../../utils/api'
 
 import type { IWork } from '../../ds/work'
-
 import type { GetServerSidePropsContext } from 'next'
 import type { IHero } from '../../ds/hero'
 

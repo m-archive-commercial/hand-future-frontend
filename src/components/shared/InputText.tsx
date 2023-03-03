@@ -6,9 +6,7 @@
 */
 
 import React, { useState } from 'react'
-
 import _ from 'lodash'
-
 import clsx from 'clsx'
 
 import { genPascalWithSpace } from '../../utils/algo'

@@ -6,18 +6,16 @@
 */
 
 import RootLayout from '../../components/layouts/root'
-
 import HeroCard from '../../components/shared/HeroCard'
-
 import { fetchHeroes } from '../../utils/heroes'
 
+import type { GetServerSideProps } from 'next'
 import type { IHero } from '../../ds/hero'
 
-export interface HeroesGalleryProps {
+export const HeroesGallery = ({ data }: {
   data: IHero[]
-}
+}): JSX.Element => (
 
-export const HeroesGallery = ({ data }: HeroesGalleryProps) => (
   <RootLayout>
     <div className="p-4  w-full flex flex-wrap justify-around justify-items-center gap-4">
       {
@@ -30,4 +28,4 @@ export const HeroesGallery = ({ data }: HeroesGalleryProps) => (
 )
 export default HeroesGallery
 
-export const getServerSideProps = async () => ({ props: { data: await fetchHeroes()} })
+export const getServerSideProps: GetServerSideProps = async () => ({ props: { data: await fetchHeroes()} })

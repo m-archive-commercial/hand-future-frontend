@@ -6,21 +6,15 @@
 */
 
 import { useEffect, useRef, useState } from 'react'
-
 import clsx from 'clsx'
-
 import ForceGraph3D from 'react-force-graph-3d'
 import { Matrix4, Sprite, SpriteMaterial, TextureLoader, Vector3 } from 'three'
-
 import { useRouter } from 'next/router'
-
 import { useIdleTimer } from 'react-idle-timer'
 
 import useWindowDimensions from '../../../hooks/window'
 import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } from '../../../hooks/panel_3dgraph'
-
 import { DagModes, ForceEngines, NumDimensions } from '../../../ds/panel_3dgraph'
-
 import { useRole } from '../../../hooks/role'
 import { Section } from '../../shared/Section'
 
