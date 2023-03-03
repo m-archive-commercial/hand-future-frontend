@@ -58,6 +58,16 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 ## tips
 
+### 打开新的链接
+
+```ts
+// a1: open in current tab
+router.push(getHeroRoute(node.id))
+
+// a2: open in new tab, @see: https://www.js-craft.io/blog/open-link-new-tab-react/#opening-a-new-tab-at-onclick-in-react
+window.open(getHeroRoute(node.id), '_blank', )
+```
+
 ### `tabIndex={0} role='button'`
 
 这个不可以用在 label 上，div 可以。

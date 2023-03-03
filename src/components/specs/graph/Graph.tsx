@@ -3,7 +3,7 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
-*/
+ */
 
 import { useEffect, useRef, useState } from 'react'
 import clsx from 'clsx'
@@ -17,16 +17,35 @@ import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } fr
 import { DagModes, ForceEngines, NumDimensions } from '../../../ds/panel_3dgraph'
 import { useRole } from '../../../hooks/role'
 import { Section } from '../../shared/Section'
+import { IHero } from '../../../ds/hero'
+import { getHeroRoute } from '../../../utils/heroes'
 
 import type { DagMode, ForceEngine, NumDimension } from '../../../ds/panel_3dgraph'
 import type { ForceGraphMethods, GraphData, NodeObject } from 'react-force-graph-3d'
 
-export const Graph = ({ data }: {
-  data: GraphData
+export const Graph = ({ data: heroes }: {
+  data: IHero[]
 }): JSX.Element => {
 
+  console.log({ heroes })
+  /**
+   * construct GraphData from heroes
+   */
+  const data: GraphData = {
+    nodes: heroes,
+    links: [],
+  }
+  for (let heroFrom of heroes) {
+    if (!heroFrom.connections) continue
+
+    for (let heroToId of heroFrom.connections) {
+      data.links.push({ source: heroFrom.id, target: heroToId })
+    }
+  }
+  console.log({ data })
+
+
   const isAdmin = useRole() === 'admin'
-  console.log('client data: ', data)
   const fgRef = useRef<ForceGraphMethods>()
   const router = useRouter()
 
@@ -64,6 +83,8 @@ export const Graph = ({ data }: {
 
   const rotationRef = useRef<ReturnType<typeof setInterval>>()
 
+  let lastClickTime: Date, lastClickId: string
+
   /**
    * 每隔一段空闲时间就重置布局（馆长要求）
    */
@@ -74,26 +95,28 @@ export const Graph = ({ data }: {
       // router.reload() // it's too slow (full refresh)
     },
     timeout: (refreshSeconds || 1) * 1000,
-    throttle: 500
+    throttle: 500,
   })
 
   /**
    * 让相机始终旋转（提升用户体验）
    */
   useEffect(() => {
-    if(rotationRef.current) {clearInterval(rotationRef.current)}
+    if (rotationRef.current) {
+      clearInterval(rotationRef.current)
+    }
     rotationRef.current = setInterval(() => {
-        const rotationMatrix = new Matrix4().makeRotationY(Math.PI / 360 * (cameraRotationDegree || 0.1))
+      const rotationMatrix = new Matrix4().makeRotationY(Math.PI / 360 * (cameraRotationDegree || 0.1))
       // ref: https://stackoverflow.com/a/37374618/9422455
       fgRef.current?.camera().position.applyMatrix4(rotationMatrix)
     }, Math.ceil(1000 / (cameraRotationFPS || 24)))
   }, [cameraRotationFPS, cameraRotationDegree])
 
   const onNodeClick = (node: NodeObject) => {
+    if (!fgRef.current) return
 
-    if (!fgRef.current) {
-      return
-    }
+    console.log('clicked node: ', node)
+
     const curPos = fgRef.current.camera().position
     const objPos = new Vector3(node.x, node.y, node.z)
     const targetPos = curPos
@@ -109,8 +132,32 @@ export const Graph = ({ data }: {
     fgRef.current.cameraPosition(
       targetPos, // new position
       objPos, // lookAt ({ x, y, z })
-      cameraFocusDuration  // ms transition duration
+      cameraFocusDuration,  // ms transition duration
     )
+
+
+    // 双击跳转到对应主页
+    const id = node.id as string
+    if (lastClickId === id && +new Date() - +lastClickTime < 1000) {
+      window.open(getHeroRoute(id), '_blank')
+    }
+    lastClickId = id
+    lastClickTime = new Date()
+  }
+
+  const nodeThreeObject = (node: NodeObject) => {
+
+    // DEPRECIATED: load from local image
+    // const imgPath = `/avatar/${id}`
+
+    // @ts-ignore // 这个库默认 NodeObject 是只有 id,x,y,z等属性
+    const imgPath = node.avatar
+
+    const imgTexture = new TextureLoader().load(imgPath)
+    const material = new SpriteMaterial({ map: imgTexture, depthWrite: false })
+    const img = new Sprite(material)
+    img.scale.set(24, 24, 1)
+    return img
   }
 
   return (
@@ -133,7 +180,7 @@ export const Graph = ({ data }: {
         <Section title="Data Input"/>
 
         <button type="button" className="bg-primary text-white rounded-xl px-3 py-1 m-1"
-          onClick={() => router.push('/data_editor')}
+                onClick={() => router.push('/data_editor')}
         >
           Data Source
         </button>
@@ -195,14 +242,7 @@ export const Graph = ({ data }: {
         nodeOpacity={nodeOpacity || 0}
         nodeResolution={nodeResolution || 0}
         nodeLabel="name"
-        nodeThreeObject={({ id }) => {
-          const imgPath = `/avatar/${id}`
-          const imgTexture = new TextureLoader().load(imgPath)
-          const material = new SpriteMaterial({ map: imgTexture, depthWrite: false })
-          const img = new Sprite(material)
-          img.scale.set(24, 24, 1)
-          return img
-        }}
+        nodeThreeObject={nodeThreeObject}
 
         // link
         linkHoverPrecision={linkHoverPrecision}

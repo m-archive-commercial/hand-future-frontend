@@ -19,3 +19,7 @@ export const fetchHero = async (id: string): Promise<IHero> => {
   const res = await backendAPI.get(`/heroes/?id=${id}`)
   return res.data
 }
+
+
+export const getHeroRoute = (id: string): string =>
+  `/heroes/${id}`

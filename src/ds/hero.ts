@@ -22,7 +22,7 @@ export interface IHero {
   /**
    * todo: 基于作品的二度链接
    */
-  connections: string[]
+  connections?: string[]
 }
 
 export interface IShareCard extends IHero {
