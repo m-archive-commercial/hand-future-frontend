@@ -48,6 +48,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.2",
     "three": "^0.150.0",
+    "ts-node": "^10.9.1",
     "uuid": "^9.0.0"
   },
   "devDependencies": {

@@ -10,7 +10,7 @@ import { GetServerSideProps } from 'next'
 
 import RootLayout from '../components/layouts/root'
 import backendAPI from '../utils/api'
-import { fetchHeroes } from '../utils/heroes'
+import { fetchHeroes, fetchHeroGraphData } from '../utils/heroes'
 import { IHero } from '../ds/hero'
 
 import type { GraphData } from 'react-force-graph-3d'
@@ -21,7 +21,7 @@ const Graph = dynamic(
   { ssr: false }
 )
 
-export const Home = ({data}: {data: IHero[]}): JSX.Element => (
+export const Home = ({data}: {data: GraphData}): JSX.Element => (
   <RootLayout>
     <Graph data={data}/>
   </RootLayout>
@@ -30,15 +30,6 @@ export const Home = ({data}: {data: IHero[]}): JSX.Element => (
 export default Home
 
 
-export const getServerSideProps: GetServerSideProps = async () => ({ props: { data: await fetchHeroes()} })
 
-// export const getServerSideProps  = async  (): Promise<{props: {data: GraphData}}> => {
-//   const res=  await backendAPI.get('/data')
-//   const {data} = res
-//   console.log('server: ', data)
-//   return {
-//     props: {
-//       data
-//     }
-//   }
-// }
+export const getServerSideProps: GetServerSideProps = async () => ({ props: { data: await fetchHeroGraphData()} })
+

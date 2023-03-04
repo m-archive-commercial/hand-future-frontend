@@ -13,37 +13,21 @@ import { useRouter } from 'next/router'
 import { useIdleTimer } from 'react-idle-timer'
 
 import useWindowDimensions from '../../../hooks/window'
-import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } from '../../../hooks/panel_3dgraph'
-import { DagModes, ForceEngines, NumDimensions } from '../../../ds/panel_3dgraph'
-import { useRole } from '../../../hooks/role'
 import { Section } from '../../shared/Section'
-import { IHero } from '../../../ds/hero'
-import { getHeroRoute } from '../../../utils/heroes'
 
-import type { DagMode, ForceEngine, NumDimension } from '../../../ds/panel_3dgraph'
+
+import type { DagMode, ForceEngine, NumDimension } from '~/ds/panel_3dgraph'
 import type { ForceGraphMethods, GraphData, NodeObject } from 'react-force-graph-3d'
 
-export const Graph = ({ data: heroes }: {
-  data: IHero[]
+import { getHeroRoute } from '~/utils/heroes'
+import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } from '~/hooks/panel_3dgraph'
+import { DagModes, ForceEngines, NumDimensions } from '~/ds/panel_3dgraph'
+import { useRole } from '~/hooks/role'
+
+export const Graph = ({ data }: {
+  data: GraphData
 }): JSX.Element => {
-
-  console.log({ heroes })
-  /**
-   * construct GraphData from heroes
-   */
-  const data: GraphData = {
-    nodes: heroes,
-    links: [],
-  }
-  for (let heroFrom of heroes) {
-    if (!heroFrom.connections) continue
-
-    for (let heroToId of heroFrom.connections) {
-      data.links.push({ source: heroFrom.id, target: heroToId })
-    }
-  }
-  console.log({ data })
-
+  console.log('graph data: ', data)
 
   const isAdmin = useRole() === 'admin'
   const fgRef = useRef<ForceGraphMethods>()
@@ -177,14 +161,6 @@ export const Graph = ({ data: heroes }: {
 
       <div className={clsx(enableControl || 'hidden')}>
 
-        <Section title="Data Input"/>
-
-        <button type="button" className="bg-primary text-white rounded-xl px-3 py-1 m-1"
-                onClick={() => router.push('/data_editor')}
-        >
-          Data Source
-        </button>
-
         <Section title="Customized"/>
         {refreshSeconds_}
         {cameraRotationFPS_}
@@ -245,6 +221,7 @@ export const Graph = ({ data: heroes }: {
         nodeThreeObject={nodeThreeObject}
 
         // link
+        linkWidth={1}
         linkHoverPrecision={linkHoverPrecision}
 
         // force engine
@@ -270,3 +247,5 @@ export const Graph = ({ data: heroes }: {
 }
 
 export default Graph
+
+

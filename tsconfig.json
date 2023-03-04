@@ -17,7 +17,12 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
-    "incremental": true
+    "incremental": true,
+    "paths": {
+      "~/*": [
+        "./src/*"
+      ]
+    }
   },
   "include": [
     "next-env.d.ts",
@@ -28,13 +33,19 @@
   "exclude": [
     "node_modules"
   ],
-
   //  ref: https://stackoverflow.com/a/71907867/9422455
   "ts-node": {
     // these options are overrides used only by ts-node
     // same as the --compilerOptions flag and the TS_NODE_COMPILER_OPTIONS environment variable
     "compilerOptions": {
-      "module": "commonjs"
+      "target": "es5",
+      "module": "commonjs",
+      "resolveJsonModule": true,
+      "paths": {
+        "~/*": [
+          "./src/*"
+        ]
+      }
     }
   }
 }

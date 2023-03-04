@@ -5,9 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-const OFF = 0
-const WARNING = 1
-const ERROR = 2
+const OFF = 0 // 没有必要一定遵循的原则
+const WARNING = 1 // 不遵循代码质量会不够高的原则
+const ERROR = 2 // 不遵循会影响功能的原则
 
 module.exports = {
   extends: "next/core-web-vitals",
@@ -42,5 +42,8 @@ module.exports = {
         warnOnUnassignedImports: true,
       },
     ],
+
+    // 这条规则比较方便debug，但是不影响功能，@see: https://github.com/jsx-eslint/eslint-plugin-react/blob/master/docs/rules/display-name.md
+    'react/display-name': WARNING,
   }
 }
