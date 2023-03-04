@@ -3,7 +3,7 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
-*/
+ */
 
 import { useRef, useState } from 'react'
 import Link from 'next/link'
@@ -34,11 +34,14 @@ export const HeroEditableProfile = ({ hero, works }: {
   const updateField = async (field: string, val: string) => {
     const data = {
       id: hero.id,
-      [field]: val
+      [field]: val,
     }
     await backendAPI.patch('/heroes/update', data)
     setHeroState({ ...hero, [field]: val })
   }
+  const [isEditingName, setEditingName] = useState(false)
+  const [isEditingTitle, setEditingTitle] = useState(false)
+  const [isEditingDesc, setEditingDesc] = useState(false)
 
   return (
     <div className="w-full h-full lg:max-w-screen-lg flex flex-col gap-2">
@@ -55,10 +58,10 @@ export const HeroEditableProfile = ({ hero, works }: {
           />
           {
             isAdmin && (
-            <label className="btn btn-primary btn-sm absolute bottom-2 right-2">
-              更改封面
-              <HeroImageUploader field="cover" hero={heroState} setHero={setHeroState}/>
-            </label>
+              <label className="btn btn-primary btn-sm absolute bottom-2 right-2">
+                更改封面
+                <HeroImageUploader field="cover" hero={heroState} setHero={setHeroState}/>
+              </label>
             )
           }
         </AspectRatio.Root>
@@ -71,40 +74,52 @@ export const HeroEditableProfile = ({ hero, works }: {
               {isAdmin && <HeroImageUploader field="avatar" hero={heroState} setHero={setHeroState}/>}
             </label>
             {
-              isAdmin
+              isAdmin && isEditingName
                 ? <input
-                    placeholder="No Name Found !"
-                    type="text" className="input input-ghost" value={heroState.name}
-                    onChange={(e) => updateField('name', e.target.value)}
-                  />
-                : <p>{heroState.name}</p>
+                  placeholder="No Name Found !"
+                  type="text"
+                  className="input input-ghost" value={heroState.name}
+                  onChange={(e) => updateField('name', e.target.value)}
+                  onBlur={() => setEditingName(false)}
+                />
+                : <p onClick={() => setEditingName(true)}>{heroState.name}</p>
             }
           </div>
 
           <div className="text-lg">
             {
-            isAdmin
-              ? <input
-                  placeholder="No Title Found !"
-                  type="text"
-                  className="input input-ghost" value={heroState.title}
-                  onChange={(e) => updateField('title', e.target.value)}
-                />
-              : <p>{heroState.title}</p>
-          }
+              isAdmin && isEditingTitle
+                ? (
+                  <textarea
+                    className={'w-[320px]'}
+                    placeholder="No Title Found !"
+                    value={heroState.title}
+                    onChange={(e) => updateField('title', e.target.value)}
+                    onBlur={() => setEditingTitle(false)}
+                  />
+                )
+                : (
+                  <div onClick={() => setEditingTitle(true)}>
+                    {heroState.title.split('\n').map((line, index) => (
+                      <p key={index}>{line}</p>
+                    ))}
+                  </div>
+                )
+            }
           </div>
 
           <div className="mt-8 text-md">
             {
-            isAdmin
-              ? <input
+              isAdmin && isEditingDesc
+                ? <textarea
+                  className={'w-[320px]'}
                   placeholder="No Description Found !"
-                  type="text"
-                  className="input input-ghost"
-                  value={heroState.description} onChange={(e) => updateField('description', e.target.value)}
+                  value={heroState.description}
+                  onChange={(e) => updateField('description', e.target.value)}
+                  onBlur={() => setEditingDesc(false)}
                 />
-              : <p>{heroState.description}</p>
-          }
+                : <p onClick={() => setEditingDesc(true)}>{heroState.description || "No Description Found !"}</p>
+            }
           </div>
 
           <div className="mt-8 flex flx-wrap gap-2">
@@ -126,13 +141,13 @@ export const HeroEditableProfile = ({ hero, works }: {
       {
         works.length
           ?
-            <div className="gap-4 grid md:grid-cols-2">
-              {works.map((work) => <WorkPresentation key={work.id} work={work}/>)}
-            </div>
+          <div className="gap-4 grid md:grid-cols-2">
+            {works.map((work) => <WorkPresentation key={work.id} work={work}/>)}
+          </div>
           :
-            <div className="h-24 w-full flex justify-center items-center text-xl font-medium text-gray-500">
-              暂无作品，赶快上传一个吧！
-            </div>
+          <div className="h-24 w-full flex justify-center items-center text-xl font-medium text-gray-500">
+            暂无作品，赶快上传一个吧！
+          </div>
       }
 
       {isAdmin && <HeroAddWork user_id={hero.id}/>}
