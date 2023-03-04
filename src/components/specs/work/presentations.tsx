@@ -154,7 +154,7 @@ export const WorkPresentation = ({ work }: { work: IWork }): JSX.Element => {
           work.source.platform === SourcePlatform.plain && (
             <MyDialog trigger={detailBtn} asChild>
               <article className="w-[80vw] p-2 prose lg:prose-xl max-h-[72] overflow-y-hidden">
-                <h2 className="my-8 text-xl font-semibold">{work.title}</h2>
+                <h2 className="my-8 text-lg font-semibold">{work.title}</h2>
 
                 {
                   work.cover && (

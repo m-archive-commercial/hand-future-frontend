@@ -68,7 +68,7 @@ export const HeroEditableProfile = ({ hero, works }: {
 
         <div className="absolute p-12 left-0 bottom-0 max-w-screen-sm">
 
-          <div className="inline-flex items-center gap-4 text-2xl">
+          <div className="flex items-center gap-4 text-4xl">
             <label>
               <BaseAvatar url={hero.avatar} name={hero.name} size="lg"/>
               {isAdmin && <HeroImageUploader field="avatar" hero={heroState} setHero={setHeroState}/>}
@@ -108,7 +108,7 @@ export const HeroEditableProfile = ({ hero, works }: {
             }
           </div>
 
-          <div className="mt-8 text-md">
+          <div className="mt-8 text-xs">
             {
               isAdmin && isEditingDesc
                 ? <textarea
