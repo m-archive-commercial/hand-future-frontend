@@ -56,7 +56,7 @@ export const HeroEditableProfile = ({ hero, works }: {
           {
             isAdmin && (
             <label className="btn btn-primary btn-sm absolute bottom-2 right-2">
-              Change Cover
+              更改封面
               <HeroImageUploader field="cover" hero={heroState} setHero={setHeroState}/>
             </label>
             )
@@ -120,7 +120,7 @@ export const HeroEditableProfile = ({ hero, works }: {
         </div>
       </div>
 
-      <Section title="Collection of Works"/>
+      <Section title="作品集合"/>
 
       {/*  works */}
       {
@@ -131,7 +131,7 @@ export const HeroEditableProfile = ({ hero, works }: {
             </div>
           :
             <div className="h-24 w-full flex justify-center items-center text-xl font-medium text-gray-500">
-              Empty Here
+              暂无作品，赶快上传一个吧！
             </div>
       }
 

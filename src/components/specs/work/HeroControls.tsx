@@ -11,7 +11,7 @@ export const HeroControls = ({onSubmit}: {
   onSubmit: any
 }) => (
   <div className="grid grid-cols-2  gap-2">
-    <button type="submit" className="btn btn-primary btn-sm">Confirm</button>
-    <button type="button" className="btn btn-primary btn-sm" onClick={onSubmit}>Submit</button>
+    <button type="submit" className="btn btn-primary btn-sm">确认</button>
+    <button type="button" className="btn btn-primary btn-sm" onClick={onSubmit}>提交</button>
   </div>
 )

@@ -26,7 +26,7 @@ export const HeroInputWechat = ({ data, setData, onSubmit }: {
   onSubmit: any
 }): JSX.Element => (
   <AccordionItem value={SourcePlatform.wechatArticle}>
-    <AccordionTrigger>A Wechat Article </AccordionTrigger>
+    <AccordionTrigger>自动解析一篇微信文章 </AccordionTrigger>
 
     <AccordionContent>
       <form className="flex flex-col gap-2" onSubmit={async (event) => {

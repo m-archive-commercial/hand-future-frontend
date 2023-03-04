@@ -142,7 +142,7 @@ export const WorkPresentation = ({ work }: { work: IWork }): JSX.Element => {
 
       <div className="absolute bottom-2 right-2 flex w-full justify-end gap-2">
 
-        {isAdmin && <button type="button" className="btn btn-error btn-xs" onClick={onDelete}>Delete</button>}
+        {isAdmin && <button type="button" className="btn btn-error btn-xs" onClick={onDelete}>删除</button>}
 
         {/* 视频没有 detail 页 */}
 
@@ -154,7 +154,7 @@ export const WorkPresentation = ({ work }: { work: IWork }): JSX.Element => {
                 )}
               disabled={work.source.platform === SourcePlatform.bilibiliVideo}
             >
-              Detail
+              详情
             </button>
               }
           asChild

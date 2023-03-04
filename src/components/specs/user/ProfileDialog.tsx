@@ -12,7 +12,7 @@ import MyDialog from '../../shared/MyDialog'
 import ProfileCore from './ProfileCore'
 
 export const ProfileDialog = ():JSX.Element => (
-  <MyDialog trigger="Profile" title="编辑资料">
+  <MyDialog trigger="资料" title="编辑资料">
     <ProfileCore/>
   </MyDialog>
 )

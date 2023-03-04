@@ -23,7 +23,7 @@ export const HeroInputPlain = ({ data, setData, onSubmit }: {
   onSubmit: any
 }): JSX.Element => (
   <AccordionItem value={SourcePlatform.plain}>
-    <AccordionTrigger>A Plain Article </AccordionTrigger>
+    <AccordionTrigger>手动输入一篇文章 </AccordionTrigger>
     <AccordionContent>
       <form className="flex flex-col gap-2" onSubmit={async (event) => {
         event.preventDefault()
@@ -31,7 +31,7 @@ export const HeroInputPlain = ({ data, setData, onSubmit }: {
         const formProps = Object.fromEntries(formData)
         console.log({ data, formData, formProps })
         if (!formProps.title) {
-          toast.error('title is required')
+          toast.error('标题是必填项！')
           return
         }
         // 要把 cover 从 file 转成 uri
@@ -48,22 +48,20 @@ export const HeroInputPlain = ({ data, setData, onSubmit }: {
         }
       }}
       >
-        Input info about the plain article.
-
         {/* title */}
-        <SimpleInputLine id="title" label="Title" required placeholder={data.title}/>
+        <SimpleInputLine id="title" label="标题" required placeholder={data.title}/>
         {/* description */}
-        <SimpleInputLine id="description" label="Description" required placeholder={data.description}/>
+        <SimpleInputLine id="description" label="摘要" required placeholder={data.description}/>
         {/* content */}
         <label className="input-group" htmlFor="content">
-          <span className="w-28">Content<span className="text-red-500 pl-1">*</span></span>
+          <span className="w-28">内容<span className="text-red-500 pl-1">*</span></span>
           <textarea id="content" name="content" className="input input-bordered min-w-0 flex-1"
             placeholder={data.content}
           />
         </label>
         {/* avatar */}
         <label className="input-group" htmlFor="coverFile">
-          <span className="w-28">Cover<span className="text-red-500 pl-1">*</span></span>
+          <span className="w-28">封面<span className="text-red-500 pl-1">*</span></span>
           <input id="cover" name="coverFile" type="file" accept="image/" className="flex-1 ml-4"
             placeholder={data.cover}
           />

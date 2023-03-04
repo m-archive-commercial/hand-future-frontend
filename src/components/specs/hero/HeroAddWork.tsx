@@ -33,7 +33,7 @@ export const HeroAddWork = ({ user_id }: {
   console.log({ work })
 
   const Trigger = (
-    <button type="button" className="w-full rounded-xl px-3 py-3 bg-primary text-white">Add New Work</button>
+    <button type="button" className="w-full rounded-xl px-3 py-3 bg-primary text-white">增加一个新的作品</button>
   )
 
   const onSubmit = async () => {
@@ -44,7 +44,7 @@ export const HeroAddWork = ({ user_id }: {
   }
 
   return (
-    <MyDialog trigger={Trigger} title="Add New Work" onOpenChange={(open) => {
+    <MyDialog trigger={Trigger} title="增加一个新的作品" onOpenChange={(open) => {
       if (!open) {
         refresh()
       }
@@ -53,7 +53,7 @@ export const HeroAddWork = ({ user_id }: {
 
       <div className="w-[80vw] grid md:grid-cols-3 gap-2">
 
-        <Section title="Input" className="col-span-2">
+        <Section title="输入" className="col-span-2">
           <Accordion.Root type="single" collapsible
             className="w-full bg-mauve6 w-[300px] rounded-md shadow-[0_2px_10px] shadow-black/5"
           >
@@ -66,15 +66,15 @@ export const HeroAddWork = ({ user_id }: {
           </Accordion.Root>
         </Section>
 
-        <Section title="Preview" className="col-span-1">
+        <Section title="预览" className="col-span-1">
           {work && <WorkPresentation work={work}/>}
         </Section>
 
-        <Section title="Data Structure" className="col-span-2">
+        <Section title="数据核验" className="col-span-2">
           {work && genPlainWorkPresentation(work)}
         </Section>
 
-        <Section title="Settings" className="col-span-1">
+        <Section title="控制区" className="col-span-1">
 
           <div className="flex flex-col gap-2">
             <HeroSettingLayout data={work} setData={setWork}/>

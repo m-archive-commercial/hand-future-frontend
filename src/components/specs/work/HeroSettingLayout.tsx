@@ -24,7 +24,7 @@ export const HeroSettingLayout = ({ data, setData }: {
   return (
     <div className="flex items-center gap-[15px] px-5">
       <Label.Root className="text-[15px] font-medium leading-[35px] text-primary" htmlFor="typography-layout">
-        Typography Layout
+        布局
       </Label.Root>
       <select
         className="select select-primary select-sm max-w-xs"

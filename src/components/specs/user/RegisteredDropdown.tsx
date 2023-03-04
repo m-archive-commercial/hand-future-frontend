@@ -32,15 +32,15 @@ export const RegisteredDropdown = () => {
 
       <ul className="w-24 mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box">
 
-        <li>
-          <ProfileDialog/>
-        </li>
+        {/*<li>*/}
+        {/*  <ProfileDialog/>*/}
+        {/*</li>*/}
 
         {/* todo: following */}
         {/* <li><a>Following</a></li> */}
 
         <li>
-          <button type="button" onClick={() => {dispatch(resetAuth())}}>Logout</button>
+          <button type="button" onClick={() => {dispatch(resetAuth())}}>注销</button>
         </li>
 
       </ul>
