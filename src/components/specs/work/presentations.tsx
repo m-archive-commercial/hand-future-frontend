@@ -158,7 +158,7 @@ export const WorkPresentation = ({ work }: { work: IWork }): JSX.Element => {
 
                 {
                   work.cover && (
-                    <Image src={work.cover} alt={work.title} width={300} height={200} className="w-full object-contain"/>
+                    <Image src={work.cover + '?raw=true'} alt={work.title} width={300} height={200} className="w-full object-contain"/>
                   )
                 }
 
