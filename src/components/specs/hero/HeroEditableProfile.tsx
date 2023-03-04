@@ -52,7 +52,7 @@ export const HeroEditableProfile = ({ hero, works }: {
         <AspectRatio.Root ratio={16 / 5}>
           <Image
             className="h-full w-full object-cover"
-            src={hero.cover || hero.avatar}
+            src={(hero.cover || hero.avatar) + "?raw=true"}
             alt="cover"
             width={640} height={480}
           />

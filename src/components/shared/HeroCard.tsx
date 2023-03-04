@@ -17,7 +17,7 @@ export interface HeroCardProps {
 export const HeroCard = ({ data }: HeroCardProps): JSX.Element => (
     (
       <div className="card w-64 h-96 bg-base-100 image-full2">
-        <figure><Image src={data.avatar} alt="avatar" width={256} height={256}/></figure>
+        <figure><Image src={data.avatar + "?raw=true"} alt="avatar" width={512} height={512}/></figure>
         <div className="card-body">
           <h2 className="card-title">
             {data.name}
