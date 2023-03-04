@@ -5,10 +5,8 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import clsx from 'clsx'
 import Image from 'next/image'
 import { toast } from 'react-toastify'
-import Link from 'next/link'
 
 import { SourcePlatform, TypographyLayout } from '../../../ds/work'
 import settings from '../../../ds/settings'

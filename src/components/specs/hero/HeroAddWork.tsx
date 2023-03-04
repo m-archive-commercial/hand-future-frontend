@@ -39,12 +39,13 @@ export const HeroAddWork = ({ user_id }: {
   const onSubmit = async () => {
     console.log('submitting data: ', work)
     const res = await backendAPI.patch('/works/update', work)
+    setWork(mockWork(user_id))
     console.log('updated work: ', res.data)
-    toast.success(`submitted work of id=${  work.id}`)
+    toast.success('新作品上传成功')
   }
 
   return (
-    <MyDialog trigger={Trigger} title="增加一个新的作品" onOpenChange={(open) => {
+    <MyDialog trigger={Trigger} title="新增一个作品" onOpenChange={(open) => {
       if (!open) {
         refresh()
       }
