@@ -53,11 +53,11 @@ export const RegisterCore = (props: RegisterProps) => {
 
   const submitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    if (curUser.username.trim() === '') { toast.error('Username is required!'); return}
-    if (curUser.password.trim() === '') { toast.error('Password is required!'); return}
-    if (!isRegistered && curUser.nickname.trim() === '') { toast.error('Nickname is required!'); return}
-    if (!isRegistered && curUser.email.trim() === '') { toast.error('Email is required!'); return}
-    if (!isRegistered && avatar === undefined) { toast.error('Avatar is required!'); return}
+    if (curUser.username.trim() === '') { toast.error('用户名是必填项！'); return}
+    if (curUser.password.trim() === '') { toast.error('密码是必填项！'); return}
+    if (!isRegistered && curUser.nickname.trim() === '') { toast.error('昵称是必填项！'); return}
+    if (!isRegistered && curUser.email.trim() === '') { toast.error('邮箱是必填项！'); return}
+    if (!isRegistered && avatar === undefined) { toast.error('头像是必填项！'); return}
     setLoading(true)
     console.log('registering ...')
 
@@ -104,7 +104,7 @@ export const RegisterCore = (props: RegisterProps) => {
       // 注册 step 2. 验证注册
       else {
         console.log('【注册】激活邮件验证码')
-        if (isRegistering && code.trim() === '') { toast.error('Activation Code is required!'); return}
+        if (isRegistering && code.trim() === '') { toast.error('验证码是必填项！'); return}
         const activationForm = new FormData()
         activationForm.append('username', curUser.username)
         activationForm.append('code', code)
@@ -148,28 +148,28 @@ export const RegisterCore = (props: RegisterProps) => {
         <div className="mb-4">
 
           {/* login */}
-          <InputText type="username" defaultValue={curUser.username} update={update}/>
-          <InputText type="password" defaultValue={curUser.password} update={update}/>
+          <InputText label={'用户名'} type="username" defaultValue={curUser.username} update={update}/>
+          <InputText label={'密码'} type="password" defaultValue={curUser.password} update={update}/>
 
           {/* register extra */}
           {!isRegistered && (
             <div className="flex justify-between items-center">
               <div className="flex-grow flex-1">
                 {/* 昵称 */}
-                <InputText type="nickname" defaultValue={curUser.nickname} update={update}/>
+                <InputText label={'昵称'} type="nickname" defaultValue={curUser.nickname} update={update}/>
 
                 {/* 邮箱 */}
-                <InputText type="email" defaultValue={curUser.email} update={update}/>
+                <InputText label={'邮箱'} type="email" defaultValue={curUser.email} update={update}/>
 
                 {
                   isRegistering &&
-                  <InputText type="code" defaultValue={code} update={update}/>
+                  <InputText label={'验证码'} type="code" defaultValue={code} update={update}/>
                 }
               </div>
 
               {/* 头像 */}
               <div className="form-control m-4 flex flex-col items-center">
-                <span className="label label-text text-base-content ">Avatar</span>
+                <span className="label label-text text-base-content ">头像</span>
 
                 <div tabIndex={0} role="button" className=" flex justify-between items-center gap-2"
                   onClick={() => refInputAvatar.current?.click()}

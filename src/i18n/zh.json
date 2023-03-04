@@ -1,0 +1,12 @@
+{
+  "sys": {
+    "nav": {
+      "home": "首页",
+      "album": "嘉宾相册"
+    },
+    "account": {
+      "username": "用户名",
+      "password": "密码"
+    }
+  }
+}

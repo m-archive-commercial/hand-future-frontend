@@ -18,8 +18,7 @@ export const fetchHeroGraphData = async (): Promise<GraphData> => {
 
 export const fetchHeroes = async (): Promise<IHero[]> => {
   const res = await backendAPI.get('/heroes/list')
-  // console.log({ res })
-  return res.data.list
+  return res.data
 }
 
 export const fetchHero = async (id: string): Promise<IHero> => {
