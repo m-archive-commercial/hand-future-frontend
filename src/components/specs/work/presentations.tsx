@@ -3,11 +3,12 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
-*/
+ */
 
 import clsx from 'clsx'
 import Image from 'next/image'
 import { toast } from 'react-toastify'
+import Link from 'next/link'
 
 import { SourcePlatform, TypographyLayout } from '../../../ds/work'
 import settings from '../../../ds/settings'
@@ -59,7 +60,7 @@ export const genInnerWorkPresentation = (work: IWork): JSX.Element => {
   if (work.source.platform === SourcePlatform.bilibiliVideo) {
     return (
       <BilibiliVideo video={{
-        bvid: getBvidFromUrl(work.id)!
+        bvid: getBvidFromUrl(work.id)!,
       }}
       />
     )
@@ -114,7 +115,7 @@ export const genInnerWorkPresentation = (work: IWork): JSX.Element => {
       return (
         <div className="w-full h-full flex gap-2">
           <Image src={work.cover} alt={work.title} className="w-2/5 h-full object-cover"
-            width={320} height={240}
+                 width={320} height={240}
           />
 
           {genWorkContent(work)}
@@ -136,6 +137,8 @@ export const WorkPresentation = ({ work }: { work: IWork }): JSX.Element => {
 
   console.log('work presentation: ', work)
 
+  const detailBtn = <button type="button" className="btn btn-primary btn-xs">详情</button>
+
   return (
     <div key={work.title} className="bg-gray-50 rounded-xl relative border-2 border-primary">
       {genInnerWorkPresentation(work)}
@@ -144,47 +147,46 @@ export const WorkPresentation = ({ work }: { work: IWork }): JSX.Element => {
 
         {isAdmin && <button type="button" className="btn btn-error btn-xs" onClick={onDelete}>删除</button>}
 
-        {/* 视频没有 detail 页 */}
+        {/* 纯文本 */}
+        {
+          work.source.platform === SourcePlatform.plain && (
+            <MyDialog trigger={detailBtn} asChild>
+              <article className="w-[80vw] p-2 prose lg:prose-xl max-h-[72] overflow-y-hidden">
+                <h2 className="my-8 text-xl font-semibold">{work.title}</h2>
 
-        <MyDialog
-          trigger={
-            <button type="button" className={clsx(
-                  "btn btn-primary btn-xs" ,
-                  work.source.platform === SourcePlatform.bilibiliVideo && 'invisible',
-                )}
-              disabled={work.source.platform === SourcePlatform.bilibiliVideo}
-            >
-              详情
-            </button>
-              }
-          asChild
-        >
-          <article className="w-[80vw] p-2 prose lg:prose-xl max-h-[72] overflow-y-hidden">
-            <h2 className="my-8 text-xl font-semibold">{work.title}</h2>
-
-            {
+                {
                   work.cover && (
                     <Image src={work.cover} alt={work.title} width={300} height={200} className="w-full object-contain"/>
                   )
                 }
 
-            <blockquote className="text-lg font-medium">{work.description}</blockquote>
+                <blockquote className="text-lg font-medium">{work.description}</blockquote>
 
-            {
+                {
                   work.content.split('\n')
                     .map((para, index) => (
                       <p key={index} className="text-sm font-medium text-gray-500 ">{para}</p>
                     ))
                 }
 
-            {
+                {
                   settings.features.enable_connection_between_works && (
                     <ConnectionsLine connections={work.connections}/>
                   )
                 }
 
-          </article>
-        </MyDialog>
+              </article>
+            </MyDialog>
+          )
+        }
+
+        {/* 微信 */}
+        {
+          work.source.platform === SourcePlatform.wechatArticle &&
+          <a target="_blankg" rel="noreferrer" href={work.source.url!}>{detailBtn}</a>
+        }
+
+        {/* 视频没有 detail 页 */}
 
       </div>
 
