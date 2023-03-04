@@ -75,7 +75,9 @@ export const genInnerWorkPresentation = (work: IWork): JSX.Element => {
           {
             // m1: multi line
             // m2: combine, is it ok ? NO ! it is not ok!
-            work.content.split('\n')
+            work.content
+              .split('\n')
+              .filter((ele, i) => i < 9)
               .map((para, index) => (
                 <p key={index} className="text-sm font-medium text-gray-500 truncate ...">{para}</p>
               ))
@@ -140,7 +142,7 @@ export const WorkPresentation = ({ work }: { work: IWork }): JSX.Element => {
   const detailBtn = <button type="button" className="btn btn-primary btn-xs">详情</button>
 
   return (
-    <div key={work.title} className="bg-gray-50 rounded-xl relative border-2 border-primary">
+    <div key={work.title} className="bg-gray-50 rounded-2xl overflow-hidden relative border-2 border-primary">
       {genInnerWorkPresentation(work)}
 
       <div className="absolute bottom-2 right-2 flex w-full justify-end gap-2">
