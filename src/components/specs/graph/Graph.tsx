@@ -12,6 +12,11 @@ import { Matrix4, Sprite, SpriteMaterial, TextureLoader, Vector3 } from 'three'
 import { useRouter } from 'next/router'
 import { useIdleTimer } from 'react-idle-timer'
 
+import { getHeroRoute } from '~/utils/heroes'
+import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } from '~/hooks/panel_3dgraph'
+import { DagModes, ForceEngines, NumDimensions } from '~/ds/panel_3dgraph'
+import { useRole } from '~/hooks/role'
+
 import useWindowDimensions from '../../../hooks/window'
 import { Section } from '../../shared/Section'
 
@@ -19,10 +24,6 @@ import { Section } from '../../shared/Section'
 import type { DagMode, ForceEngine, NumDimension } from '~/ds/panel_3dgraph'
 import type { ForceGraphMethods, GraphData, NodeObject } from 'react-force-graph-3d'
 
-import { getHeroRoute } from '~/utils/heroes'
-import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } from '~/hooks/panel_3dgraph'
-import { DagModes, ForceEngines, NumDimensions } from '~/ds/panel_3dgraph'
-import { useRole } from '~/hooks/role'
 
 export const Graph = ({ data }: {
   data: GraphData
@@ -82,24 +83,32 @@ export const Graph = ({ data }: {
     throttle: 500,
   })
 
-  /**
-   * 让相机始终旋转（提升用户体验）
-   */
-  useEffect(() => {
-    if (rotationRef.current) {
-      clearInterval(rotationRef.current)
-    }
+  const clearRotate = () => {
+    if (rotationRef.current) clearInterval(rotationRef.current)
+  }
+  const setRotate = () => {
     rotationRef.current = setInterval(() => {
       const rotationMatrix = new Matrix4().makeRotationY(Math.PI / 360 * (cameraRotationDegree || 0.1))
       // ref: https://stackoverflow.com/a/37374618/9422455
       fgRef.current?.camera().position.applyMatrix4(rotationMatrix)
     }, Math.ceil(1000 / (cameraRotationFPS || 24)))
+  }
+
+  /**
+   * 让相机始终旋转（提升用户体验）
+   */
+  useEffect(() => {
+    clearRotate()
+    setRotate()
   }, [cameraRotationFPS, cameraRotationDegree])
 
   const onNodeClick = (node: NodeObject) => {
     if (!fgRef.current) return
 
     console.log('clicked node: ', node)
+    clearRotate()
+    // 等相机动画完成之后再旋转
+    setTimeout(setRotate, cameraFocusDuration)
 
     const curPos = fgRef.current.camera().position
     const objPos = new Vector3(node.x, node.y, node.z)
