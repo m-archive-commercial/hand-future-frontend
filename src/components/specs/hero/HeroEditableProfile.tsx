@@ -31,6 +31,7 @@ export const HeroEditableProfile = ({ hero, works }: {
   const [heroState, setHeroState] = useState<IHero>(hero)
   const isAdmin = useRole() === 'admin'
 
+  // todo: onChange setState; onBlue: update (with backend)
   const updateField = async (field: string, val: string) => {
     const data = {
       id: hero.id,

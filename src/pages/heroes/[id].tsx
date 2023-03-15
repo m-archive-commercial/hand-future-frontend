@@ -32,7 +32,7 @@ export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
   const hero = await fetchHero(id)
   console.log('got hero: ', hero)
   const resWorks = await backendAPI.get(`/works?user_id=${id}`)
-  const works = resWorks.data.data.data
+  const works = resWorks.data
   console.log('got works: ', works)
   return {
     props: {
