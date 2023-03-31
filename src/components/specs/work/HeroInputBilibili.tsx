@@ -8,10 +8,12 @@
 import React from 'react'
 import { toast } from 'react-toastify'
 
+import { BILIBILI_VIDEO_URL_PLACEHOLDER } from '~/config'
+
 import { SourcePlatform } from '../../../ds/work'
 import { AccordionContent, AccordionItem, AccordionTrigger } from '../../shared/MyAccordion'
 import { SimpleInputLine } from '../../shared/SimpleInputLine'
-import { getBvidFromUrl, SAMPLE_BILIBILI_VIDEO_URL } from '../../shared/BilibiliVideo'
+import { getBvidFromUrl } from '../../shared/BilibiliVideo'
 
 import { HeroControls } from './HeroControls'
 
@@ -60,7 +62,7 @@ export const HeroInputBilibili = ({ data, setData, onSubmit }: {
       }}
       >
 
-        <SimpleInputLine id="url" label="Source" required placeholder={SAMPLE_BILIBILI_VIDEO_URL}/>
+        <SimpleInputLine id="url" label="Source" required placeholder={BILIBILI_VIDEO_URL_PLACEHOLDER}/>
         <HeroControls onSubmit={onSubmit}/>
 
       </form>

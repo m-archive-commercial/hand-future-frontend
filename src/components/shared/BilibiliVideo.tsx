@@ -45,8 +45,6 @@ export const BilibiliVideo = ({ video }: {
   )
 }
 
-export const SAMPLE_BILIBILI_VIDEO_URL = 'https://www.bilibili.com/video/BV1yW4y1L7wA'
-
 /**
  * sample: https://www.bilibili.com/video/BV1yW4y1L7wA/?spm_id_from=333.880.my_history.page.click
  * @param {string} url
