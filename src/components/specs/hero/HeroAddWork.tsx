@@ -45,7 +45,11 @@ export const HeroAddWork = ({ user_id }: {
   }
 
   return (
-    <MyDialog trigger={Trigger} title="新增一个作品" onOpenChange={(open) => {
+    <MyDialog
+      asChild={true}
+      trigger={Trigger}
+      title="新增一个作品"
+      onOpenChange={(open) => {
       if (!open) {
         refresh()
       }
