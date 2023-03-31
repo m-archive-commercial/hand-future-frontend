@@ -19,6 +19,7 @@ export interface UserState {
   basic?: UserProfile
   works: IWork[]
   avatar?: string
+  cover?: string
   role?: string
 }
 
@@ -27,7 +28,8 @@ const initialState: UserState = {
   basic: undefined,
   role: undefined,
   works: [],
-  avatar: undefined
+  avatar: undefined,
+  cover: undefined,
 }
 
 /**
@@ -58,10 +60,13 @@ export const userSlice = createSlice({
     setAvatar: (state, action: PayloadAction<string>) => {
       state.avatar = action.payload
     },
+    setCover: (state, action: PayloadAction<string>) => {
+      state.cover = action.payload
+    }
   },
 })
 
-export const { setToken, resetAuth, setUser, setWorks, setAvatar } = userSlice.actions
+export const { setToken, resetAuth, setUser, setWorks, setAvatar, setCover } = userSlice.actions
 
 export const userReducer = userSlice.reducer
 

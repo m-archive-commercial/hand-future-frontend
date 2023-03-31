@@ -30,9 +30,9 @@ export const HeroImageUploader = ({ hero, setHero, field, ...props }: HTMLAttrib
 			const formData = new FormData()
 			formData.append('file', e.target.files[0])
 			const resUploadImage = await backendAPI.post('/files/upload', formData)
-			console.log({ resUploadImage })
-			
 			const imgPath = resUploadImage.data
+			console.log({ resUploadImage, field, imgPath })
+			
 			const resUpdateImage = await backendAPI.patch('/heroes/update', {
 				id: hero.id,
 				[field]: imgPath,
