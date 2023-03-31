@@ -49,10 +49,13 @@ export const HeroEditableProfile = ({ hero, works }: {
 	
 	console.log({ hero })
 	
+	const COVER_WIDTH = 640
+	const COVER_HEIGHT = 480
+	
 	const getHeroCover = () => {
 		const curCover = hero.cover || hero.avatar
 		if (curCover) return curCover + '?raw=true'
-		return genRandomImage({})
+		return genRandomImage({width: COVER_WIDTH, height: COVER_HEIGHT})
 	}
 	
 	return (
@@ -66,7 +69,8 @@ export const HeroEditableProfile = ({ hero, works }: {
 						className="h-full w-full object-cover"
 						src={getHeroCover()}
 						alt="cover"
-						width={640} height={480}
+						width={COVER_WIDTH}
+						height={COVER_HEIGHT}
 					/>
 					{
 						isAdmin && (
