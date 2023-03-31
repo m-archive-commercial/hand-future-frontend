@@ -28,7 +28,7 @@ export const AXIOS_INIT_CONFIG: AxiosRequestConfig = {
   },
   withCredentials: true
 }
-export const backendAPI = axios.create({})
+export const backendAPI = axios.create(AXIOS_INIT_CONFIG)
 
 export const frontendAPI = axios.create({
   baseURL: `http://${HOST}:${FRONTEND_PORT}`,

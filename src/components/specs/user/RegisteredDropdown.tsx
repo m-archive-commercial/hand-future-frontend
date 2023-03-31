@@ -7,6 +7,7 @@
 
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import Link from 'next/link'
 
 import { BaseAvatar } from '../../shared/BaseAvatar'
 import { resetAuth, selectAvatar, selectUser } from '../../../redux/features/userSlice'
@@ -32,6 +33,9 @@ export const RegisteredDropdown = () => {
 
       <ul className="w-24 mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box">
 
+        <li>
+          <Link href={'/user/' + user.basic.username}>资料</Link>
+        </li>
         {/*<li>*/}
         {/*  <ProfileDialog/>*/}
         {/*</li>*/}

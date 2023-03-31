@@ -38,6 +38,8 @@ export const INIT_USER: UserRegister = {
   avatar: ''
 }
 
+export type IUser = UserRegister
+
 export interface TokenData {
   access_token: string // aka. ey...
   token_type: string // aka. bearer
