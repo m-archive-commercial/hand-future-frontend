@@ -53,7 +53,7 @@ export const genPlainWorkPresentation = (work: IWork): JSX.Element => (
 )
 
 export const genInnerWorkPresentation = (work: IWork): JSX.Element => {
-  console.log('generating work presentation: ', work)
+  // console.log('generating work presentation: ', work)
 
   if (work.source.platform === SourcePlatform.bilibiliVideo) {
     return (
@@ -135,7 +135,7 @@ export const WorkPresentation = ({ work }: { work: IWork }): JSX.Element => {
     refresh()
   }
 
-  console.log('work presentation: ', work)
+  // console.log('work presentation: ', work)
 
   const detailBtn = <button type="button" className="btn btn-primary btn-xs">详情</button>
 

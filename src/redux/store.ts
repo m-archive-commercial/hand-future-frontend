@@ -28,6 +28,7 @@ export const store = configureStore({
 	devTools: process.env.NODE_ENV !== 'production',
 	middleware: (getDefaultMiddleware) => getDefaultMiddleware({
 		serializableCheck: {
+			ignoredActionPaths: ['payload', 'register', 'rehydrate', 'err'],
 			ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
 		},
 	})
