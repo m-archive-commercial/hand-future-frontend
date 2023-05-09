@@ -11,12 +11,14 @@ import { FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE } fro
 import { createLogger } from 'redux-logger'
 
 import { baseApi } from '~/states/api/baseApi'
+import { heroApi } from '~/states/api/heroApi'
 
 import { userReducer } from './features/userSlice'
 
 const reducers = combineReducers({
 	user: userReducer,
 	[baseApi.reducerPath]: baseApi.reducer,
+	[heroApi.reducerPath]: heroApi.reducer,
 })
 
 const persistConfig = {
@@ -27,9 +29,16 @@ const persistConfig = {
 const persistedReducer = persistReducer(persistConfig, reducers)
 
 const logger = createLogger({
+	// 消除 RTK Query 框架层面的一些 logger
+	// predicate: (getState, action, logEntry) => ![
+	// 	'config',
+	// 	// 'executeQuery',
+	// 	'internalSubscriptions',
+	// ].find((s) => action.type.includes(s)),
+	//
 	predicate: (getState, action, logEntry) => {
-		// console.log({action})
-		return ![PERSIST, REHYDRATE].includes(action.type)
+		// console.log({ action })
+		return ![PERSIST, REHYDRATE, REGISTER].includes(action.type)
 	},
 })
 
@@ -42,9 +51,11 @@ export const store = configureStore({
 			ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
 		},
 	})
-		.concat(
-			baseApi.middleware,
-			logger,
+		.concat([
+				baseApi.middleware,
+				heroApi.middleware,
+				logger,
+			],
 		),
 })
 

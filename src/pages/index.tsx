@@ -6,7 +6,8 @@
  */
 
 import dynamic from 'next/dynamic'
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
+import { GraphData } from 'react-force-graph-3d'
 
 import { useGetGraphDataQuery } from '~/states/api/heroApi'
 
@@ -19,15 +20,22 @@ const Graph = dynamic(
 )
 
 export const Home = (): JSX.Element => {
-	const { data } = useGetGraphDataQuery()
+	const { data: graphData } = useGetGraphDataQuery(undefined, { refetchOnMountOrArgChange: true })
+	
+	const [data, setData] = useState<GraphData>()
 	
 	useEffect(() => {
-		console.log('graph data: ', data)
-	}, [data])
+		console.log('graphData', graphData)
+		if (graphData) {
+			setData(graphData)
+		}
+	}, [graphData])
 	
+	console.log('indexed graph data', data)
+	// we need to expand the data, since Graph would mutate the data, while the rtk query data is immutable
 	return (
 		<RootLayout>
-			{data ? <Graph data={data}/> : <>Loading...</>}
+			{data ? <Graph data={data}/> : 'Loading...'}
 		</RootLayout>
 	)
 }

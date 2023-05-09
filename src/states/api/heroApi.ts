@@ -1,13 +1,13 @@
-import { GraphData } from 'react-force-graph-3d'
-
 import { baseApi } from '~/states/api/baseApi'
 import { IHero } from '~/ds/hero'
 import { IWork } from '~/ds/work'
+import { IGraphData } from '~/ds/panel_3dgraph'
 
 
 export const heroApi = baseApi.injectEndpoints({
+	overrideExisting: true,
 	endpoints: (build) => ({
-		getGraphData: build.query<GraphData, void>({
+		getGraphData: build.query<IGraphData, void>({
 			query: () => `/hero/graph_data`,
 		}),
 		

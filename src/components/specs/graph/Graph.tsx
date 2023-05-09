@@ -140,11 +140,8 @@ export const Graph = ({ data }: {
 	
 	const nodeThreeObject = (node: NodeObject) => {
 		
-		// DEPRECIATED: load from local image
-		// const imgPath = `/avatar/${id}`
-		
 		// @ts-ignore // 这个库默认 NodeObject 是只有 id,x,y,z等属性
-		const imgPath = getServerImagePath(node.avatar)
+		const imgPath = getServerImagePath(node.avatar)!
 		
 		const imgTexture = new TextureLoader().load(imgPath)
 		const material = new SpriteMaterial({ map: imgTexture, depthWrite: false })
