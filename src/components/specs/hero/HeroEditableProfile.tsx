@@ -10,7 +10,7 @@ import Link from 'next/link'
 import * as AspectRatio from '@radix-ui/react-aspect-ratio'
 import Image from 'next/image'
 
-import { genRandomImage } from '~/utils/random'
+import { getServerImagePath } from '~/utils/image'
 
 import BaseAvatar from '../../shared/BaseAvatar'
 import { WorkPresentation } from '../work/presentations'
@@ -50,12 +50,6 @@ export const HeroEditableProfile = ({ hero, works }: {
 	const COVER_WIDTH = 640
 	const COVER_HEIGHT = 480
 	
-	const getHeroCover = () => {
-		const curCover = hero.cover || hero.avatar
-		if (curCover) return curCover + '?raw=true'
-		return genRandomImage({ width: COVER_WIDTH, height: COVER_HEIGHT })
-	}
-	
 	return (
 		<div className="w-full h-full lg:max-w-screen-lg flex flex-col gap-2">
 			
@@ -65,7 +59,7 @@ export const HeroEditableProfile = ({ hero, works }: {
 				<AspectRatio.Root ratio={16 / 5}>
 					<Image
 						className="h-full w-full object-cover"
-						src={getHeroCover()}
+						src={getServerImagePath(hero.avatar) || ''}
 						alt="cover"
 						width={COVER_WIDTH}
 						height={COVER_HEIGHT}
@@ -114,7 +108,7 @@ export const HeroEditableProfile = ({ hero, works }: {
 								)
 								: (
 									<div onClick={() => setEditingTitle(true)}>
-										{heroState.title.split('\n').map((line, index) => (
+										{(heroState.title || '').split('\n').map((line, index) => (
 											<p key={index}>{line}</p>
 										))}
 									</div>

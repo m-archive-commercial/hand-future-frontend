@@ -13,6 +13,7 @@ import * as htmlToImage from 'html-to-image'
 import { Fonts } from '~/config/fonts'
 import { SAMPLE_DATA } from '~/utils/shareCard'
 import { useGetHeroesListQuery } from '~/states/api/heroApi'
+import { getServerImagePath } from '~/utils/image'
 
 import HeroSearch from '../../components/specs/hero/HeroSearch'
 import { FONT_WEIGHTS } from '../../ds/font'
@@ -109,7 +110,7 @@ export const CardPage = () => {
 						<input id="hero-avatar" type="file" className="hidden" accept={'image/*'} onChange={onAvatarChange}/>
 						
 						{/* 在iphone浏览器里不显示 */}
-						<BaseAvatar customClasses="ml-5" url={data.avatar} size="lg"/>
+						<BaseAvatar customClasses="ml-5" url={getServerImagePath(data.avatar)} name={data.name} size="lg"/>
 					
 					</label>
 					

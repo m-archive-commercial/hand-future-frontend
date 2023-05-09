@@ -1,6 +1,8 @@
 # hand-future-frontend
 
-## todo
+## next/image
+
+不能用 localhost 而要用 127.0.0.1 ！（我悟出来的！）
 
 ## screenshots
 
@@ -64,19 +66,19 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 然后发现，可以使用 multi-select，得到如下结果：
 
-![img.png](multi-select-id-field.png)
+![img.png](images/multi-select-id-field.png)
 
 经过测试，后台确实可解析，结果是用英文逗号分隔的字符串，很标准。
 
-![img.png](multi-select-backend.png)
+![img.png](images/multi-select-backend.png)
 
 接着，发现，我们的notion中已经有了链接字段了，不过是以 page 的entity链接的：
 
-![img.png](connections-pages.png)
+![img.png](images/connections-pages.png)
 
 查看后台数据schema如下：
 
-![img.png](connections-pages-schema.png)
+![img.png](images/connections-pages-schema.png)
 
 ### 打开新的链接
 

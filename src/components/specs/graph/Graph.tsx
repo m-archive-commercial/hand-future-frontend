@@ -16,7 +16,7 @@ import { getHeroRoute } from '~/utils/heroes'
 import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } from '~/hooks/panel_3dgraph'
 import { DagModes, ForceEngines, NumDimensions } from '~/ds/panel_3dgraph'
 import { useRole } from '~/hooks/role'
-import { BACKEND_ENDPOINT } from '~/utils/env'
+import { getServerImagePath } from '~/utils/image'
 
 import useWindowDimensions from '../../../hooks/window'
 import { Section } from '../../shared/Section'
@@ -144,7 +144,7 @@ export const Graph = ({ data }: {
 		// const imgPath = `/avatar/${id}`
 		
 		// @ts-ignore // 这个库默认 NodeObject 是只有 id,x,y,z等属性
-		const imgPath = `${BACKEND_ENDPOINT}${node.avatar}`
+		const imgPath = getServerImagePath(node.avatar)
 		
 		const imgTexture = new TextureLoader().load(imgPath)
 		const material = new SpriteMaterial({ map: imgTexture, depthWrite: false })

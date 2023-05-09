@@ -88,3 +88,7 @@ a {
 
 /* card image shadow << */
 
+
+tr:hover td {
+    @apply bg-gray-700
+}

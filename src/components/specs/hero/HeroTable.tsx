@@ -6,9 +6,11 @@
  */
 
 import clsx from 'clsx'
-import Image from 'next/image'
+
+import { HeroLineView } from '~/components/specs/hero/HeroLineView'
 
 import type { IHero } from '../../../ds/hero'
+
 
 export interface HeroTableProps {
 	heroes: IHero[]
@@ -31,8 +33,8 @@ export const HeroTable = (props: HeroTableProps) => {
 			>
 				<thead>
 				<tr>
+					<th>Avatar</th>
 					<th>Name</th>
-					<th>Title</th>
 				</tr>
 				</thead>
 				
@@ -41,32 +43,7 @@ export const HeroTable = (props: HeroTableProps) => {
 					heroes
 						.filter((hero) => !searchKey || hero.name.includes(searchKey))
 						// .filter((value, i) => i >= pageNumber * pageSize && i < (pageNumber + 1) * pageSize)
-						.map((hero) => (
-							<tr key={hero.id} onClick={() => {onClickHero && onClickHero(hero.id)}}>
-								
-								<td>
-									<div className="flex items-center space-x-3">
-										<div className="avatar">
-											<div className="rounded-full w-12 h-12">
-												{
-													hero.avatar ? <Image src={hero.avatar} alt={hero.name} width={64} height={64}/> : hero.name.slice(0, 2)
-												}
-											</div>
-										</div>
-										<div>
-											<div className="font-bold">{hero.name}</div>
-											<div className="text-sm opacity-50">{hero.cities}</div>
-										</div>
-									</div>
-								</td>
-								
-								<td className="max-w-4">
-									{hero.title}
-									{/* <br/> */}
-									{/* <span className="badge badge-ghost badge-sm">Desktop Support Technician</span> */}
-								</td>
-							</tr>
-						))
+						.map((hero) => <HeroLineView key={hero.id} hero={hero} onClickHero={onClickHero}/>)
 				}
 				
 				</tbody>
