@@ -5,38 +5,20 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { GraphData } from 'react-force-graph-3d'
-
 import { IUser } from '~/ds/user'
 
 import backendAPI from './api'
 
-import type { IHero } from '../ds/hero'
-
-export const fetchHeroGraphData = async (): Promise<GraphData> => {
-  const res = await backendAPI.get('/heroes2/graph_data')
-  return res.data
-}
-
-export const fetchHeroes = async (): Promise<IHero[]> => {
-  const res = await backendAPI.get('/heroes/list')
-  return res.data
-}
-
-export const fetchHero = async (id: string): Promise<IHero> => {
-    const res = await backendAPI.get(`/heroes/?id=${id}`)
-    return res.data
-}
 
 export const fetchUser = async (id: string): Promise<IUser> => {
-  const res = await backendAPI.get('/user', {
-    params: {
-      id
-    }
-  })
-  return res.data
+	const res = await backendAPI.get('/user', {
+		params: {
+			id,
+		},
+	})
+	return res.data
 }
 
 
 export const getHeroRoute = (id: string): string =>
-  `/heroes/${id}`
+	`/heroes/${id}`

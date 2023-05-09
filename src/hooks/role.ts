@@ -7,7 +7,7 @@
 
 import { useSelector } from 'react-redux'
 
-import { selectUser } from '../redux/features/userSlice'
+import { selectUser } from '../states/features/userSlice'
 
 export const useRole = (): string | undefined => {
   const user = useSelector(selectUser)

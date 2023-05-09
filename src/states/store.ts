@@ -7,13 +7,16 @@
 
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import storage from 'redux-persist/lib/storage'
-import { FLUSH, persistReducer, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
+import { FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE } from 'redux-persist'
 import { createLogger } from 'redux-logger'
+
+import { baseApi } from '~/states/api/baseApi'
 
 import { userReducer } from './features/userSlice'
 
 const reducers = combineReducers({
 	user: userReducer,
+	[baseApi.reducerPath]: baseApi.reducer,
 })
 
 const persistConfig = {
@@ -27,7 +30,7 @@ const logger = createLogger({
 	predicate: (getState, action, logEntry) => {
 		// console.log({action})
 		return ![PERSIST, REHYDRATE].includes(action.type)
-	}
+	},
 })
 
 export const store = configureStore({
@@ -40,6 +43,7 @@ export const store = configureStore({
 		},
 	})
 		.concat(
+			baseApi.middleware,
 			logger,
 		),
 })

@@ -8,7 +8,7 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
 
-import { selectUser } from '../../../redux/features/userSlice'
+import { selectUser } from '../../../states/features/userSlice'
 
 import UserAvatar from './UserAvatar'
 

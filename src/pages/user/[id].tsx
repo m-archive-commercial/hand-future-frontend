@@ -5,51 +5,27 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { IUser } from '~/ds/user'
+import { useRouter } from 'next/router'
 
-import RootLayout from '../../components/layouts/root'
+import { useGetHeroQuery, useGetWorksQuery } from '~/states/api/heroApi'
+
+import RootLayout from '../../components/layouts/RootLayout'
 import { HeroEditableProfile } from '../../components/specs/hero/HeroEditableProfile'
-import { fetchHero, fetchUser } from '../../utils/heroes'
-import backendAPI from '../../utils/api'
 
-import type { IWork } from '../../ds/work'
-import type { GetServerSidePropsContext } from 'next'
-import type { IHero } from '../../ds/hero'
-
-export const UserProfilePage = ({ hero, works }: {
-  hero: IHero
-  works: IWork[]
-}): JSX.Element => (
-  <RootLayout>
-    <HeroEditableProfile hero={hero} works={works}/>
-  </RootLayout>
-)
-
-export default UserProfilePage
-
-export const getServerSideProps = async (ctx: GetServerSidePropsContext) => {
-  console.log('server: user/[id]')
-  const id = ctx.query.id as unknown as string
-
-  const user: IUser = await fetchUser(id)
-  console.log('got hero: ', user)
-  const resWorks = await backendAPI.get(`/works?user_id=${id}`)
-  const works = resWorks.data
-  console.log('got works: ', works)
-  return {
-    props: {
-      works,
-      hero: {
-        ...user,
-        id: user.username,
-        avatar: user.avatar,
-        title: user.nickname,
-        connections: [],
-        cover: user.avatar,
-        name: user.nickname,
-        description: '',
-        cities: ''
-      } as IHero,
-    },
-  }
+export const HeroProfilePage = (): JSX.Element => {
+	const router = useRouter()
+	
+	const { id } = router.query
+	const { data: hero } = useGetHeroQuery(id as string)
+	const { data: works = [] } = useGetWorksQuery(id as string)
+	
+	return (
+		<RootLayout>
+			{
+				hero ? <HeroEditableProfile hero={hero} works={works}/> : 'Loading...'
+			}
+		</RootLayout>
+	)
 }
+
+export default HeroProfilePage

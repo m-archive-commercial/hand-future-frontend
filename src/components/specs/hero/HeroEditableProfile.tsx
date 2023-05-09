@@ -5,12 +5,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import Link from 'next/link'
 import * as AspectRatio from '@radix-ui/react-aspect-ratio'
 import Image from 'next/image'
 
-import { IUser } from '~/ds/user'
 import { genRandomImage } from '~/utils/random'
 
 import BaseAvatar from '../../shared/BaseAvatar'
@@ -20,7 +19,6 @@ import backendAPI from '../../../utils/api'
 import { useRole } from '../../../hooks/role'
 
 import { HeroAddWork } from './HeroAddWork'
-import { HeroCover } from './HeroCover'
 import { HeroImageUploader } from './HeroAvatar'
 
 
@@ -55,7 +53,7 @@ export const HeroEditableProfile = ({ hero, works }: {
 	const getHeroCover = () => {
 		const curCover = hero.cover || hero.avatar
 		if (curCover) return curCover + '?raw=true'
-		return genRandomImage({width: COVER_WIDTH, height: COVER_HEIGHT})
+		return genRandomImage({ width: COVER_WIDTH, height: COVER_HEIGHT })
 	}
 	
 	return (
@@ -140,7 +138,7 @@ export const HeroEditableProfile = ({ hero, works }: {
 					
 					<div className="mt-8 flex flx-wrap gap-2">
 						{
-							heroState.connections?.map((connection) => (
+							heroState.partners?.map((connection) => (
 								<Link href={`/heroes/${connection}`} className="bg-primary rounded-md px-3 py-1" key={connection}>
 									{connection}
 								</Link>

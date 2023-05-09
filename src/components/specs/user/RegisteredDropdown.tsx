@@ -10,7 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
 
 import { BaseAvatar } from '../../shared/BaseAvatar'
-import { resetAuth, selectAvatar, selectUser } from '../../../redux/features/userSlice'
+import { resetAuth, selectAvatar, selectUser } from '../../../states/features/userSlice'
 
 import ProfileDialog from './ProfileDialog'
 

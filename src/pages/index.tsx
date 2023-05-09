@@ -3,33 +3,35 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
-*/
+ */
 
 import dynamic from 'next/dynamic'
-import { GetServerSideProps } from 'next'
+import { useEffect } from 'react'
 
-import RootLayout from '../components/layouts/root'
-import backendAPI from '../utils/api'
-import { fetchHeroes, fetchHeroGraphData } from '../utils/heroes'
-import { IHero } from '../ds/hero'
+import { useGetGraphDataQuery } from '~/states/api/heroApi'
 
-import type { GraphData } from 'react-force-graph-3d'
+import RootLayout from '../components/layouts/RootLayout'
 
 // ref: https://nextjs.org/docs/advanced-features/dynamic-import
 const Graph = dynamic(
-  () => import('../components/specs/graph/Graph'),
-  { ssr: false }
+	() => import('../components/specs/graph/Graph'),
+	{ ssr: false },
 )
 
-export const Home = ({data}: {data: GraphData}): JSX.Element => (
-  <RootLayout>
-    <Graph data={data}/>
-  </RootLayout>
-)
+export const Home = (): JSX.Element => {
+	const { data } = useGetGraphDataQuery()
+	
+	useEffect(() => {
+		console.log('graph data: ', data)
+	}, [data])
+	
+	return (
+		<RootLayout>
+			{data ? <Graph data={data}/> : <>Loading...</>}
+		</RootLayout>
+	)
+}
 
 export default Home
 
-
-
-export const getServerSideProps: GetServerSideProps = async () => ({ props: { data: await fetchHeroGraphData()} })
 

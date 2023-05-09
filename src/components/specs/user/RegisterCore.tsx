@@ -15,7 +15,7 @@ import InputText from '../../shared/InputText'
 import backendAPI from '../../../utils/api'
 import { INIT_USER } from '../../../ds/user'
 import { BaseAvatar } from '../../shared/BaseAvatar'
-import { selectAvatar, setAvatar, setToken, setUser, setWorks } from '../../../redux/features/userSlice'
+import { selectAvatar, setAvatar, setToken, setUser, setWorks } from '../../../states/features/userSlice'
 
 import type { ChangeEvent, FormEvent} from 'react'
 import type { TokenData, UserProfile } from '../../../ds/user'

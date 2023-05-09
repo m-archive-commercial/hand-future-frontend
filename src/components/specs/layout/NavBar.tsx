@@ -9,7 +9,7 @@ import { useSelector } from 'react-redux'
 
 import RegisterDialog from '../user/RegisterDialog'
 import RegisteredDropdown from '../user/RegisteredDropdown'
-import { selectUser } from '../../../redux/features/userSlice'
+import { selectUser } from '../../../states/features/userSlice'
 import settings from '../../../../config/sys/settings.json'
 import { useRole } from '../../../hooks/role'
 

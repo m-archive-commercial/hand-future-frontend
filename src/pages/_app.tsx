@@ -10,7 +10,7 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { persistStore } from 'redux-persist'
 import { toast, ToastContainer } from 'react-toastify'
 
-import { store } from '../redux/store'
+import { store } from '../states/store'
 
 import type { AppProps } from 'next/app'
 
