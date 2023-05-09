@@ -8,7 +8,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import storage from 'redux-persist/lib/storage'
 import { FLUSH, persistReducer, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist'
-import logger from 'redux-logger'
+import { createLogger } from 'redux-logger'
 
 import { userReducer } from './features/userSlice'
 
@@ -22,6 +22,13 @@ const persistConfig = {
 }
 
 const persistedReducer = persistReducer(persistConfig, reducers)
+
+const logger = createLogger({
+	predicate: (getState, action, logEntry) => {
+		// console.log({action})
+		return ![PERSIST, REHYDRATE].includes(action.type)
+	}
+})
 
 export const store = configureStore({
 	reducer: persistedReducer,

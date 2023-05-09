@@ -8,13 +8,11 @@
 import _ from 'lodash'
 import axios from 'axios'
 
+import { BACKEND_PORT, FRONTEND_PORT, HOST } from '~/config'
+
 import type { AxiosRequestConfig } from 'axios'
 
 export const USER_AGENT = 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/110.0.0.0 Safari/537.36'
-
-export const HOST = 'gkleifeng.com'
-export const BACKEND_PORT = 3001
-export const FRONTEND_PORT = 3000
 
 export const TOKEN_KEY = 'Authorization'
 
@@ -28,6 +26,8 @@ export const AXIOS_INIT_CONFIG: AxiosRequestConfig = {
   },
   withCredentials: true
 }
+
+
 export const backendAPI = axios.create(AXIOS_INIT_CONFIG)
 
 export const frontendAPI = axios.create({
