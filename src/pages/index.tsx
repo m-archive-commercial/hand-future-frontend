@@ -6,10 +6,10 @@
  */
 
 import dynamic from 'next/dynamic'
-import { useEffect, useState } from 'react'
 import { GraphData } from 'react-force-graph-3d'
+import { GetServerSideProps } from 'next'
 
-import { useGetGraphDataQuery } from '~/states/api/heroApi'
+import backendAPI from '~/utils/api'
 
 import RootLayout from '../components/layouts/RootLayout'
 
@@ -19,17 +19,15 @@ const Graph = dynamic(
 	{ ssr: false },
 )
 
-export const Home = (): JSX.Element => {
-	const { data: graphData } = useGetGraphDataQuery(undefined, { refetchOnMountOrArgChange: true })
+export const Home = (
+	{ data }: { data: GraphData },
+): JSX.Element => {
+	/**
+	 * todo: 不知道为什么不可以客户端rtk query获取 data list，以后再说吧
+	 *
+	 * 	let { data } = useGetGraphDataQuery(undefined, { refetchOnMountOrArgChange: true })
+	 */
 	
-	const [data, setData] = useState<GraphData>()
-	
-	useEffect(() => {
-		console.log('graphData', graphData)
-		if (graphData) {
-			setData(graphData)
-		}
-	}, [graphData])
 	
 	console.log('indexed graph data', data)
 	// we need to expand the data, since Graph would mutate the data, while the rtk query data is immutable
@@ -41,5 +39,11 @@ export const Home = (): JSX.Element => {
 }
 
 export default Home
+
+export const getServerSideProps: GetServerSideProps = async () => {
+	const { data } = await backendAPI.get('/hero/graph_data/')
+	return ({ props: { data } })
+}
+
 
 

@@ -12,7 +12,6 @@ import { Matrix4, Sprite, SpriteMaterial, TextureLoader, Vector3 } from 'three'
 import { useRouter } from 'next/router'
 import { useIdleTimer } from 'react-idle-timer'
 
-import { getHeroRoute } from '~/utils/heroes'
 import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } from '~/hooks/panel_3dgraph'
 import { DagModes, ForceEngines, NumDimensions } from '~/ds/panel_3dgraph'
 import { useRole } from '~/hooks/role'
@@ -132,7 +131,7 @@ export const Graph = ({ data }: {
 		// 双击跳转到对应主页
 		const id = node.id as string
 		if (lastClickId === id && +new Date() - +lastClickTime < 1000) {
-			window.open(getHeroRoute(id), '_blank')
+			window.open(`/heroes/${id}`, '_blank')
 		}
 		lastClickId = id
 		lastClickTime = new Date()
