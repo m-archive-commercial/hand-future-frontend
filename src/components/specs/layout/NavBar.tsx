@@ -5,14 +5,14 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { useSelector } from 'react-redux'
+import Link from 'next/link'
+import { useSession } from 'next-auth/react'
 
 import { Avatar, AvatarFallback } from '~/components/ui/avatar'
+import { useAdmin } from '~/hooks/use-role'
 
 import RegisteredDropdown from '../account/RegisteredDropdown'
-import { selectUser } from '../../../states/features/userSlice'
 import settings from '../../../../config/sys/settings.json'
-import { useRole } from '../../../hooks/use-role'
 
 import { MenuItem } from './Menu'
 
@@ -22,8 +22,10 @@ export const SVG_PATH_ARROW_RIGHT = 'M8.59,16.58L13.17,12L8.59,7.41L10,6L16,12L1
 export const SVG_PATH_ARROW_DOWN = 'M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6,10L7.41,8.58Z'
 
 export const NavBar = (): JSX.Element => {
-	const user = useSelector(selectUser)
-	const isAdmin = useRole() === 'admin'
+	
+	const { data: sessionData } = useSession()
+	const isAdmin = useAdmin()
+	
 	const menus = (settings.menus as IMenuItem[])
 		.filter((menuItem) => (
 			!menuItem.admin || isAdmin
@@ -77,12 +79,14 @@ export const NavBar = (): JSX.Element => {
 				{/*  <input type="text" placeholder="Search" className="input input-bordered"/> */}
 				{/* </div> */}
 				{
-					user.basic
+					sessionData
 						? <RegisteredDropdown/>
 						: (
-							<Avatar>
-								<AvatarFallback>登录</AvatarFallback>
-							</Avatar>
+							<Link href={'/auth/signin'}>
+								<Avatar>
+									<AvatarFallback>登录</AvatarFallback>
+								</Avatar>
+							</Link>
 						)
 					// <RegisterDialog/>
 				}

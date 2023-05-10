@@ -11,7 +11,7 @@ import { toast } from 'react-toastify'
 import { AxiosError } from 'axios'
 import { useRouter } from 'next/router'
 
-import backendAPI from '../utils/api'
+import backendAPI from '../lib/api'
 import RootLayout from '../components/layouts/RootLayout'
 
 import type { GraphData } from 'react-force-graph-3d'

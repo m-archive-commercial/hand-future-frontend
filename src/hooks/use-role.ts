@@ -5,17 +5,15 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { useSelector } from 'react-redux'
+import { useSession } from 'next-auth/react'
+import { skipToken } from '@reduxjs/toolkit/query'
 
-import { selectUser } from '../states/features/userSlice'
-
-export const useRole = (): string | undefined => {
-  const user = useSelector(selectUser)
-  return user.basic?.role
-}
-
+import { useGetUserQuery } from '~/states/api/userApi'
 
 export const useAdmin = (): boolean => {
-  const role = useRole()
-  return role === 'admin'
+	
+	const { data: sessionData } = useSession()
+	const { data: userData } = useGetUserQuery(sessionData?.user.id ?? skipToken)
+	
+	return userData?.role === 'admin'
 }

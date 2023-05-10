@@ -9,7 +9,7 @@ import dynamic from 'next/dynamic'
 import { GraphData } from 'react-force-graph-3d'
 import { GetServerSideProps } from 'next'
 
-import backendAPI from '~/utils/api'
+import backendAPI from '~/lib/api'
 
 import RootLayout from '../components/layouts/RootLayout'
 
@@ -28,8 +28,6 @@ export const Home = (
 	 * 	let { data } = useGetGraphDataQuery(undefined, { refetchOnMountOrArgChange: true })
 	 */
 	
-	
-	console.log('indexed graph data', data)
 	// we need to expand the data, since Graph would mutate the data, while the rtk query data is immutable
 	return (
 		<RootLayout>

@@ -7,13 +7,13 @@
 
 import { useState } from 'react'
 import * as AspectRatio from '@radix-ui/react-aspect-ratio'
-import Image from 'next/image'
 
-import { getServerImagePath } from '~/utils/image'
-import { COVER_HEIGHT, COVER_WIDTH } from '~/config/cover'
+import { getServerImagePath } from '~/lib/image'
+import { BG_COVER_FALLBACK } from '~/config/cover'
 import { useAdmin } from '~/hooks/use-role'
 import { PartnerLink } from '~/components/specs/hero/PartnerLink'
 import { useUpdateUserMutation } from '~/states/api/userApi'
+import { Button } from '~/components/ui/button'
 
 import BaseAvatar from '../../shared/BaseAvatar'
 import { WorkPresentation } from '../work/presentations'
@@ -55,19 +55,27 @@ export const HeroEditableProfile = ({ hero, works }: {
 			<div className="shadow-blackA7 w-full max-auto overflow-hidden rounded-md shadow-[0_2px_10px] relative">
 				
 				<AspectRatio.Root ratio={16 / 5}>
-					<Image
-						className="h-full w-full object-cover"
-						src={getServerImagePath(hero.avatar) || '/bg/fading-blue-background.jpg'}
-						alt="cover"
-						width={COVER_WIDTH}
-						height={COVER_HEIGHT}
-					/>
+					<div style={{
+						backgroundImage: `linear-gradient(to right, rgba(9, 148, 143, 1), rgba(9, 148, 143, 0)), url('${getServerImagePath(hero.avatar) || BG_COVER_FALLBACK}')`,
+						backgroundRepeat: 'no-repeat',
+						backgroundSize: 'cover',
+					}}
+					     className="h-full w-full min-h-screen"></div>
+					
+					{/*<Image*/}
+					{/*	className="h-full w-full object-cover brightness-50"*/}
+					{/*	src={getServerImagePath(hero.avatar) || BG_COVER_FALLBACK}*/}
+					{/*	alt="cover"*/}
+					{/*	width={COVER_WIDTH}*/}
+					{/*	height={COVER_HEIGHT}*/}
+					{/*/>*/}
+					
 					{
 						isAdmin && (
-							<label className="btn btn-primary btn-sm absolute bottom-2 right-2">
+							<Button className="absolute bottom-2 right-2">
 								更改封面
 								<HeroImageUploader hero={hero} field="cover"/>
-							</label>
+							</Button>
 						)
 					}
 				</AspectRatio.Root>
@@ -129,12 +137,12 @@ export const HeroEditableProfile = ({ hero, works }: {
 						}
 					</div>
 					
-					<div className="mt-8 flex items-center gap-2">
+					<div className="mt-8 flex items-center gap-1">
 						<span>携手嘉宾：</span>
 						{
 							hero.partners?.length ?
 								hero.partners.map((id) => <PartnerLink id={id} key={id}/>)
-								: '暂无！'
+								: <span>暂无！</span>
 						}
 					</div>
 				

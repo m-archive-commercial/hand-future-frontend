@@ -1,5 +1,5 @@
 import { baseApi } from '~/states/api/baseApi'
-import { IHero } from '~/ds/hero'
+import { IUser } from '~/ds/user'
 
 
 export const TAG_USER = 'user'
@@ -11,12 +11,12 @@ export const userApi = baseApi
 	.injectEndpoints({
 		overrideExisting: true,
 		endpoints: (build) => ({
-			getUser: build.query<IHero, string>({
+			getUser: build.query<IUser, string>({
 				query: (userId) => `/user/?user_id=${userId}`,
 				providesTags: (result, error, arg) => [{ type: TAG_USER, id: arg }],
 			}),
 			
-			updateUser: build.mutation<void, IHero>({
+			updateUser: build.mutation<void, IUser>({
 				query: (data) => ({
 					url: `/user/update`,
 					body: data,
@@ -30,5 +30,6 @@ export const userApi = baseApi
 
 export const {
 	useGetUserQuery,
+	useLazyGetUserQuery,
 	useUpdateUserMutation,
 } = userApi

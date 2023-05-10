@@ -13,13 +13,11 @@ import { PersistConfig } from 'redux-persist/es/types'
 
 import { baseApi } from '~/states/api/baseApi'
 import { heroApi } from '~/states/api/heroApi'
-import { isClient } from '~/utils/server'
+import { isClient } from '~/lib/server'
 import { USE_PERSISTOR } from '~/config'
 
-import { userReducer } from './features/userSlice'
 
 const rootReducer = combineReducers({
-	user: userReducer,
 	[baseApi.reducerPath]: baseApi.reducer,
 	[heroApi.reducerPath]: heroApi.reducer,
 })

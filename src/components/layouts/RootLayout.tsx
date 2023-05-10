@@ -20,7 +20,7 @@ export const RootLayout = ({ children }: { children: ReactNode }): JSX.Element =
 		
 		<NavBar/>
 		
-		<div className="flex-1 flex flex-col justify-center items-center py-1">
+		<div className="flex-1 flex flex-col justify-center items-center">
 			{children}
 		</div>
 	

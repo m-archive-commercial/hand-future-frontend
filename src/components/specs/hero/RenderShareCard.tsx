@@ -9,7 +9,7 @@
 import clsx from 'clsx'
 import { QRCodeSVG } from 'qrcode.react'
 
-import { getServerImagePath } from '~/utils/image'
+import { getServerImagePath } from '~/lib/image'
 
 import BaseAvatar from '../../shared/BaseAvatar'
 

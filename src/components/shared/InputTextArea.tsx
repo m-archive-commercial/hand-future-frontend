@@ -7,7 +7,7 @@
 
 import React from 'react'
 
-import { genPascalWithSpace } from '../../utils/algo'
+import { genPascalWithSpace } from '../../lib/algo'
 
 export interface InputAction {
 	type: string

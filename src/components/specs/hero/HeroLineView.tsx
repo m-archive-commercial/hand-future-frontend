@@ -1,5 +1,5 @@
 import { IHero } from '~/ds/hero'
-import { getServerImagePath } from '~/utils/image'
+import { getServerImagePath } from '~/lib/image'
 import BaseAvatar from '~/components/shared/BaseAvatar'
 
 export const HeroLineView = ({

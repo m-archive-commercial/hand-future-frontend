@@ -9,7 +9,7 @@ import { useRef } from 'react'
 
 import { useUpdateUserMutation } from '~/states/api/userApi'
 
-import backendAPI from '../../../utils/api'
+import backendAPI from '../../../lib/api'
 
 import type { HTMLAttributes } from 'react'
 import type { IHero } from '~/ds/hero'
@@ -20,7 +20,7 @@ export const HeroImageUploader = ({ hero, field, ...props }: HTMLAttributes<HTML
 	hero: IHero
 }): JSX.Element => {
 	const ref = useRef<HTMLInputElement>(null)
-	const [updateHero] = useUpdateUserMutation()
+	const [updateUser] = useUpdateUserMutation()
 	
 	return (
 		<input {...props} ref={ref} hidden type="file" accept={'image/*'} onChange={async (e) => {
@@ -34,7 +34,7 @@ export const HeroImageUploader = ({ hero, field, ...props }: HTMLAttributes<HTML
 			const resUploadImage = await backendAPI.post('/files/upload', formData)
 			const imgPath = resUploadImage.data
 			console.log({ resUploadImage, field, imgPath })
-			await updateHero({ id: hero.id, [field]: imgPath })
+			await updateUser({ id: hero.id, [field]: imgPath })
 		}}
 		/>
 	)

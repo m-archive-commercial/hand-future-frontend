@@ -3,44 +3,12 @@
  *
  * This source code is licensed under the MIT license found in the
  * LICENSE file in the root directory of this source tree.
-*/
+ */
+import { IHero } from '~/ds/hero'
 
-export interface UserLogin {
-  username: string
-  password: string
+
+export interface IUser extends IHero {
+	role?: 'user' | 'admin'
 }
 
-export interface UserRegister extends UserLogin {
-  email: string
-  nickname: string
-  avatar: string
-}
-
-export interface UserSocial {
-  following: number
-  followed: number
-  likes: number
-}
-
-export interface UserProfile extends UserRegister {
-  desc?: string
-  sex?: string
-  city?: string
-  social: UserSocial // todo: potential error since not init
-  role?: string
-}
-
-export const INIT_USER: UserRegister = {
-  username: '',
-  password: '',
-  email: '',
-  nickname: '',
-  avatar: ''
-}
-
-export type IUser = UserRegister
-
-export interface TokenData {
-  access_token: string // aka. ey...
-  token_type: string // aka. bearer
-}
+export type User = IUser | null

@@ -8,16 +8,18 @@
 import Image from 'next/image'
 import { toast } from 'react-toastify'
 
-import { SourcePlatform, TypographyLayout } from '../../../ds/work'
+import { useAdmin } from '~/hooks/use-role'
+import { SourcePlatform, TypographyLayout } from '~/ds/work'
+import { useRefresh } from '~/lib/router'
+
 import settings from '../../../ds/settings'
-import { useRole } from '../../../hooks/use-role'
-import backendAPI from '../../../utils/api'
-import { useRefresh } from '../../../utils/router'
+import backendAPI from '../../../lib/api'
 import { BilibiliVideo, getBvidFromUrl } from '../../shared/BilibiliVideo'
 import MyDialog from '../../shared/MyDialog'
 import { ConnectionsLine } from '../../shared/ConnectionsLine'
 
-import type { IWork } from '../../../ds/work'
+import type { IWork } from '~/ds/work'
+
 
 const genWorkContent = (work: IWork): JSX.Element => (
 	<div className="prose p-2">
@@ -126,7 +128,7 @@ export const genInnerWorkPresentation = (work: IWork): JSX.Element => {
 	}
 }
 export const WorkPresentation = ({ work }: { work: IWork }): JSX.Element => {
-	const isAdmin = useRole() === 'admin'
+	const isAdmin = useAdmin()
 	const refresh = useRefresh()
 	
 	const onDelete = async () => {

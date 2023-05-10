@@ -19,19 +19,25 @@ import { USE_PERSISTOR } from '~/config'
 
 import { persistStore } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
+import { SessionProvider } from 'next-auth/react'
 
 
-const MyApp = ({ Component, pageProps }: AppProps) => (
+const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => (
 	<Provider store={store}>
-		{
-			USE_PERSISTOR ? (
-				<PersistGate persistor={persistStore(store)} loading={null}>
-					<Component {...pageProps} />
-				</PersistGate>
-			) : <Component {...pageProps}/>
-		}
+		<SessionProvider session={session}>
+			
+			{
+				USE_PERSISTOR ? (
+					<PersistGate persistor={persistStore(store)} loading={null}>
+						<Component {...pageProps} />
+					</PersistGate>
+				) : <Component {...pageProps}/>
+			}
+			
+			<ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_RIGHT}/>
 		
-		<ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_RIGHT}/>
+		</SessionProvider>
+	
 	</Provider>
 )
 

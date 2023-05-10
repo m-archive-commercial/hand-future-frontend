@@ -14,8 +14,8 @@ import { useIdleTimer } from 'react-idle-timer'
 
 import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } from '~/hooks/use-3dgraph'
 import { DagModes, ForceEngines, NumDimensions } from '~/ds/panel_3dgraph'
-import { useRole } from '~/hooks/use-role'
-import { getServerImagePath } from '~/utils/image'
+import { getServerImagePath } from '~/lib/image'
+import { useAdmin } from '~/hooks/use-role'
 
 import useWindowDimensions from '../../../hooks/use-window'
 import { Section } from '../../shared/Section'
@@ -29,7 +29,7 @@ export const Graph = ({ data }: {
 }): JSX.Element => {
 	// console.log('graph data: ', data)
 	
-	const isAdmin = useRole() === 'admin'
+	const isAdmin = useAdmin()
 	const fgRef = useRef<ForceGraphMethods>()
 	const router = useRouter()
 	

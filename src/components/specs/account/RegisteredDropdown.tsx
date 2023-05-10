@@ -6,38 +6,38 @@
  */
 
 import React from 'react'
-import { useDispatch, useSelector } from 'react-redux'
 import Link from 'next/link'
+import { signOut } from 'next-auth/react'
+import { IconLoaderQuarter } from '@tabler/icons-react'
 
-import { BaseAvatar } from '../../shared/BaseAvatar'
-import { resetAuth, selectAvatar, selectUser } from '../../../states/features/userSlice'
+import { useUser } from '~/hooks/use-user'
+import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
 
 
 export const RegisteredDropdown = () => {
-	const dispatch = useDispatch()
-	const user = useSelector(selectUser)
-	const avatar = useSelector(selectAvatar)
+	const user = useUser()
 	
-	if (!user.basic) {
-		console.error('BUG: user should be inited in RegisteredDropdown')
-		return <div/>
-	}
+	if (!user) return <IconLoaderQuarter className={'animate-spin'}/>
+	
 	
 	return (
 		// avatar with image
 		<div className="dropdown dropdown-end">
 			<div role="button" tabIndex={0} className="m-1">
-				<BaseAvatar name={user.basic.nickname} url={avatar} size="md"/>
+				<Avatar>
+					<AvatarImage src={user.avatar}/>
+					<AvatarFallback>{user.name}</AvatarFallback>
+				</Avatar>
 			</div>
 			
 			<ul className="w-24 mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box">
 				
 				<li>
-					<Link href={'/user/' + user.basic.username}>资料</Link>
+					<Link href={'/user/' + user.id}>资料</Link>
 				</li>
 				
 				<li>
-					<button type="button" onClick={() => {dispatch(resetAuth())}}>注销</button>
+					<button type="button" onClick={() => signOut()}>注销</button>
 				</li>
 			
 			</ul>

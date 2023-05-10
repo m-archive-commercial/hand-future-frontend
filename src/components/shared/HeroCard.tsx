@@ -8,7 +8,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { getServerImagePath } from '~/utils/image'
+import { getServerImagePath } from '~/lib/image'
 
 import type { IHero } from '../../ds/hero'
 

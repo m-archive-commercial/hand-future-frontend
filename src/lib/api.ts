@@ -8,7 +8,7 @@
 import _ from 'lodash'
 import axios from 'axios'
 
-import { BACKEND_ENDPOINT } from '~/utils/env'
+import { BACKEND_ENDPOINT } from '~/lib/env'
 
 import type { AxiosRequestConfig } from 'axios'
 

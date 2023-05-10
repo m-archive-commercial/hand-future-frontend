@@ -13,7 +13,7 @@ import { WECHAT_ARTICLE_URL_PLACEHOLDER } from '~/config'
 import { SourcePlatform } from '~/ds/work'
 
 import { AccordionContent, AccordionItem, AccordionTrigger } from '../../shared/MyAccordion'
-import backendAPI from '../../../utils/api'
+import backendAPI from '../../../lib/api'
 import { SimpleInputLine } from '../../shared/SimpleInputLine'
 
 import { HeroControls } from './HeroControls'

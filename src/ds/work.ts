@@ -9,7 +9,7 @@ import { v4 } from 'uuid'
 
 import { mockConnections, mockDesc, mockTitle } from '~/mock/hero'
 
-import { genRandomImage } from '../utils/random'
+import { genRandomImage } from '../lib/random'
 
 
 export enum SourcePlatform {
