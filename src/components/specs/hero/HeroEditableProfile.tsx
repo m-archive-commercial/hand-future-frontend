@@ -45,7 +45,7 @@ export const HeroEditableProfile = ({ hero, works }: {
 	const [isEditingTitle, setEditingTitle] = useState(false)
 	const [isEditingDesc, setEditingDesc] = useState(false)
 	
-	console.log({ hero })
+	console.log({ hero, heroState })
 	
 	const COVER_WIDTH = 640
 	const COVER_HEIGHT = 480
@@ -59,7 +59,7 @@ export const HeroEditableProfile = ({ hero, works }: {
 				<AspectRatio.Root ratio={16 / 5}>
 					<Image
 						className="h-full w-full object-cover"
-						src={getServerImagePath(hero.avatar) || ''}
+						src={getServerImagePath(hero.avatar) || '/bg/fading-blue-background.jpg'}
 						alt="cover"
 						width={COVER_WIDTH}
 						height={COVER_HEIGHT}

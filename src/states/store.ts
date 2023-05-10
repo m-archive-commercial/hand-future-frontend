@@ -9,24 +9,25 @@ import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import storage from 'redux-persist/lib/storage'
 import { FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE } from 'redux-persist'
 import { createLogger } from 'redux-logger'
+import { PersistConfig } from 'redux-persist/es/types'
 
 import { baseApi } from '~/states/api/baseApi'
 import { heroApi } from '~/states/api/heroApi'
 
 import { userReducer } from './features/userSlice'
 
-const reducers = combineReducers({
+const rootReducer = combineReducers({
 	user: userReducer,
 	[baseApi.reducerPath]: baseApi.reducer,
 	[heroApi.reducerPath]: heroApi.reducer,
 })
 
-const persistConfig = {
-	key: 'root',
-	storage,
-}
 
-const persistedReducer = persistReducer(persistConfig, reducers)
+const reducer = persistReducer({
+	key: 'root',
+	version: 2,
+	storage, // storage 不能在server端被调用
+} as PersistConfig<any>, rootReducer)
 
 const logger = createLogger({
 	// 消除 RTK Query 框架层面的一些 logger
@@ -43,7 +44,7 @@ const logger = createLogger({
 })
 
 export const store = configureStore({
-	reducer: persistedReducer,
+	reducer,
 	devTools: process.env.NODE_ENV !== 'production',
 	middleware: (getDefaultMiddleware) => getDefaultMiddleware({
 		serializableCheck: {
