@@ -19,7 +19,7 @@ export const TOKEN_KEY = 'Authorization'
 
 export const AXIOS_INIT_CONFIG: AxiosRequestConfig = {
 	baseURL: BACKEND_ENDPOINT,
-	timeout: 3000, // ref: https://stackoverflow.com/a/41754655/9422455
+	timeout: 10000, // ref: https://stackoverflow.com/a/41754655/9422455
 	headers: {
 		'User-Agent': USER_AGENT,
 	},
