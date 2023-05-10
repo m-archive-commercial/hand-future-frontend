@@ -7,8 +7,9 @@
 
 import { useSelector } from 'react-redux'
 
-import RegisterDialog from '../user/RegisterDialog'
-import RegisteredDropdown from '../user/RegisteredDropdown'
+import { Avatar, AvatarFallback } from '~/components/ui/avatar'
+
+import RegisteredDropdown from '../account/RegisteredDropdown'
 import { selectUser } from '../../../states/features/userSlice'
 import settings from '../../../../config/sys/settings.json'
 import { useRole } from '../../../hooks/use-role'
@@ -36,7 +37,7 @@ export const NavBar = (): JSX.Element => {
 		))
 	
 	return (
-		<div className="navbar bg-base-100 border-b-2 w-full inline-flex justify-between">
+		<div className="navbar bg-theme border-b-2 w-full inline-flex justify-between">
 			
 			{/* 大屏：logo；小屏：折叠菜单 */}
 			<div>
@@ -76,7 +77,14 @@ export const NavBar = (): JSX.Element => {
 				{/*  <input type="text" placeholder="Search" className="input input-bordered"/> */}
 				{/* </div> */}
 				{
-					user.basic ? <RegisteredDropdown/> : <RegisterDialog/>
+					user.basic
+						? <RegisteredDropdown/>
+						: (
+							<Avatar>
+								<AvatarFallback>登录</AvatarFallback>
+							</Avatar>
+						)
+					// <RegisterDialog/>
 				}
 			
 			</div>

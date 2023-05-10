@@ -205,6 +205,7 @@ export const Graph = ({ data }: {
 			</div>
 			
 			<ForceGraph3D
+				
 				ref={fgRef}
 				
 				// data

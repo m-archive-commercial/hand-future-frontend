@@ -15,7 +15,7 @@ import type { ReactNode } from 'react'
  * 关于如何定义props，ref: /app-playground/app/layouts/layout.tsx
  */
 export const RootLayout = ({ children }: { children: ReactNode }): JSX.Element => (
-	<div className="w-screen md:w-[1080px] mx-auto min-h-screen flex flex-col">
+	<div className="w-screen min-h-screen flex flex-col">
 		<Header/>
 		
 		<NavBar/>
