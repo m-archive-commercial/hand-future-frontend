@@ -49,7 +49,7 @@ export const HeroEditableProfile = ({ hero, works }: {
 	
 	
 	return (
-		<div className="w-full h-full lg:max-w-screen-lg flex flex-col gap-2">
+		<div className="w-full grow flex flex-col gap-2">
 			
 			{/* cover with frontend captains */}
 			<div className="shadow-blackA7 w-full max-auto overflow-hidden rounded-md shadow-[0_2px_10px] relative">
