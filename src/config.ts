@@ -4,3 +4,6 @@ export const WECHAT_ARTICLE_URL_PLACEHOLDER = 'https://mp.weixin.qq.com/s/5eONLh
 export const HOST = 'localhost' // 'gkleifeng.com'
 export const BACKEND_PORT = 3001
 export const FRONTEND_PORT = 3000
+
+
+export const USE_PERSISTOR = false

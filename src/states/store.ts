@@ -7,13 +7,14 @@
 
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import storage from 'redux-persist/lib/storage'
-import { FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE } from 'redux-persist'
+import { PERSIST, persistReducer, REGISTER, REHYDRATE } from 'redux-persist'
 import { createLogger } from 'redux-logger'
 import { PersistConfig } from 'redux-persist/es/types'
 
 import { baseApi } from '~/states/api/baseApi'
 import { heroApi } from '~/states/api/heroApi'
 import { isClient } from '~/utils/server'
+import { USE_PERSISTOR } from '~/config'
 
 import { userReducer } from './features/userSlice'
 
@@ -24,11 +25,11 @@ const rootReducer = combineReducers({
 })
 
 
-const reducer = persistReducer({
+const reducer = USE_PERSISTOR ? persistReducer({
 	key: 'root',
 	version: 2,
 	storage, // storage 不能在server端被调用
-} as PersistConfig<any>, rootReducer)
+} as PersistConfig<any>, rootReducer) : rootReducer
 
 const logger = createLogger({
 	// 消除 RTK Query 框架层面的一些 logger
@@ -41,6 +42,8 @@ const logger = createLogger({
 	predicate: (getState, action, logEntry) => {
 		// console.log({ action })
 		return ![PERSIST, REHYDRATE, REGISTER].includes(action.type)
+			&& !action.type.includes('subscriptions')
+			&& !action.type.includes('middleware')
 	},
 })
 
@@ -57,10 +60,11 @@ export const store = configureStore({
 	reducer,
 	devTools: process.env.NODE_ENV !== 'production',
 	middleware: (getDefaultMiddleware) => getDefaultMiddleware({
-		serializableCheck: {
-			ignoredActionPaths: ['payload', 'register', 'rehydrate', 'err'],
-			ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-		},
+		serializableCheck: false, // ref: https://stackoverflow.com/a/63244831/9422455
+		// {
+		// 	ignoredActionPaths: ['payload', 'register', 'rehydrate', 'err'],
+		// 	ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+		// },
 	})
 		.concat(middlewares),
 })

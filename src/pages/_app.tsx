@@ -6,8 +6,6 @@
  */
 
 import { Provider } from 'react-redux'
-import { PersistGate } from 'redux-persist/integration/react'
-import { persistStore } from 'redux-persist'
 import { toast, ToastContainer } from 'react-toastify'
 
 import { store } from '../states/store'
@@ -17,12 +15,22 @@ import type { AppProps } from 'next/app'
 import '../styles/globals.css'
 import 'react-toastify/dist/ReactToastify.css'
 
+import { USE_PERSISTOR } from '~/config'
+
+import { persistStore } from 'redux-persist'
+import { PersistGate } from 'redux-persist/integration/react'
+
 
 const MyApp = ({ Component, pageProps }: AppProps) => (
 	<Provider store={store}>
-		<PersistGate persistor={persistStore(store)} loading={null}>
-			<Component {...pageProps} />
-		</PersistGate>
+		{
+			USE_PERSISTOR ? (
+				<PersistGate persistor={persistStore(store)} loading={null}>
+					<Component {...pageProps} />
+				</PersistGate>
+			) : <Component {...pageProps}/>
+		}
+		
 		<ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_RIGHT}/>
 	</Provider>
 )

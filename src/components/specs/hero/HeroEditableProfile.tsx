@@ -6,49 +6,47 @@
  */
 
 import { useState } from 'react'
-import Link from 'next/link'
 import * as AspectRatio from '@radix-ui/react-aspect-ratio'
 import Image from 'next/image'
 
 import { getServerImagePath } from '~/utils/image'
+import { COVER_HEIGHT, COVER_WIDTH } from '~/config/cover'
+import { useAdmin } from '~/hooks/use-role'
+import { PartnerLink } from '~/components/specs/hero/PartnerLink'
+import { useUpdateUserMutation } from '~/states/api/userApi'
 
 import BaseAvatar from '../../shared/BaseAvatar'
 import { WorkPresentation } from '../work/presentations'
 import { Section } from '../../shared/Section'
-import backendAPI from '../../../utils/api'
-import { useRole } from '../../../hooks/role'
 
 import { HeroAddWork } from './HeroAddWork'
 import { HeroImageUploader } from './HeroAvatar'
 
 
-import type { IWork } from '../../../ds/work'
-import type { IHero } from '../../../ds/hero'
+import type { IWork } from '~/ds/work'
+import type { IHero } from '~/ds/hero'
+
 
 export const HeroEditableProfile = ({ hero, works }: {
 	hero: IHero
 	works: IWork[]
 }): JSX.Element => {
-	const [heroState, setHeroState] = useState<IHero>(hero)
-	const isAdmin = useRole() === 'admin'
+	const isAdmin = useAdmin()
+	
+	const [updateUser] = useUpdateUserMutation()
 	
 	// todo: onChange setState; onBlue: update (with backend)
 	const updateField = async (field: string, val: string) => {
 		const data = {
 			id: hero.id,
 			[field]: val,
-		}
-		await backendAPI.patch('/heroes/update', data)
-		setHeroState({ ...hero, [field]: val })
+		} as unknown as IHero // todo: more robust
+		await updateUser(data)
 	}
 	const [isEditingName, setEditingName] = useState(false)
 	const [isEditingTitle, setEditingTitle] = useState(false)
 	const [isEditingDesc, setEditingDesc] = useState(false)
 	
-	console.log({ hero, heroState })
-	
-	const COVER_WIDTH = 640
-	const COVER_HEIGHT = 480
 	
 	return (
 		<div className="w-full h-full lg:max-w-screen-lg flex flex-col gap-2">
@@ -68,7 +66,7 @@ export const HeroEditableProfile = ({ hero, works }: {
 						isAdmin && (
 							<label className="btn btn-primary btn-sm absolute bottom-2 right-2">
 								更改封面
-								<HeroImageUploader field="cover" hero={heroState} setHero={setHeroState}/>
+								<HeroImageUploader hero={hero} field="cover"/>
 							</label>
 						)
 					}
@@ -78,19 +76,20 @@ export const HeroEditableProfile = ({ hero, works }: {
 					
 					<div className="flex items-center gap-4 text-4xl">
 						<label>
-							<BaseAvatar url={hero.avatar} name={hero.name} size="lg"/>
-							{isAdmin && <HeroImageUploader field="avatar" hero={heroState} setHero={setHeroState}/>}
+							<BaseAvatar url={getServerImagePath(hero.avatar)} name={hero.name} size="lg"/>
+							{isAdmin && <HeroImageUploader hero={hero} field="avatar"/>}
 						</label>
 						{
 							isAdmin && isEditingName
 								? <input
 									placeholder="No Name Found !"
 									type="text"
-									className="input input-ghost" value={heroState.name}
+									className="input input-ghost"
+									defaultValue={hero.name}
 									onChange={(e) => updateField('name', e.target.value)}
 									onBlur={() => setEditingName(false)}
 								/>
-								: <p onClick={() => setEditingName(true)}>{heroState.name}</p>
+								: <p onClick={() => setEditingName(true)}>{hero.name}</p>
 						}
 					</div>
 					
@@ -101,14 +100,14 @@ export const HeroEditableProfile = ({ hero, works }: {
 									<textarea
 										className={'w-[320px]'}
 										placeholder="No Title Found !"
-										value={heroState.title}
+										defaultValue={hero.title}
 										onChange={(e) => updateField('title', e.target.value)}
 										onBlur={() => setEditingTitle(false)}
 									/>
 								)
 								: (
 									<div onClick={() => setEditingTitle(true)}>
-										{(heroState.title || '').split('\n').map((line, index) => (
+										{(hero.title || '').split('\n').map((line, index) => (
 											<p key={index}>{line}</p>
 										))}
 									</div>
@@ -122,21 +121,20 @@ export const HeroEditableProfile = ({ hero, works }: {
 								? <textarea
 									className={'w-[320px]'}
 									placeholder="No Description Found !"
-									value={heroState.description}
+									value={hero.description}
 									onChange={(e) => updateField('description', e.target.value)}
 									onBlur={() => setEditingDesc(false)}
 								/>
-								: <p onClick={() => setEditingDesc(true)}>{heroState.description || 'No Description Found !'}</p>
+								: <p onClick={() => setEditingDesc(true)}>{hero.description || 'No Description Found !'}</p>
 						}
 					</div>
 					
-					<div className="mt-8 flex flx-wrap gap-2">
+					<div className="mt-8 flex items-center gap-2">
+						<span>携手嘉宾：</span>
 						{
-							heroState.partners?.map((connection) => (
-								<Link href={`/heroes/${connection}`} className="bg-primary rounded-md px-3 py-1" key={connection}>
-									{connection}
-								</Link>
-							))
+							hero.partners?.length ?
+								hero.partners.map((id) => <PartnerLink id={id} key={id}/>)
+								: '暂无！'
 						}
 					</div>
 				

@@ -7,19 +7,21 @@
 
 import { useRef } from 'react'
 
+import { useUpdateUserMutation } from '~/states/api/userApi'
+
 import backendAPI from '../../../utils/api'
-import { useRefresh } from '../../../utils/router'
 
 import type { HTMLAttributes } from 'react'
-import type { IHero } from '../../../ds/hero'
+import type { IHero } from '~/ds/hero'
 
-export const HeroImageUploader = ({ hero, setHero, field, ...props }: HTMLAttributes<HTMLDivElement> & {
-	field: string
+
+export const HeroImageUploader = ({ hero, field, ...props }: HTMLAttributes<HTMLDivElement> & {
+	field: 'cover' | 'avatar'
 	hero: IHero
-	setHero: (hero: IHero) => void
 }): JSX.Element => {
-	const refresh = useRefresh()
 	const ref = useRef<HTMLInputElement>(null)
+	const [updateHero] = useUpdateUserMutation()
+	
 	return (
 		<input {...props} ref={ref} hidden type="file" accept={'image/*'} onChange={async (e) => {
 			if (!e.target.files) {
@@ -32,15 +34,7 @@ export const HeroImageUploader = ({ hero, setHero, field, ...props }: HTMLAttrib
 			const resUploadImage = await backendAPI.post('/files/upload', formData)
 			const imgPath = resUploadImage.data
 			console.log({ resUploadImage, field, imgPath })
-			
-			const resUpdateImage = await backendAPI.patch('/heroes/update', {
-				id: hero.id,
-				[field]: imgPath,
-			})
-			console.log({ resUpdateImage })
-			
-			setHero({ ...hero, [field]: imgPath })
-			refresh()
+			await updateHero({ id: hero.id, [field]: imgPath })
 		}}
 		/>
 	)

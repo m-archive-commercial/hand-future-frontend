@@ -12,12 +12,12 @@ import { Matrix4, Sprite, SpriteMaterial, TextureLoader, Vector3 } from 'three'
 import { useRouter } from 'next/router'
 import { useIdleTimer } from 'react-idle-timer'
 
-import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } from '~/hooks/panel_3dgraph'
+import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } from '~/hooks/use-3dgraph'
 import { DagModes, ForceEngines, NumDimensions } from '~/ds/panel_3dgraph'
-import { useRole } from '~/hooks/role'
+import { useRole } from '~/hooks/use-role'
 import { getServerImagePath } from '~/utils/image'
 
-import useWindowDimensions from '../../../hooks/window'
+import useWindowDimensions from '../../../hooks/use-window'
 import { Section } from '../../shared/Section'
 
 import type { DagMode, ForceEngine, NumDimension } from '~/ds/panel_3dgraph'
@@ -131,7 +131,7 @@ export const Graph = ({ data }: {
 		// 双击跳转到对应主页
 		const id = node.id as string
 		if (lastClickId === id && +new Date() - +lastClickTime < 1000) {
-			window.open(`/heroes/${id}`, '_blank')
+			window.open(`/user/${id}`, '_blank')
 		}
 		lastClickId = id
 		lastClickTime = new Date()

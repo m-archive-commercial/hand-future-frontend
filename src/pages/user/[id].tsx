@@ -6,18 +6,19 @@
  */
 
 import { useRouter } from 'next/router'
+import { skipToken } from '@reduxjs/toolkit/query'
 
 import { useGetHeroQuery, useGetWorksQuery } from '~/states/api/heroApi'
+import { HeroEditableProfile } from '~/components/specs/hero/HeroEditableProfile'
 
 import RootLayout from '../../components/layouts/RootLayout'
-import { HeroEditableProfile } from '../../components/specs/hero/HeroEditableProfile'
 
-export const HeroProfilePage = (): JSX.Element => {
+export const HeroProfilePage = () => {
 	const router = useRouter()
 	
-	const { id } = router.query
-	const { data: hero } = useGetHeroQuery(id as string)
-	const { data: works = [] } = useGetWorksQuery(id as string)
+	const id = router.query.id as string | undefined
+	const { currentData: hero } = useGetHeroQuery(id ?? skipToken)
+	const { currentData: works = [] } = useGetWorksQuery(id ?? skipToken)
 	
 	return (
 		<RootLayout>
