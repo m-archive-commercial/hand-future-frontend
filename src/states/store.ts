@@ -13,6 +13,7 @@ import { PersistConfig } from 'redux-persist/es/types'
 
 import { baseApi } from '~/states/api/baseApi'
 import { heroApi } from '~/states/api/heroApi'
+import { isClient } from '~/utils/server'
 
 import { userReducer } from './features/userSlice'
 
@@ -43,6 +44,15 @@ const logger = createLogger({
 	},
 })
 
+let middlewares = [
+	baseApi.middleware,
+	heroApi.middleware,
+]
+if (isClient()) {
+	// persist logger 在 server 端好像没啥意义
+	middlewares.push(logger)
+}
+
 export const store = configureStore({
 	reducer,
 	devTools: process.env.NODE_ENV !== 'production',
@@ -52,12 +62,7 @@ export const store = configureStore({
 			ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
 		},
 	})
-		.concat([
-				baseApi.middleware,
-				heroApi.middleware,
-				logger,
-			],
-		),
+		.concat(middlewares),
 })
 
 export default store
