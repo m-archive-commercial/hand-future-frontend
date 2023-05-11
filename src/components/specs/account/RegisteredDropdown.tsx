@@ -26,14 +26,14 @@ export const RegisteredDropdown = () => {
 			<div role="button" tabIndex={0} className="m-1">
 				<Avatar>
 					<AvatarImage src={user.avatar}/>
-					<AvatarFallback>{user.name}</AvatarFallback>
+					<AvatarFallback>{(user.name || user.email).slice(0, 2)}</AvatarFallback>
 				</Avatar>
 			</div>
 			
 			<ul className="w-24 mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box">
 				
 				<li>
-					<Link href={'/user/' + user.id}>资料</Link>
+					<Link href={'/user/' + user.email}>资料</Link>
 				</li>
 				
 				<li>

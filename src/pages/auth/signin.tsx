@@ -9,7 +9,6 @@ import { toast } from 'react-toastify'
 import { Input } from '~/components/ui/input'
 import RootLayout from '~/components/layouts/RootLayout'
 import { TitleLineComp } from '~/components/specs/line/TitleLineComp'
-
 import { Button } from '@/components/ui/button'
 
 const getToken = async (email: string): Promise<string> =>
@@ -46,6 +45,7 @@ const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 		
 		
 		const res = await signIn('email', {
+			
 			email,
 			redirect: false,
 			// ref: https://next-auth.js.org/getting-started/client#specifying-a-callbackurl

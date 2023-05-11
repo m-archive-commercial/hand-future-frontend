@@ -1,5 +1,19 @@
 # hand-future-frontend
 
+## node
+
+### install specific node version on MacOS
+
+```shell
+VERSION=node@18
+brew install $VERSION
+brew unlink node
+brew link --overwrite $VERSION
+node -v
+```
+
+ref: https://stackoverflow.com/a/67529751/9422455
+
 ## next/image
 
 不能用 localhost 而要用 127.0.0.1 ！（我悟出来的！）

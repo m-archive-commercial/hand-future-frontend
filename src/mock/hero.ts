@@ -18,7 +18,7 @@ export const mockDesc = (): string => loremIpsum({
 })
 export const mockConnections = (): string[] => _.uniq(Array.from(Array(Math.ceil(1 + Math.random() * 5))).map(() => mockName()))
 export const getSampleHero = (): IHero => ({
-	'id': '',
+	'email': '',
 	'avatar': '/avatar/003.png',
 	'cities': '',
 	'name': mockName(),

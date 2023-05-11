@@ -41,5 +41,5 @@ export const useLazyUser = (): [User, (id: ID) => void] => {
 
 export const useUserId = (): ID | null => {
 	const user = useUser()
-	return user ? user.id : null
+	return user ? user.email : null
 }

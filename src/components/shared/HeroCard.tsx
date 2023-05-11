@@ -27,7 +27,7 @@ export const HeroCard = ({ data }: HeroCardProps): JSX.Element => (
 				</h2>
 				<p>{data.title}</p>
 				<div className="card-actions justify-end">
-					<Link href={`/heroes/${data.id}`} className="badge badge-outline">
+					<Link href={`/heroes/${data.email}`} className="badge badge-outline">
 						查看详情
 					</Link>
 					

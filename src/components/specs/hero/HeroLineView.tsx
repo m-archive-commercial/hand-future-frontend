@@ -11,7 +11,7 @@ export const HeroLineView = ({
 ) => {
 	
 	return (
-		<tr key={hero.id} onClick={() => {onClickHero && onClickHero(hero.id)}}>
+		<tr key={hero.email} onClick={() => {onClickHero && onClickHero(hero.email)}}>
 			
 			<td>
 				<div className="flex items-center space-x-3">

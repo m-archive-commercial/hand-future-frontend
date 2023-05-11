@@ -4,17 +4,20 @@ import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import { createTransport } from 'nodemailer'
 
 import { generateVerificationToken } from '~/lib/auth'
-
 import clientPromise from '@/lib/mongodb'
 import { DATABASE_AUTH_DB_NAME, EMAIL_FROM, EMAIL_SERVER } from '@/lib/env'
 import { setTokenCentre } from '@/pages/api/auth/general'
 
 
 export const authOptions: NextAuthOptions = {
-	adapter: MongoDBAdapter(clientPromise, { databaseName: DATABASE_AUTH_DB_NAME }),
+	adapter: MongoDBAdapter(clientPromise, {
+		databaseName: DATABASE_AUTH_DB_NAME,
+		collections: { Users: 'user' },
+	}),
 	
 	providers: [
 		EmailProvider({
+			
 			server: EMAIL_SERVER,
 			from: EMAIL_FROM,
 			// maxAge: 24 * 60 * 60, // How long email links are valid for (default 24h)
@@ -34,11 +37,41 @@ export const authOptions: NextAuthOptions = {
 				const failed = result.rejected.concat(result.pending).filter(Boolean)
 				if (failed.length) throw new Error(`Email (${failed.join(', ')}) could not be sent`)
 			},
+			
 		}),
 	],
+	// session: {
+	// 	strategy: 'jwt', // ref: https://next-auth.js.org/configuration/options#session
+	// },
+	
+	
 	callbacks: {
+		
+		signIn: async ({ user, email, account, profile, credentials }) => {
+			user.id = user.email! // <-- key
+			console.log('signIn', { user, email, account, profile, credentials })
+			return true
+		},
+		
+		jwt: async ({ token, user }) => {
+			console.log('jwt', { token, user })
+			return Promise.resolve(token)
+		},
+		
+		// ref: https://dev.to/said_mounaim/authentication-with-credentials-using-next-auth-mongodb-5e0j
+		// async jwt({ token, user }) {
+		// 	console.log({ token, user })
+		// 	// token._id = user.email
+		// 	// if (user?.isAdmin) token.isAdmin = user.isAdmin;
+		// 	token.sub = token.email!
+		// 	if (user) {
+		// 		user.id = user.email!
+		// 	}
+		// 	return token
+		// },
+		
 		session({ session, token, user }) {
-			// console.log('session', { session, token, user })
+			console.log('session', { session, token, user })
 			session.user.id = session.user.email
 			return session // The return type will match the one returned in `useSession()`
 		},

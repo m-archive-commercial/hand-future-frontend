@@ -8,6 +8,7 @@ import { IHero } from '~/ds/hero'
 
 
 export interface IUser extends IHero {
+	email: string
 	role?: 'user' | 'admin'
 }
 

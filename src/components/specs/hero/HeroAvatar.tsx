@@ -34,7 +34,7 @@ export const HeroImageUploader = ({ hero, field, ...props }: HTMLAttributes<HTML
 			const resUploadImage = await backendAPI.post('/files/upload', formData)
 			const imgPath = resUploadImage.data
 			console.log({ resUploadImage, field, imgPath })
-			await updateUser({ id: hero.id, [field]: imgPath })
+			await updateUser({ id: hero.email, [field]: imgPath })
 		}}
 		/>
 	)

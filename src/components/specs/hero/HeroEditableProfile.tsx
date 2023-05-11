@@ -38,7 +38,7 @@ export const HeroEditableProfile = ({ hero, works }: {
 	// todo: onChange setState; onBlue: update (with backend)
 	const updateField = async (field: string, val: string) => {
 		const data = {
-			id: hero.id,
+			id: hero.email,
 			[field]: val,
 		} as unknown as IHero // todo: more robust
 		await updateUser(data)
@@ -164,7 +164,7 @@ export const HeroEditableProfile = ({ hero, works }: {
 					</div>
 			}
 			
-			{isAdmin && <HeroAddWork user_id={hero.id}/>}
+			{isAdmin && <HeroAddWork user_id={hero.email}/>}
 		
 		</div>
 	
