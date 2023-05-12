@@ -10,8 +10,8 @@ export const heroApi = baseApi.injectEndpoints({
 			query: () => `/hero/graph_data`,
 		}),
 		
-		getHeroesList: build.query<IHero[], void>({
-			query: () => `/user/?only_heroes=1`,
+		listHeroes: build.query<IHero[], void>({
+			query: () => `/hero/`,
 		}),
 		
 	}),
@@ -20,5 +20,5 @@ export const heroApi = baseApi.injectEndpoints({
 
 export const {
 	useGetGraphDataQuery,
-	useGetHeroesListQuery,
+	useListHeroesQuery,
 } = heroApi

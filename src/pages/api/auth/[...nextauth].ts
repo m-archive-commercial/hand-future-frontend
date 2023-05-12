@@ -12,7 +12,7 @@ import { MongodbEmailAdapter } from '~/lib/mongodb-email-adapter'
 export const authOptions: NextAuthOptions = {
 	adapter: MongodbEmailAdapter(clientPromise, {
 		databaseName: DATABASE_AUTH_DB_NAME,
-		collections: { Users: 'user' },
+		// collections: { Users: 'user' },
 	}),
 	
 	providers: [
@@ -40,48 +40,17 @@ export const authOptions: NextAuthOptions = {
 			
 		}),
 	],
-	// session: {
-	// 	strategy: 'jwt', // ref: https://next-auth.js.org/configuration/options#session
-	// },
-	
 	
 	callbacks: {
-		
-		signIn: async ({ user, email, account, profile, credentials }) => {
-			// user.id = user.email! // <-- key
-			// console.log('signIn', { user, email, account, profile, credentials })
-			return true
-		},
-		//
-		// jwt: async ({ token, user }) => {
-		// 	console.log('jwt', { token, user })
-		// 	return Promise.resolve(token)
-		// },
-		//
-		// ref: https://dev.to/said_mounaim/authentication-with-credentials-using-next-auth-mongodb-5e0j
-		// async jwt({ token, user }) {
-		// 	console.log({ token, user })
-		// 	// token._id = user.email
-		// 	// if (user?.isAdmin) token.isAdmin = user.isAdmin;
-		// 	token.sub = token.email!
-		// 	if (user) {
-		// 		user.id = user.email!
-		// 	}
-		// 	return token
-		// },
-		
 		session({ session, token, user }) {
 			// console.log('session', { session, token, user })
 			session.user.id = user.id
 			return session // The return type will match the one returned in `useSession()`
 		},
-		
-		// 不要覆写 signIn 函数，否则默认的 verification 就不起作用了 （关键是很难写！）
 	},
 	
 	pages: {
 		signIn: '/auth/signin',
-		// error: '/auth/signin',
 	},
 }
 

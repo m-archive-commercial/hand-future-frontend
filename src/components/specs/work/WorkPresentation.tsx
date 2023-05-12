@@ -6,9 +6,11 @@
  */
 
 import Image from 'next/image'
+import { toast } from 'react-toastify'
 
-import { ICreateWork, SourcePlatform, TypographyLayout } from '~/ds/work'
-import { useAdmin } from '~/hooks/use-user'
+import { ICreateWork, IWork, SourcePlatform, TypographyLayout } from '~/ds/work'
+import { useAdmin, useUserId } from '~/hooks/use-user'
+import { useDeleteWorkMutation } from '~/states/api/workApi'
 
 import settings from '../../../ds/settings'
 import { BilibiliVideo, getBvidFromUrl } from '../../shared/BilibiliVideo'
@@ -122,13 +124,13 @@ export const genInnerWorkPresentation = (work: ICreateWork<SourcePlatform>): JSX
 			throw new Error('not implemented')
 	}
 }
-export const WorkPresentation = ({ work }: { work: ICreateWork<SourcePlatform> }): JSX.Element => {
+export const WorkPresentation = ({ work }: { work: IWork<SourcePlatform> }): JSX.Element => {
 	const isAdmin = useAdmin()
+	const isOwner = useUserId() === work.user_id
+	const hasPrivilege = isAdmin || isOwner
+	const [deleteWork] = useDeleteWorkMutation()
 	
-	const onDelete = async () => {
-		// await backendAPI.delete(`/works?id=${work.id}`)
-		// toast.success(`deleted work of id=${work.id}`)
-	}
+	console.log({ work, isAdmin, isOwner, hasPrivilege })
 	
 	// console.log('work presentation: ', work)
 	
@@ -140,7 +142,11 @@ export const WorkPresentation = ({ work }: { work: ICreateWork<SourcePlatform> }
 			
 			<div className="absolute bottom-2 right-2 flex w-full justify-end gap-2">
 				
-				{isAdmin && <button type="button" className="btn btn-error btn-xs" onClick={onDelete}>删除</button>}
+				{hasPrivilege && <button type="button" className="btn btn-error btn-xs" onClick={async () => {
+					await deleteWork(work.id!)
+					toast(`deleted work(id=${work.id})`)
+				}
+				}>删除</button>}
 				
 				{/* 纯文本 */}
 				{

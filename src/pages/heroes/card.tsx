@@ -110,7 +110,7 @@ export const CardPage = () => {
 						<input id="hero-avatar" type="file" className="hidden" accept={'image/*'} onChange={onAvatarChange}/>
 						
 						{/* 在iphone浏览器里不显示 */}
-						<BaseAvatar customClasses="ml-5" url={normalizeImageUri(data.avatar)} name={data.name} size="lg"/>
+						<BaseAvatar url={normalizeImageUri(data.avatar)} text={data.name}/>
 					
 					</label>
 					

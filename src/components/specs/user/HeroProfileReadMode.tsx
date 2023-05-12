@@ -67,8 +67,6 @@ export const HeroProfileReadMode = ({ user, works }: { user: IUser, works: IWork
 						暂无作品，赶快上传一个吧！
 					</div>
 			}
-			
-			{/*{writable && <userAddWork user_id={user.email}/>}*/}
 		
 		</div>
 	)

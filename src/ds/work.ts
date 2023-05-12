@@ -45,8 +45,8 @@ export interface ICreateWork<T extends SourcePlatform> {
 	source: WorkSource<T>
 }
 
-export interface IWork extends ICreateWork<SourcePlatform> {
-	id: string
+export interface IWork<T extends SourcePlatform> extends ICreateWork<T> {
+	id?: string
 }
 
 export const mockWork = (

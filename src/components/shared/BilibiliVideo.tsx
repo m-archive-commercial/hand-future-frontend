@@ -34,6 +34,7 @@ export const BilibiliVideo = ({ video }: {
 	url += `?bvid=${video.bvid}`
 	url += `&danmaku=${video.enableDanmu ?? 0}`
 	url += `&high_quality=${video.enableHighQuality ?? 1}`
+	url += `&&autoplay=0` // 禁止自动播放，ref: https://www.sunzhongwei.com/video-websites-embed-bilibili-iframe-code-video-disable-play-automatically
 	return (
 		<iframe
 			title={url} // todo: title from bilibili
@@ -41,6 +42,7 @@ export const BilibiliVideo = ({ video }: {
 			width={video.width ?? '100%'}
 			height={video.height ?? '100%'}
 			allowFullScreen
+		
 		/>
 	)
 }

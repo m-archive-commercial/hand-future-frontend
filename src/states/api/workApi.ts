@@ -1,5 +1,5 @@
 import { baseApi } from '~/states/api/baseApi'
-import { IWork } from '~/ds/work'
+import { IWork, SourcePlatform } from '~/ds/work'
 
 export const TAG_WORK = 'work' as const
 export const ID_ALL = '*' as const
@@ -12,12 +12,12 @@ export const workApi = baseApi
 		overrideExisting: true,
 		endpoints: (build) => ({
 			
-			listWorks: build.query<IWork[], string>({
+			listWorks: build.query<IWork<SourcePlatform>[], string>({
 				query: (arg) => `/work/?user_id=${arg}`,
 				providesTags: (result) => [...(result || []).map((item) => ({ type: TAG_WORK, id: item.id })), { type: TAG_WORK, id: ID_ALL }],
 			}),
 			
-			addWork: build.mutation<void, Omit<IWork, 'id'>>({
+			addWork: build.mutation<void, Omit<IWork<SourcePlatform>, 'id'>>({
 				query: (body) => ({
 					url: `/work/`,
 					method: 'POST',
@@ -26,13 +26,21 @@ export const workApi = baseApi
 				invalidatesTags: [{ type: TAG_WORK, id: ID_ALL }],
 			}),
 			
-			updateWork: build.mutation<void, IWork>({
+			updateWork: build.mutation<void, IWork<SourcePlatform>>({
 				query: (body) => ({
 					url: `/work/`,
 					method: 'PATCH',
 					body,
 				}),
 				invalidatesTags: (result, error, arg, meta) => [{ type: TAG_WORK, id: arg.id }],
+			}),
+			
+			deleteWork: build.mutation<void, string>({
+				query: (arg) => ({
+					url: `/work/?id=${arg}`,
+					method: 'DELETE',
+				}),
+				invalidatesTags: () => [{ type: TAG_WORK, id: ID_ALL }],
 			}),
 			
 		}),
@@ -43,4 +51,5 @@ export const {
 	useListWorksQuery,
 	useAddWorkMutation,
 	useUpdateWorkMutation,
+	useDeleteWorkMutation,
 } = workApi

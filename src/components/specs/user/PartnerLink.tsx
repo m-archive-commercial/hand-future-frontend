@@ -2,13 +2,13 @@ import { IconLoaderQuarter } from '@tabler/icons-react'
 import Link from 'next/link'
 
 import { Button } from '~/components/ui/button'
-import { useGetUserByIdQuery } from '~/states/api/userApi'
+import { useGetUserQuery } from '~/states/api/userApi'
 
 export const PartnerLink = ({ id }: { id: string }) => {
-	const { currentData } = useGetUserByIdQuery(id)
+	const { currentData } = useGetUserQuery({ id })
 	
 	return currentData ? (
-		<Link href={`/user/${id}`}>
+		<Link href={`/user?id=${id}`}>
 			<Button size={'sm'} variant={'link'}>{currentData.name}</Button>
 		</Link>
 	) : <IconLoaderQuarter className={'animate-spin'}/>

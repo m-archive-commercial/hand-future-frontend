@@ -1,5 +1,5 @@
 import * as AspectRatio from '@radix-ui/react-aspect-ratio'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { IconSquareRoundedPlus } from '@tabler/icons-react'
 import _ from 'lodash'
 import { toast } from 'react-toastify'
@@ -22,25 +22,6 @@ import { MyImageUploader } from '~/components/specs/general'
 import { bindData } from '~/lib/utils'
 
 
-const RealTimeAvatar = ({ user, onImageUriChange }: { user: IUser, onImageUriChange: (fileUri: string) => void }) => {
-	const [avatar, setAvatar] = useState(user.avatar)
-	
-	useEffect(() => {
-		if (avatar && avatar !== user.avatar) {
-			console.log({ avatar })
-			onImageUriChange(avatar)
-		}
-	}, [avatar])
-	
-	return (
-		<Label id={'avatar'}>
-			<BaseAvatar url={avatar} text={user.name}/>
-			<MyImageUploader hidden id={'cover'} onUploaded={setAvatar}/>
-		</Label>
-	)
-}
-
-
 export const HeroProfileEditMode = ({ user, works }: { user: IUser, works: IWork[] }) => {
 	// console.log({ user })
 	
@@ -57,7 +38,9 @@ export const HeroProfileEditMode = ({ user, works }: { user: IUser, works: IWork
 				<AspectRatio.Root ratio={16 / 5}>
 					<div
 						style={{
-							backgroundImage: `linear-gradient(to right, rgba(9, 50, 50, 0), rgba(9, 148, 143, 1)), url('${user.cover ? normalizeImageUri(user.cover) : BG_COVER_FALLBACK}')`,
+							backgroundImage: `linear-gradient(to right, rgba(9, 50, 50, 0), rgba(9, 148, 143, 1)), url('${
+								normalizeImageUri(changed.cover || user.cover || undefined) || BG_COVER_FALLBACK
+							}')`,
 							backgroundSize: 'cover',
 						}}
 						className="h-full w-full"/>
@@ -71,7 +54,10 @@ export const HeroProfileEditMode = ({ user, works }: { user: IUser, works: IWork
 				<div className="absolute p-12 left-0 bottom-0 max-w-screen-sm flex flex-col gap-2">
 					
 					<div className="flex items-center gap-4">
-						<RealTimeAvatar user={user} onImageUriChange={bindChange('avatar')}/>
+						<Label id={'avatar'}>
+							<BaseAvatar url={normalizeImageUri(changed.avatar || user.avatar || undefined)} text={user.name}/>
+							<MyImageUploader hidden id={'cover'} onUploaded={bindChange('avatar')}/>
+						</Label>
 						<Input placeholder={'你怎么还没有名字儿呀，快起一个吧！'} defaultValue={user.name} onChange={bindChange('name')}/>
 					</div>
 					

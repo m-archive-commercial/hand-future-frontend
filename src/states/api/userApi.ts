@@ -28,13 +28,11 @@ export const userApi = baseApi
 	.injectEndpoints({
 		overrideExisting: true,
 		endpoints: (build) => ({
-			getUserByEmail: build.query<IUser | null, string>({
-				query: (arg) => `/user/?email=${arg}`,
-				...userHelper,
-			}),
-			
-			getUserById: build.query<IUser | null, string>({
-				query: (arg) => `/user/?id=${arg}`,
+			getUser: build.query<IUser | null, { id?: string, email?: string }>({
+				query: (arg) => ({
+					url: `/user/`,
+					params: arg,
+				}),
 				...userHelper,
 			}),
 			
@@ -54,9 +52,6 @@ export const userApi = baseApi
 
 
 export const {
-	useGetUserByEmailQuery,
-	useGetUserByIdQuery,
-	useLazyGetUserByEmailQuery,
-	useLazyGetUserByIdQuery,
+	useGetUserQuery,
 	useUpdateUserMutation,
 } = userApi

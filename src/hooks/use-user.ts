@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react'
 import { skipToken } from '@reduxjs/toolkit/query'
 
 import { User } from '@/ds/user'
-import { useGetUserByIdQuery } from '~/states/api/userApi'
+import { useGetUserQuery } from '~/states/api/userApi'
 
 
 export const useUserId = (): string | undefined => {
@@ -15,7 +15,7 @@ export const useUser = (): User => {
 	const [user, setUser] = useState<User>(null)
 	const userId = useUserId()
 	
-	const { data: userData } = useGetUserByIdQuery(userId ?? skipToken)
+	const { data: userData } = useGetUserQuery({ id: userId } ?? skipToken)
 	// console.log({ userData })
 	
 	useEffect(() => {
