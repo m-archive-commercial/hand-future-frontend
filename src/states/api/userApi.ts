@@ -1,16 +1,16 @@
 import { baseApi } from '~/states/api/baseApi'
-import { IUser } from '~/ds/user'
+import { IUser, IUserEmail, IUserId } from '~/ds/user'
 import { normalizeImageUri } from '~/lib/image'
 
 
 export const TAG_USER = 'user' as const
 
 const userHelper = {
-	providesTags: (result: IUser | null | undefined) => {
+	providesTags: (result: IUserId | null | undefined) => {
 		console.log({ result })
 		return [{ type: TAG_USER, id: result?.id }]
 	},
-	transformResponse: (response: IUser | null) => {
+	transformResponse: (response: IUserId | null) => {
 		if (!response) return response
 		for (const field of ['cover', 'avatar'] as const) {
 			const value = response[field]
@@ -28,7 +28,7 @@ export const userApi = baseApi
 	.injectEndpoints({
 		overrideExisting: true,
 		endpoints: (build) => ({
-			getUser: build.query<IUser | null, { id?: string, email?: string }>({
+			getUser: build.query<IUserId | null, { id?: string, email?: string }>({
 				query: (arg) => ({
 					url: `/user/`,
 					params: arg,
@@ -47,6 +47,20 @@ export const userApi = baseApi
 				},
 				invalidatesTags: (result, error, arg, meta) => [{ type: TAG_USER, id: arg.id }],
 			}),
+			
+			updateUserViaEmail: build.mutation<void, IUserEmail>({
+				query: (data) => {
+					console.log('updateUser', { data })
+					return ({
+						url: `/user/update_via_email`,
+						body: data,
+						method: 'PATCH',
+					})
+				},
+				invalidatesTags: (result, error, arg, meta) => [{ type: TAG_USER, id: arg.id }],
+			}),
+			
+			
 		}),
 	})
 
@@ -54,4 +68,5 @@ export const userApi = baseApi
 export const {
 	useGetUserQuery,
 	useUpdateUserMutation,
+	useUpdateUserViaEmailMutation,
 } = userApi

@@ -9,13 +9,8 @@
       "path": "/heroes/"
     },
     {
-      "name": "嘉宾数据初始化（Admin）",
-      "path": "/heroes/init",
-      "admin": true
-    },
-    {
-      "name": "嘉宾卡片（Admin）",
-      "path": "/heroes/card",
+      "name": "管理员",
+      "path": "/admin/",
       "admin": true
     }
   ],

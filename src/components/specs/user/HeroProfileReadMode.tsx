@@ -6,12 +6,12 @@ import { UserAvatar } from '~/components/shared/BaseAvatar'
 import { PartnerLink } from '~/components/specs/user/PartnerLink'
 import { Section } from '~/components/shared/Section'
 import { WorkPresentation } from '~/components/specs/work/WorkPresentation'
-import { IUser } from '~/ds/user'
+import { IUserId } from '~/ds/user'
 import { IWork } from '~/ds/work'
 import { Label } from '~/components/ui/label'
 
 
-export const HeroProfileReadMode = ({ user, works }: { user: IUser, works: IWork[] }) => {
+export const HeroProfileReadMode = ({ user, works }: { user: IUserId, works: IWork[] }) => {
 	
 	return (
 		<div className="w-full grow flex flex-col gap-2">
