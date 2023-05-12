@@ -15,7 +15,7 @@ import { MyImageUploader } from '~/components/specs/general'
 
 import type { ICreateWork } from '~/ds/work'
 
-export const HeroInputPlain = ({ data, setData }: {
+export const AddPlainWork = ({ data, setData }: {
 	data: ICreateWork
 	setData: (data: ICreateWork) => void
 }): JSX.Element => {

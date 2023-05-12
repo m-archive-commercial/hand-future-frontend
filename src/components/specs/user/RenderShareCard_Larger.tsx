@@ -10,7 +10,7 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import { QRCodeSVG } from 'qrcode.react'
 
-import { BaseAvatar } from '../../shared/BaseAvatar'
+import { BaseAvatar } from '~/components/shared/BaseAvatar'
 
 import type { Ref } from 'react'
 import type { IShareCard } from '../../../ds/hero'
@@ -55,10 +55,7 @@ export const RenderShareCard_Larger = (props: RenderShareCardProps) => {
 					{/*  </div> */}
 					{/* </div> */}
 					{/**/}
-					<BaseAvatar
-						customClasses="m-8"
-						url={data.avatar} name={data.name} size="xl"
-					/>
+					<BaseAvatar url={data.avatar} text={data.name}/>
 					
 					{/*  name - title */}
 					<div className="flex-1 flex flex-col justify-center items-baseline">

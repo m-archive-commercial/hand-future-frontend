@@ -46,7 +46,7 @@ const parseWechatArticleUrl = async (url: string): Promise<ICreateWork<SourcePla
 	}
 }
 
-export const HeroInputWechat = ({ data, setData }: {
+export const AddWechatWork = ({ data, setData }: {
 	data: ICreateWork<SourcePlatform.wechatArticle>
 	setData: (data: ICreateWork<SourcePlatform.wechatArticle>) => void
 }): JSX.Element => {

@@ -17,7 +17,7 @@ import { ICreateWork, SourcePlatform } from '~/ds/work'
 
 import { getBvidFromUrl } from '../../shared/BilibiliVideo'
 
-export const HeroInputBilibili = ({ data, setData }: {
+export const AddBilibiliWork = ({ data, setData }: {
 	data: ICreateWork<SourcePlatform.bilibiliVideo>
 	setData: (data: ICreateWork<SourcePlatform.bilibiliVideo>) => void
 }): JSX.Element => (

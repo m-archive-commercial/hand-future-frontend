@@ -1,11 +1,11 @@
 import { IconLoaderQuarter } from '@tabler/icons-react'
 import Link from 'next/link'
 
-import { useGetUserQuery } from '~/states/api/heroApi'
 import { Button } from '~/components/ui/button'
+import { useGetUserByIdQuery } from '~/states/api/userApi'
 
 export const PartnerLink = ({ id }: { id: string }) => {
-	const { currentData } = useGetUserQuery(id)
+	const { currentData } = useGetUserByIdQuery(id)
 	
 	return currentData ? (
 		<Link href={`/user/${id}`}>

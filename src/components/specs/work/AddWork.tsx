@@ -16,15 +16,15 @@ import { Button } from '~/components/ui/button'
 import { Label } from '~/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select'
 import { TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs'
-import { HeroInputBilibili } from '~/components/specs/work/HeroInputBilibili'
+import { AddBilibiliWork } from '~/components/specs/work/AddBilibiliWork'
 
 import { Section } from '../../shared/Section'
 import { ConnectionsLine } from '../../shared/ConnectionsLine'
 import settings from '../../../ds/settings'
 
-import { genPlainWorkPresentation, WorkPresentation } from './presentations'
-import { HeroInputPlain } from './HeroInputPlain'
-import { HeroInputWechat } from './HeroInputWechat'
+import { genPlainWorkPresentation, WorkPresentation } from './WorkPresentation'
+import { AddPlainWork } from './AddPlainWork'
+import { AddWechatWork } from './AddWechatWork'
 
 
 export const AddWork = ({ user_id }: {
@@ -56,10 +56,11 @@ export const AddWork = ({ user_id }: {
 								<TabsTrigger value={SourcePlatform.bilibiliVideo}>Bilibili</TabsTrigger>
 							</TabsList>
 							
-							<TabsContent value={SourcePlatform.plain} className={'flex flex-col gap-2'}><HeroInputPlain data={work} setData={setWork}/></TabsContent>
-							<TabsContent value={SourcePlatform.wechatArticle}><HeroInputWechat data={work as ICreateWork<SourcePlatform.wechatArticle>}
+							<TabsContent value={SourcePlatform.plain} className={'flex flex-col gap-2'}><AddPlainWork data={work} setData={setWork}/></TabsContent>
+							<TabsContent value={SourcePlatform.wechatArticle}><AddWechatWork data={work as ICreateWork<SourcePlatform.wechatArticle>}
+							                                                                 setData={setWork}/></TabsContent>
+							<TabsContent value={SourcePlatform.bilibiliVideo}><AddBilibiliWork data={work as ICreateWork<SourcePlatform.bilibiliVideo>}
 							                                                                   setData={setWork}/></TabsContent>
-							<TabsContent value={SourcePlatform.bilibiliVideo}><HeroInputBilibili data={work as ICreateWork<SourcePlatform.bilibiliVideo>} setData={setWork}/></TabsContent>
 						
 						</Tabs>
 						<Button type={'submit'} className={'w-full mt-4'} size={'sm'}>提交</Button>
