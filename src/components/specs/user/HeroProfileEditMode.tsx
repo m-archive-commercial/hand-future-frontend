@@ -10,7 +10,7 @@ import { BaseAvatar } from '~/components/shared/BaseAvatar'
 import { PartnerLink } from '~/components/specs/user/PartnerLink'
 import { Section } from '~/components/shared/Section'
 import { WorkPresentation } from '~/components/specs/work/WorkPresentation'
-import { IUserId } from '~/ds/user'
+import { IUserWithId } from '~/ds/user'
 import { IWork } from '~/ds/work'
 import { Label } from '~/components/ui/label'
 import { Button } from '~/components/ui/button'
@@ -22,11 +22,11 @@ import { MyImageUploader } from '~/components/specs/general'
 import { bindData } from '~/lib/utils'
 
 
-export const HeroProfileEditMode = ({ user, works }: { user: IUserId, works: IWork[] }) => {
+export const HeroProfileEditMode = ({ user, works }: { user: IUserWithId, works: IWork[] }) => {
 	// console.log({ user })
 	
 	const [updateUser] = useUpdateUserMutation()
-	const [changed, setChanged] = useState<Partial<IUserId>>({})
+	const [changed, setChanged] = useState<Partial<IUserWithId>>({})
 	const bindChange = bindData(changed, setChanged)
 	
 	return (

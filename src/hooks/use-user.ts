@@ -2,7 +2,7 @@ import { useSession } from 'next-auth/react'
 import { useEffect, useState } from 'react'
 import { skipToken } from '@reduxjs/toolkit/query'
 
-import { User } from '@/ds/user'
+import { IUserWithId } from '@/ds/user'
 import { useGetUserQuery } from '~/states/api/userApi'
 
 
@@ -11,8 +11,8 @@ export const useUserId = (): string | undefined => {
 	return data?.user.id
 }
 
-export const useUser = (): User => {
-	const [user, setUser] = useState<User>(null)
+export const useUser = (): IUserWithId | null => {
+	const [user, setUser] = useState<IUserWithId | null>(null)
 	const userId = useUserId()
 	
 	const { data: userData } = useGetUserQuery(userId ? { id: userId } : skipToken)

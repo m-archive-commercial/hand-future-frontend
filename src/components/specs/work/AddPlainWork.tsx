@@ -12,12 +12,13 @@ import { Input } from '~/components/ui/input'
 import { Textarea } from '~/components/ui/textarea'
 import { bindData } from '~/lib/utils'
 import { MyImageUploader } from '~/components/specs/general'
+import { SourcePlatform } from '~/ds/work'
 
 import type { ICreateWork } from '~/ds/work'
 
 export const AddPlainWork = ({ data, setData }: {
-	data: ICreateWork
-	setData: (data: ICreateWork) => void
+	data: ICreateWork<SourcePlatform.plain>
+	setData: (data: ICreateWork<SourcePlatform.plain>) => void
 }): JSX.Element => {
 	
 	const bindChange = bindData(data, setData)

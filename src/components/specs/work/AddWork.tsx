@@ -56,7 +56,8 @@ export const AddWork = ({ user_id }: {
 								<TabsTrigger value={SourcePlatform.bilibiliVideo}>Bilibili</TabsTrigger>
 							</TabsList>
 							
-							<TabsContent value={SourcePlatform.plain} className={'flex flex-col gap-2'}><AddPlainWork data={work} setData={setWork}/></TabsContent>
+							<TabsContent value={SourcePlatform.plain} className={'flex flex-col gap-2'}><AddPlainWork data={work as ICreateWork<SourcePlatform.plain>}
+							                                                                                          setData={setWork}/></TabsContent>
 							<TabsContent value={SourcePlatform.wechatArticle}><AddWechatWork data={work as ICreateWork<SourcePlatform.wechatArticle>}
 							                                                                 setData={setWork}/></TabsContent>
 							<TabsContent value={SourcePlatform.bilibiliVideo}><AddBilibiliWork data={work as ICreateWork<SourcePlatform.bilibiliVideo>}
@@ -68,7 +69,7 @@ export const AddWork = ({ user_id }: {
 				</Section>
 				
 				<Section title="预览" className="col-span-1">
-					{work && <WorkPresentation work={work}/>}
+					{work && <WorkPresentation work={work} isEditable/>}
 				</Section>
 				
 				<Section title="数据核验" className="col-span-2">

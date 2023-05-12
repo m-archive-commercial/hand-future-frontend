@@ -47,10 +47,7 @@ export const RenderShareCard = (props: RenderShareCardProps) => {
 					{/*  avatar */}
 					
 					{/* todo: 在iphone浏览器里不显示 */}
-					<BaseAvatar
-						customClasses="m-4"
-						url={normalizeImageUri(data.avatar)} name={data.name} size="lg"
-					/>
+					<BaseAvatar url={normalizeImageUri(data.avatar)} text={data.name}/>
 					
 					{/*  name - title */}
 					<div className="flex-1 flex flex-col justify-center items-baseline">

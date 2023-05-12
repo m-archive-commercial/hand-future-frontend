@@ -8,7 +8,7 @@
 
 import { IconUser } from '@tabler/icons-react'
 
-import { User } from '~/ds/user'
+import { IUserWithId } from '~/ds/user'
 import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
 
 export const BaseAvatar = ({ url, text }: { url?: string, text?: string }) => {
@@ -22,7 +22,7 @@ export const BaseAvatar = ({ url, text }: { url?: string, text?: string }) => {
 	)
 }
 
-export const UserAvatar = ({ user }: { user: User }) => {
+export const UserAvatar = ({ user }: { user: IUserWithId }) => {
 	return (
 		<Avatar>
 			<AvatarImage src={user?.avatar}/>

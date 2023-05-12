@@ -15,7 +15,7 @@ export const fileApi = baseApi.injectEndpoints({
 					method: 'POST',
 				})
 			},
-			transformResponse: (fileUri: string) => normalizeImageUri(fileUri),
+			transformResponse: (fileUri: string) => normalizeImageUri(fileUri) || '',
 		}),
 		
 	}),

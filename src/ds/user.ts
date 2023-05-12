@@ -7,12 +7,11 @@
 import { IHero } from '~/ds/hero'
 
 
-export interface IUserId extends IHero {
+export interface IUserWithId extends IHero {
 	email?: string
 	role?: 'user' | 'admin'
 	cover?: string
 }
 
-export type IUserEmail = Omit<IUserId, 'id'> & { email: string }
-export type IUser = IUserId | IUserEmail
-export type User = IUser | null
+export type IUserWithEmail = Omit<IUserWithId, 'id'> & { email: string }
+export type IUser = IUserWithId | IUserWithEmail
