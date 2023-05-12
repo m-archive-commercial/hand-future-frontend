@@ -6,28 +6,29 @@
  */
 
 import React, { useState } from 'react'
-import * as Accordion from '@radix-ui/react-accordion'
 import { toast } from 'react-toastify'
+import { Tabs } from '@radix-ui/react-tabs'
 
 import { useAddWorkMutation } from '~/states/api/workApi'
-import { mockWork, TypographyLayout, TypographyLayouts } from '~/ds/work'
+import { mockWork, SourcePlatform, TypographyLayout, TypographyLayouts } from '~/ds/work'
 import { Dialog, DialogContent, DialogTrigger } from '~/components/ui/dialog'
 import { Button } from '~/components/ui/button'
 import { Label } from '~/components/ui/label'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select'
+import { TabsContent, TabsList, TabsTrigger } from '~/components/ui/tabs'
 
 import { Section } from '../../shared/Section'
-import { genPlainWorkPresentation, WorkPresentation } from '../work/presentations'
-import { HeroInputPlain } from '../work/HeroInputPlain'
-import { HeroInputWechat } from '../work/HeroInputWechat'
 import { ConnectionsLine } from '../../shared/ConnectionsLine'
 import settings from '../../../ds/settings'
-import { HeroInputBilibili } from '../work/HeroInputBilibili'
+
+import { genPlainWorkPresentation, WorkPresentation } from './presentations'
+import { HeroInputPlain } from './HeroInputPlain'
+import { HeroInputWechat } from './HeroInputWechat'
 
 import type { IWork } from '~/ds/work'
 
 
-export const HeroAddWork = ({ user_id }: {
+export const AddWork = ({ user_id }: {
 	user_id: string
 }): JSX.Element => {
 	const [addWork] = useAddWorkMutation()
@@ -50,16 +51,19 @@ export const HeroAddWork = ({ user_id }: {
 			<DialogContent className="sm:w-screen md:max-w-[1080px] overflow-auto grid md:grid-cols-3 gap-2">
 				
 				<Section title="输入" className="col-span-2">
-					<Accordion.Root type="single" collapsible
-					                className="w-full bg-mauve6 rounded-md shadow-[0_2px_10px] shadow-black/5"
-					>
-						<HeroInputPlain data={work} setData={setWork} onSubmit={onSubmit}/>
+					<Tabs defaultValue={SourcePlatform.plain}>
+						<TabsList className={'w-full'}>
+							<TabsTrigger value={SourcePlatform.plain}>手动</TabsTrigger>
+							<TabsTrigger value={SourcePlatform.wechatArticle}>微信</TabsTrigger>
+							<TabsTrigger value={SourcePlatform.bilibiliVideo}>Bilibili</TabsTrigger>
+						</TabsList>
 						
-						<HeroInputWechat data={work} setData={setWork} onSubmit={onSubmit}/>
-						
-						<HeroInputBilibili data={work} setData={setWork} onSubmit={onSubmit}/>
+						<TabsContent value={SourcePlatform.plain} className={'flex flex-col gap-2'}><HeroInputPlain data={work} setData={setWork}/></TabsContent>
+						<TabsContent value={SourcePlatform.wechatArticle}><HeroInputWechat data={work} setData={setWork}/></TabsContent>
+						<TabsContent value={SourcePlatform.bilibiliVideo}><HeroInputPlain data={work} setData={setWork}/></TabsContent>
 					
-					</Accordion.Root>
+					</Tabs>
+					<Button type={'submit'} className={'w-full mt-4'} size={'sm'}>提交</Button>
 				</Section>
 				
 				<Section title="预览" className="col-span-1">

@@ -1,5 +1,5 @@
 import * as AspectRatio from '@radix-ui/react-aspect-ratio'
-import { ChangeEvent, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { IconSquareRoundedPlus } from '@tabler/icons-react'
 import _ from 'lodash'
 import { toast } from 'react-toastify'
@@ -14,28 +14,13 @@ import { IUser } from '~/ds/user'
 import { IWork } from '~/ds/work'
 import { Label } from '~/components/ui/label'
 import { Button } from '~/components/ui/button'
-import { useUploadFileMutation } from '~/states/api/fileApi'
 import { Input } from '~/components/ui/input'
 import { Textarea } from '~/components/ui/textarea'
 import { useUpdateUserMutation } from '~/states/api/userApi'
-import { HeroAddWork } from '~/components/specs/user/HeroAddWork'
+import { AddWork } from '~/components/specs/work/AddWork'
+import { MyImageUploader } from '~/components/specs/general'
+import { bindData } from '~/lib/utils'
 
-
-const MyUploader = ({ inputId, onUploaded }: { inputId: string, onUploaded: (fileUri: string) => void }) => {
-	const [uploadFile] = useUploadFileMutation()
-	
-	return (
-		<input id={inputId} className={'w-full h-full'} type={'file'} hidden accept={'image/*'} onChange={async (event) => {
-			const files = event.target.files
-			if (files?.length !== 1) return
-			const file = files[0]
-			console.log({ file })
-			const { data: fileUri } = await uploadFile(file) as { data: string }
-			console.log({ fileUri })
-			await onUploaded(fileUri)
-		}}/>
-	)
-}
 
 const RealTimeAvatar = ({ user, onImageUriChange }: { user: IUser, onImageUriChange: (fileUri: string) => void }) => {
 	const [avatar, setAvatar] = useState(user.avatar)
@@ -50,7 +35,7 @@ const RealTimeAvatar = ({ user, onImageUriChange }: { user: IUser, onImageUriCha
 	return (
 		<Label id={'avatar'}>
 			<BaseAvatar url={avatar} text={user.name}/>
-			<MyUploader inputId={'cover'} onUploaded={setAvatar}/>
+			<MyImageUploader hidden id={'cover'} onUploaded={setAvatar}/>
 		</Label>
 	)
 }
@@ -61,12 +46,7 @@ export const HeroProfileEditMode = ({ user, works }: { user: IUser, works: IWork
 	
 	const [updateUser] = useUpdateUserMutation()
 	const [changed, setChanged] = useState<Partial<IUser>>({})
-	
-	const bindChange = (field: keyof Omit<IUser, 'role' | 'partners'>) => async (event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | string) => {
-		const value = typeof event === 'string' ? event : event.target.value
-		// console.log({ field, value })
-		setChanged({ ...changed, [field]: value })
-	}
+	const bindChange = bindData(changed, setChanged)
 	
 	return (
 		<div className="w-full grow flex flex-col gap-2">
@@ -84,7 +64,7 @@ export const HeroProfileEditMode = ({ user, works }: { user: IUser, works: IWork
 					
 					<Button>
 						<Label className="absolute bottom-2 right-2" htmlFor={'cover'}>更改封面</Label>
-						<MyUploader inputId={'cover'} onUploaded={bindChange('cover')}/>
+						<MyImageUploader hidden id={'cover'} onUploaded={bindChange('cover')}/>
 					</Button>
 				</AspectRatio.Root>
 				
@@ -135,7 +115,7 @@ export const HeroProfileEditMode = ({ user, works }: { user: IUser, works: IWork
 					</div>
 			}
 			
-			<HeroAddWork user_id={user.id}/>
+			<AddWork user_id={user.id}/>
 		
 		</div>
 	)
