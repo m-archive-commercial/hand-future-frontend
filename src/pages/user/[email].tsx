@@ -9,12 +9,12 @@ import { useRouter } from 'next/router'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { useState } from 'react'
 
-import { useGetWorksQuery } from '~/states/api/heroApi'
-import { HeroProfileEditMode } from '~/components/specs/hero/HeroProfileEditMode'
+import { HeroProfileEditMode } from '~/components/specs/user/HeroProfileEditMode'
 import { useGetUserByEmailQuery } from '~/states/api/userApi'
-import { HeroProfileReadMode } from '~/components/specs/hero/HeroProfileReadMode'
+import { HeroProfileReadMode } from '~/components/specs/user/HeroProfileReadMode'
 import { useAdmin, useSelf } from '~/hooks/use-user'
 import { Button } from '~/components/ui/button'
+import { useListWorksQuery } from '~/states/api/workApi'
 
 import RootLayout from '../../components/layouts/RootLayout'
 
@@ -23,7 +23,7 @@ export const UserPage = () => {
 	const email = router.query.email as string | undefined
 	
 	const { currentData: user = null } = useGetUserByEmailQuery(email ?? skipToken)
-	const { currentData: works = [] } = useGetWorksQuery(user?.id ?? skipToken)
+	const { currentData: works = [] } = useListWorksQuery(user?.id ?? skipToken)
 	
 	const [editModel, setEditModel] = useState(false)
 	

@@ -7,7 +7,7 @@ import { toast } from 'react-toastify'
 import { normalizeImageUri } from '~/lib/image'
 import { BG_COVER_FALLBACK } from '~/config/cover'
 import { BaseAvatar } from '~/components/shared/BaseAvatar'
-import { PartnerLink } from '~/components/specs/hero/PartnerLink'
+import { PartnerLink } from '~/components/specs/user/PartnerLink'
 import { Section } from '~/components/shared/Section'
 import { WorkPresentation } from '~/components/specs/work/presentations'
 import { IUser } from '~/ds/user'
@@ -18,6 +18,7 @@ import { useUploadFileMutation } from '~/states/api/fileApi'
 import { Input } from '~/components/ui/input'
 import { Textarea } from '~/components/ui/textarea'
 import { useUpdateUserMutation } from '~/states/api/userApi'
+import { HeroAddWork } from '~/components/specs/user/HeroAddWork'
 
 
 const MyUploader = ({ inputId, onUploaded }: { inputId: string, onUploaded: (fileUri: string) => void }) => {
@@ -134,7 +135,7 @@ export const HeroProfileEditMode = ({ user, works }: { user: IUser, works: IWork
 					</div>
 			}
 			
-			{/*{writable && <userAddWork user_id={user.email}/>}*/}
+			<HeroAddWork user_id={user.id}/>
 		
 		</div>
 	)

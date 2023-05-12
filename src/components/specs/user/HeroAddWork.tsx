@@ -9,7 +9,10 @@ import React, { useState } from 'react'
 import * as Accordion from '@radix-ui/react-accordion'
 import { toast } from 'react-toastify'
 
-import { mockWork } from '../../../ds/work'
+import { useAddWorkMutation } from '~/states/api/workApi'
+import { mockWork } from '~/ds/work'
+import { useRefresh } from '~/lib/router'
+
 import MyDialog from '../../shared/MyDialog'
 import { Section } from '../../shared/Section'
 import { genPlainWorkPresentation, WorkPresentation } from '../work/presentations'
@@ -18,15 +21,16 @@ import { HeroInputWechat } from '../work/HeroInputWechat'
 import { HeroSettingLayout } from '../work/HeroSettingLayout'
 import { ConnectionsLine } from '../../shared/ConnectionsLine'
 import settings from '../../../ds/settings'
-import backendAPI from '../../../lib/api'
-import { useRefresh } from '../../../lib/router'
 import { HeroInputBilibili } from '../work/HeroInputBilibili'
 
-import type { IWork } from '../../../ds/work'
+import type { IWork } from '~/ds/work'
+
 
 export const HeroAddWork = ({ user_id }: {
 	user_id: string
 }): JSX.Element => {
+	const [addWork] = useAddWorkMutation()
+	
 	const [work, setWork] = useState<IWork>(mockWork(user_id))
 	const refresh = useRefresh()
 	console.log({ work })
@@ -37,9 +41,7 @@ export const HeroAddWork = ({ user_id }: {
 	
 	const onSubmit = async () => {
 		console.log('submitting data: ', work)
-		const res = await backendAPI.patch('/works/update', work)
-		setWork(mockWork(user_id))
-		console.log('updated work: ', res.data)
+		await addWork(work)
 		toast.success('新作品上传成功')
 	}
 	

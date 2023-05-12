@@ -1,6 +1,5 @@
 import { baseApi } from '~/states/api/baseApi'
 import { IHero } from '~/ds/hero'
-import { IWork } from '~/ds/work'
 import { IGraphData } from '~/ds/panel_3dgraph'
 
 
@@ -15,9 +14,6 @@ export const heroApi = baseApi.injectEndpoints({
 			query: () => `/user/?only_heroes=1`,
 		}),
 		
-		getWorks: build.query<IWork[], string>({
-			query: (userId) => `/works/?user_id=${userId}`,
-		}),
 	}),
 })
 
@@ -25,5 +21,4 @@ export const heroApi = baseApi.injectEndpoints({
 export const {
 	useGetGraphDataQuery,
 	useGetHeroesListQuery,
-	useGetWorksQuery,
 } = heroApi

@@ -7,7 +7,7 @@
 
 import clsx from 'clsx'
 
-import { HeroLineView } from '~/components/specs/hero/HeroLineView'
+import { HeroLineView } from '~/components/specs/user/HeroLineView'
 
 import type { IHero } from '../../../ds/hero'
 
