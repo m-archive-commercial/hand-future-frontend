@@ -12,7 +12,7 @@ import { MongodbEmailAdapter } from '~/lib/mongodb-email-adapter'
 export const authOptions: NextAuthOptions = {
 	adapter: MongodbEmailAdapter(clientPromise, {
 		databaseName: DATABASE_AUTH_DB_NAME,
-		// collections: { Users: 'user' },
+		collections: { Users: 'user' },
 	}),
 	
 	providers: [

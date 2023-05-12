@@ -29,7 +29,7 @@ export const RegisteredDropdown = () => {
 			
 			<DropdownMenuContent>
 				
-				<Link href={'/user/' + user.email}>
+				<Link href={'/user?email=' + user.email}>
 					<DropdownMenuItem>
 						资料
 					</DropdownMenuItem>
