@@ -93,7 +93,7 @@ export const HeroProfileEditMode = ({ user, works }: { user: IUser, works: IWork
 				works.length
 					?
 					<div className="gap-4 grid md:grid-cols-2">
-						{works.map((work) => <WorkPresentation key={work.id} work={work}/>)}
+						{works.map((work) => <WorkPresentation key={work.id} work={work} isEditable/>)}
 					</div>
 					:
 					<div className="h-24 w-full flex justify-center items-center text-xl font-medium text-gray-500">

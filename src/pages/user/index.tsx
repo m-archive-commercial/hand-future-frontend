@@ -8,13 +8,14 @@
 import { useRouter } from 'next/router'
 import { skipToken } from '@reduxjs/toolkit/query'
 import { useState } from 'react'
+import clsx from 'clsx'
 
 import { HeroProfileEditMode } from '~/components/specs/user/HeroProfileEditMode'
 import { HeroProfileReadMode } from '~/components/specs/user/HeroProfileReadMode'
 import { useAdmin, useSelf } from '~/hooks/use-user'
-import { Button } from '~/components/ui/button'
 import { useListWorksQuery } from '~/states/api/workApi'
 import { useGetUserQuery } from '~/states/api/userApi'
+import { Switch } from '~/components/ui/switch'
 
 import RootLayout from '../../components/layouts/RootLayout'
 
@@ -29,7 +30,7 @@ export const UserPage = () => {
 	const { currentData: user = null } = useGetUserQuery(isEmpty ? skipToken : query)
 	const { currentData: works = [] } = useListWorksQuery(user?.id ?? skipToken)
 	
-	const [editModel, setEditModel] = useState(false)
+	const [editMode, setEditMode] = useState<boolean>(false)
 	
 	const isAdmin = useAdmin()
 	const isSelf = useSelf(user?.id)
@@ -42,14 +43,16 @@ export const UserPage = () => {
 			{
 				!user
 					? 'User Not Exists!'
-					: editModel ? <HeroProfileEditMode user={user} works={works}/>
+					: editMode ? <HeroProfileEditMode user={user} works={works}/>
 						: <HeroProfileReadMode user={user} works={works}/>
 			}
 			
 			{editable && (
-				<Button size={'sm'} className={'absolute top-2 right-2 z-auto'} onClick={() => setEditModel(!editModel)}>
-					{editModel ? '编辑模式' : '阅读模式'}
-				</Button>
+				<div className={'absolute top-2 right-2 z-auto inline-flex items-center gap-2'}>
+					<span className={clsx('text-gray-500', !editMode && 'text-gray-700 font-bold')}>访客模式</span>
+					<Switch checked={editMode} onClick={() => setEditMode(!editMode)}/>
+					<span className={clsx('text-gray-500', editMode && 'text-gray-700 font-bold')}>编辑模式</span>
+				</div>
 			)}
 		</RootLayout>
 	)

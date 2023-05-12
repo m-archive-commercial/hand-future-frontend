@@ -9,7 +9,6 @@ import Image from 'next/image'
 import { toast } from 'react-toastify'
 
 import { ICreateWork, IWork, SourcePlatform, TypographyLayout } from '~/ds/work'
-import { useAdmin, useUserId } from '~/hooks/use-user'
 import { useDeleteWorkMutation } from '~/states/api/workApi'
 import { BilibiliVideo, getBvidFromUrl } from '~/components/shared/BilibiliVideo'
 import { Dialog, DialogContent, DialogTrigger } from '~/components/ui/dialog'
@@ -123,13 +122,8 @@ export const genInnerWorkPresentation = (work: ICreateWork<SourcePlatform>): JSX
 			throw new Error('not implemented')
 	}
 }
-export const WorkPresentation = ({ work }: { work: IWork<SourcePlatform> }): JSX.Element => {
-	const isAdmin = useAdmin()
-	const isOwner = useUserId() === work.user_id
-	const hasPrivilege = isAdmin || isOwner
+export const WorkPresentation = ({ work, isEditable }: { work: IWork, isEditable: boolean }): JSX.Element => {
 	const [deleteWork] = useDeleteWorkMutation()
-	
-	console.log({ work, isAdmin, isOwner, hasPrivilege })
 	
 	// console.log('work presentation: ', work)
 	
@@ -141,7 +135,7 @@ export const WorkPresentation = ({ work }: { work: IWork<SourcePlatform> }): JSX
 			
 			<div className="absolute bottom-2 right-2 flex w-full justify-end gap-2">
 				
-				{hasPrivilege && <button type="button" className="btn btn-error btn-xs" onClick={async () => {
+				{isEditable && <button type="button" className="btn btn-error btn-xs" onClick={async () => {
 					await deleteWork(work.id!)
 					toast(`deleted work(id=${work.id})`)
 				}

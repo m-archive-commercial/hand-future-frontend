@@ -32,7 +32,7 @@ export const HeroProfileReadMode = ({ user, works }: { user: IUser, works: IWork
 					
 					<div className="flex items-center gap-4">
 						<UserAvatar user={user}/>
-						<p>{user.name}</p>
+						<h2 className={'font-bold text-lg'}>{user.name}</h2>
 					</div>
 					
 					{user.title?.split('\n').map((line, index) => <p key={index}>{line}</p>)}
@@ -60,7 +60,7 @@ export const HeroProfileReadMode = ({ user, works }: { user: IUser, works: IWork
 				works.length
 					?
 					<div className="gap-4 grid md:grid-cols-2">
-						{works.map((work) => <WorkPresentation key={work.id} work={work}/>)}
+						{works.map((work) => <WorkPresentation key={work.id} work={work} isEditable={false}/>)}
 					</div>
 					:
 					<div className="h-24 w-full flex justify-center items-center text-xl font-medium text-gray-500">

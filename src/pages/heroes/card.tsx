@@ -5,34 +5,34 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
 import { IconRotateClockwise2 } from '@tabler/icons-react'
 import * as htmlToImage from 'html-to-image'
 
 import { Fonts } from '~/config/fonts'
-import { SAMPLE_DATA } from '~/lib/shareCard'
-import { useGetHeroesListQuery } from '~/states/api/heroApi'
+import { genRandomShareCard, shareCardInit } from '~/lib/shareCard'
 import { normalizeImageUri } from '~/lib/image'
+import { useListHeroesQuery } from '~/states/api/heroApi'
+import { FONT_WEIGHTS } from '~/ds/font'
+import { BaseAvatar } from '~/components/shared/BaseAvatar'
 
 import HeroSearch from '../../components/specs/user/HeroSearch'
-import { FONT_WEIGHTS } from '../../ds/font'
 import RenderShareCard from '../../components/specs/user/RenderShareCard'
 import RootLayout from '../../components/layouts/RootLayout'
 import backendAPI from '../../lib/api'
 import InputText from '../../components/shared/InputText'
 import InputTextArea from '../../components/shared/InputTextArea'
-import { BaseAvatar } from '../../components/shared/BaseAvatar'
 
-import type { InputAction } from '../../components/shared/InputText'
-import type { FONT_WEIGHT } from '../../ds/font'
+import type { FONT_WEIGHT } from '~/ds/font'
 import type { ChangeEvent } from 'react'
-import type { IShareCard } from '../../ds/hero'
+import type { InputAction } from '~/components/shared/InputText'
+import type { IShareCard } from '~/ds/hero'
 
 export const CardPage = () => {
 	
 	const [searchKey, setSearchKey] = useState('')
-	const [data, setData] = useState<IShareCard>(SAMPLE_DATA)
+	const [data, setData] = useState<IShareCard>(shareCardInit)
 	const [midColor, setMidColor] = useState('#337799')
 	const [themeColor, setThemeColor] = useState('#109B7B')
 	const [fontIndex, setFontIndex] = useState(1) // 0: default, 1: ali
@@ -42,7 +42,7 @@ export const CardPage = () => {
 	const [qrCodeUrl, setQrCodeUrl] = useState('https://gkleifeng.notion.site/da7ad92cb3414e6891c80e52541a6678')
 	const [isGeneratingCard, setGeneratingCard] = useState(false)
 	
-	const { data: heroes = [] } = useGetHeroesListQuery()
+	const { data: heroes = [] } = useListHeroesQuery()
 	
 	const refCanvas = useRef<HTMLDivElement>(null)
 	
@@ -87,6 +87,10 @@ export const CardPage = () => {
 		console.log('clicked hero: ', hero)
 		setData({ ...data, ...hero })
 	}
+	
+	useEffect(() => {
+		setData(genRandomShareCard())
+	}, [])
 	
 	return (
 		<RootLayout>
