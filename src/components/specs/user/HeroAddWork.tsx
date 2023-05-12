@@ -11,9 +11,9 @@ import { toast } from 'react-toastify'
 
 import { useAddWorkMutation } from '~/states/api/workApi'
 import { mockWork } from '~/ds/work'
-import { useRefresh } from '~/lib/router'
+import { Dialog, DialogContent, DialogTrigger } from '~/components/ui/dialog'
+import { Button } from '~/components/ui/button'
 
-import MyDialog from '../../shared/MyDialog'
 import { Section } from '../../shared/Section'
 import { genPlainWorkPresentation, WorkPresentation } from '../work/presentations'
 import { HeroInputPlain } from '../work/HeroInputPlain'
@@ -32,12 +32,7 @@ export const HeroAddWork = ({ user_id }: {
 	const [addWork] = useAddWorkMutation()
 	
 	const [work, setWork] = useState<IWork>(mockWork(user_id))
-	const refresh = useRefresh()
 	console.log({ work })
-	
-	const Trigger = (
-		<button type="button" className="w-full rounded-xl px-3 py-3 bg-primary text-white">增加一个新的作品</button>
-	)
 	
 	const onSubmit = async () => {
 		console.log('submitting data: ', work)
@@ -46,22 +41,16 @@ export const HeroAddWork = ({ user_id }: {
 	}
 	
 	return (
-		<MyDialog
-			asChild={true}
-			trigger={Trigger}
-			title="新增一个作品"
-			onOpenChange={(open) => {
-				if (!open) {
-					refresh()
-				}
-			}}
-		>
+		<Dialog>
+			<DialogTrigger asChild>
+				<Button>新增作品</Button>
+			</DialogTrigger>
 			
-			<div className="w-[80vw] grid md:grid-cols-3 gap-2">
+			<DialogContent className="sm:w-screen md:max-w-[1080px] overflow-auto grid md:grid-cols-3 gap-2">
 				
 				<Section title="输入" className="col-span-2">
 					<Accordion.Root type="single" collapsible
-					                className="w-full bg-mauve6 w-[300px] rounded-md shadow-[0_2px_10px] shadow-black/5"
+					                className="w-full bg-mauve6 rounded-md shadow-[0_2px_10px] shadow-black/5"
 					>
 						<HeroInputPlain data={work} setData={setWork} onSubmit={onSubmit}/>
 						
@@ -91,8 +80,8 @@ export const HeroAddWork = ({ user_id }: {
 				
 				</Section>
 			
-			</div>
-		
-		</MyDialog>
+			</DialogContent>
+		</Dialog>
 	)
+	
 }
