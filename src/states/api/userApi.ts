@@ -1,5 +1,5 @@
 import { baseApi } from '~/states/api/baseApi'
-import { IUser, IUserEmail, IUserId } from '~/ds/user'
+import { IUserEmail, IUserId } from '~/ds/user'
 import { normalizeImageUri } from '~/lib/image'
 
 
@@ -36,7 +36,7 @@ export const userApi = baseApi
 				...userHelper,
 			}),
 			
-			updateUser: build.mutation<void, IUser>({
+			updateUser: build.mutation<void, IUserId>({
 				query: (data) => {
 					console.log('updateUser', { data })
 					return ({
@@ -57,7 +57,6 @@ export const userApi = baseApi
 						method: 'PATCH',
 					})
 				},
-				invalidatesTags: (result, error, arg, meta) => [{ type: TAG_USER, id: arg.id }],
 			}),
 			
 			

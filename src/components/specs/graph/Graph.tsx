@@ -27,7 +27,7 @@ import type { ForceGraphMethods, GraphData, NodeObject } from 'react-force-graph
 export const Graph = ({ data }: {
 	data: GraphData
 }): JSX.Element => {
-	// console.log('graph data: ', data)
+	console.log('graph data: ', data)
 	
 	const isAdmin = useAdmin()
 	const fgRef = useRef<ForceGraphMethods>()
