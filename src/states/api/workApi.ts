@@ -17,10 +17,10 @@ export const workApi = baseApi
 				providesTags: (result) => [...(result || []).map((item) => ({ type: TAG_WORK, id: item.id })), { type: TAG_WORK, id: ID_ALL }],
 			}),
 			
-			addWork: build.mutation<void, IWork>({
+			addWork: build.mutation<void, Omit<IWork, 'id'>>({
 				query: (body) => ({
-					url: `/work/update`,
-					method: 'PATCH',
+					url: `/work/`,
+					method: 'POST',
 					body,
 				}),
 				invalidatesTags: [{ type: TAG_WORK, id: ID_ALL }],
@@ -28,7 +28,7 @@ export const workApi = baseApi
 			
 			updateWork: build.mutation<void, IWork>({
 				query: (body) => ({
-					url: `/work/update`,
+					url: `/work/`,
 					method: 'PATCH',
 					body,
 				}),

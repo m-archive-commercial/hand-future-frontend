@@ -6,22 +6,17 @@
  */
 
 import Image from 'next/image'
-import { toast } from 'react-toastify'
 
-import { SourcePlatform, TypographyLayout } from '~/ds/work'
-import { useRefresh } from '~/lib/router'
+import { ICreateWork, SourcePlatform, TypographyLayout } from '~/ds/work'
 import { useAdmin } from '~/hooks/use-user'
 
 import settings from '../../../ds/settings'
-import backendAPI from '../../../lib/api'
 import { BilibiliVideo, getBvidFromUrl } from '../../shared/BilibiliVideo'
 import MyDialog from '../../shared/MyDialog'
 import { ConnectionsLine } from '../../shared/ConnectionsLine'
 
-import type { IWork } from '~/ds/work'
 
-
-const genWorkContent = (work: IWork): JSX.Element => (
+const genWorkContent = (work: ICreateWork<SourcePlatform>): JSX.Element => (
 	<div className="prose p-2">
 		<h2>{work.title}</h2>
 		<blockquote>{work.description}</blockquote>
@@ -37,9 +32,9 @@ const PlainLine = ({ title, content }: {
 		<p className="flex-1">{content}</p>
 	</div>
 )
-export const genPlainWorkPresentation = (work: IWork): JSX.Element => (
+export const genPlainWorkPresentation = (work: ICreateWork<SourcePlatform>): JSX.Element => (
 	<div className="flex flex-col gap-2 p-2">
-		<PlainLine title="id" content={work.id}/>
+		{/*<PlainLine title="id" content={work.id}/>*/}
 		<PlainLine title="user_id" content={work.user_id}/>
 		<PlainLine title="layout" content={work.layout}/>
 		<PlainLine title="title" content={work.title}/>
@@ -54,15 +49,15 @@ export const genPlainWorkPresentation = (work: IWork): JSX.Element => (
 	</div>
 )
 
-export const genInnerWorkPresentation = (work: IWork): JSX.Element => {
+export const workIsBilibili = (work: ICreateWork<SourcePlatform>): work is ICreateWork<SourcePlatform.bilibiliVideo> =>
+	work.source.platform === SourcePlatform.bilibiliVideo
+
+export const genInnerWorkPresentation = (work: ICreateWork<SourcePlatform>): JSX.Element => {
 	// console.log('generating work presentation: ', work)
 	
-	if (work.source.platform === SourcePlatform.bilibiliVideo) {
+	if (workIsBilibili(work)) {
 		return (
-			<BilibiliVideo video={{
-				bvid: getBvidFromUrl(work.id)!,
-			}}
-			/>
+			<BilibiliVideo video={{ bvid: getBvidFromUrl(work.source.url) }}/>
 		)
 	}
 	
@@ -127,14 +122,12 @@ export const genInnerWorkPresentation = (work: IWork): JSX.Element => {
 			throw new Error('not implemented')
 	}
 }
-export const WorkPresentation = ({ work }: { work: IWork }): JSX.Element => {
+export const WorkPresentation = ({ work }: { work: ICreateWork<SourcePlatform> }): JSX.Element => {
 	const isAdmin = useAdmin()
-	const refresh = useRefresh()
 	
 	const onDelete = async () => {
-		await backendAPI.delete(`/works?id=${work.id}`)
-		toast.success(`deleted work of id=${work.id}`)
-		refresh()
+		// await backendAPI.delete(`/works?id=${work.id}`)
+		// toast.success(`deleted work of id=${work.id}`)
 	}
 	
 	// console.log('work presentation: ', work)
@@ -142,7 +135,7 @@ export const WorkPresentation = ({ work }: { work: IWork }): JSX.Element => {
 	const detailBtn = <button type="button" className="btn btn-primary btn-xs">详情</button>
 	
 	return (
-		<div key={work.title} className="bg-gray-50 rounded-2xl overflow-hidden relative border-2 border-primary">
+		<div key={work.title} className="bg-gray-50 overflow-hidden relative border border-primary rounded-lg h-[240px]">
 			{genInnerWorkPresentation(work)}
 			
 			<div className="absolute bottom-2 right-2 flex w-full justify-end gap-2">

@@ -10,7 +10,7 @@ import { AxiosError } from 'axios'
 import { toast } from 'react-toastify'
 import _ from 'lodash'
 
-import { SourcePlatform } from '~/ds/work'
+import { ICreateWork, SourcePlatform } from '~/ds/work'
 import { Label } from '~/components/ui/label'
 import { Input } from '~/components/ui/input'
 import { WECHAT_ARTICLE_URL_PLACEHOLDER } from '~/config'
@@ -18,16 +18,13 @@ import { Button } from '~/components/ui/button'
 
 import backendAPI from '../../../lib/api'
 
-import type { IWork } from '~/ds/work'
 
-
-const parseWechatArticleUrl = async (url: string): Promise<Partial<IWork> | undefined> => {
+const parseWechatArticleUrl = async (url: string): Promise<ICreateWork<SourcePlatform.wechatArticle> | null> => {
 	try {
 		const res = await backendAPI.get(`/wechat/article?url=${url}`)
 		const { data: wechatData } = res
 		console.log('parsed wechat article: ', wechatData)
 		return {
-			id: wechatData.url,
 			cover: wechatData.cover_url,
 			source: {
 				platform: SourcePlatform.wechatArticle,
@@ -36,7 +33,7 @@ const parseWechatArticleUrl = async (url: string): Promise<Partial<IWork> | unde
 			content: '', // todo: fetch more in wechat article to fill the content field
 			description: wechatData.desc,
 			title: wechatData.title,
-		}
+		} as ICreateWork<SourcePlatform.wechatArticle>
 	} catch (err) {
 		console.error(err)
 		if (err instanceof AxiosError) {
@@ -45,12 +42,13 @@ const parseWechatArticleUrl = async (url: string): Promise<Partial<IWork> | unde
 			// 2. 基于 fastapi： err.response?.data.detail // invalid url
 			toast.error(err.response?.data.detail)
 		}
+		return null
 	}
 }
 
 export const HeroInputWechat = ({ data, setData }: {
-	data: IWork
-	setData: (data: IWork) => void
+	data: ICreateWork<SourcePlatform.wechatArticle>
+	setData: (data: ICreateWork<SourcePlatform.wechatArticle>) => void
 }): JSX.Element => {
 	return (
 		<>
@@ -64,8 +62,9 @@ export const HeroInputWechat = ({ data, setData }: {
 					onChange={(event) => setData(_.merge({}, data, { source: { url: event.target.value } }))}
 				/>
 				
-				<Button className={'shrink-0'} onClick={async () => {
-					const result = await parseWechatArticleUrl(data.source.url || '')
+				<Button type={'button'} className={'shrink-0'} onClick={async () => {
+					if (!data.source.url) return toast.error('URL is required')
+					const result = await parseWechatArticleUrl(data.source.url)
 					if (result) setData({ ...data, ...result })
 				}}>解析</Button>
 			</div>

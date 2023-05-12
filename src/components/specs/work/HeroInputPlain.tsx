@@ -13,11 +13,11 @@ import { Textarea } from '~/components/ui/textarea'
 import { bindData } from '~/lib/utils'
 import { MyImageUploader } from '~/components/specs/general'
 
-import type { IWork } from '~/ds/work'
+import type { ICreateWork } from '~/ds/work'
 
 export const HeroInputPlain = ({ data, setData }: {
-	data: IWork
-	setData: (data: IWork) => void
+	data: ICreateWork
+	setData: (data: ICreateWork) => void
 }): JSX.Element => {
 	
 	const bindChange = bindData(data, setData)

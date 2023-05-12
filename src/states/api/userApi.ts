@@ -6,8 +6,12 @@ import { normalizeImageUri } from '~/lib/image'
 export const TAG_USER = 'user' as const
 
 const userHelper = {
-	providesTags: (result: IUser | undefined) => [{ type: TAG_USER, id: result?.id }],
-	transformResponse: (response: IUser) => {
+	providesTags: (result: IUser | null | undefined) => {
+		console.log({ result })
+		return [{ type: TAG_USER, id: result?.id }]
+	},
+	transformResponse: (response: IUser | null) => {
+		if (!response) return response
 		for (const field of ['cover', 'avatar'] as const) {
 			const value = response[field]
 			if (value)
@@ -24,12 +28,12 @@ export const userApi = baseApi
 	.injectEndpoints({
 		overrideExisting: true,
 		endpoints: (build) => ({
-			getUserByEmail: build.query<IUser, string>({
+			getUserByEmail: build.query<IUser | null, string>({
 				query: (arg) => `/user/?email=${arg}`,
 				...userHelper,
 			}),
 			
-			getUserById: build.query<IUser, string>({
+			getUserById: build.query<IUser | null, string>({
 				query: (arg) => `/user/?id=${arg}`,
 				...userHelper,
 			}),

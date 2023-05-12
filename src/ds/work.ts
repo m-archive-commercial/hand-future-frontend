@@ -5,11 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { v4 } from 'uuid'
 
 import { mockConnections, mockDesc, mockTitle } from '~/mock/hero'
-
-import { genRandomImage } from '../lib/random'
+import { genRandomImage } from '~/lib/random'
 
 
 export enum SourcePlatform {
@@ -18,9 +16,9 @@ export enum SourcePlatform {
 	wechatArticle = 'wechatArticle',
 }
 
-export interface WorkSource {
-	platform: SourcePlatform
-	url?: string
+export interface WorkSource<T extends SourcePlatform> {
+	platform: T
+	url: T extends SourcePlatform.plain ? undefined : string
 }
 
 /**
@@ -36,8 +34,7 @@ export enum TypographyLayout {
 
 export const TypographyLayouts = Object.keys(TypographyLayout) as string[] as TypographyLayout[]
 
-export interface IWork {
-	id: string
+export interface ICreateWork<T extends SourcePlatform> {
 	user_id: string
 	layout: TypographyLayout
 	title: string
@@ -45,13 +42,17 @@ export interface IWork {
 	description: string
 	content: string
 	connections: string[] // id[]
-	source: WorkSource
+	source: WorkSource<T>
+}
+
+export interface IWork extends ICreateWork<SourcePlatform> {
+	id: string
 }
 
 export const mockWork = (
 	user_id: string,
-	type: TypographyLayout = TypographyLayout.typography_horizontal_bg): IWork => ({
-	id: v4(),
+	type: TypographyLayout = TypographyLayout.typography_horizontal_bg,
+): ICreateWork<SourcePlatform.plain> => ({
 	user_id,
 	layout: type,
 	title: mockTitle(),
@@ -61,5 +62,6 @@ export const mockWork = (
 	cover: genRandomImage({}),
 	source: {
 		platform: SourcePlatform.plain,
+		url: undefined,
 	},
 })
