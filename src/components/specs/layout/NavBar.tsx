@@ -9,7 +9,7 @@ import Link from 'next/link'
 import { useSession } from 'next-auth/react'
 
 import { Avatar, AvatarFallback } from '~/components/ui/avatar'
-import { useAdmin } from '~/hooks/use-role'
+import { useAdmin } from '~/hooks/use-user'
 
 import RegisteredDropdown from '../account/RegisteredDropdown'
 import settings from '../../../../config/sys/settings.json'
@@ -24,6 +24,8 @@ export const SVG_PATH_ARROW_DOWN = 'M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6
 export const NavBar = (): JSX.Element => {
 	
 	const { data: sessionData } = useSession()
+	console.log({ sessionData })
+	
 	const isAdmin = useAdmin()
 	
 	const menus = (settings.menus as IMenuItem[])

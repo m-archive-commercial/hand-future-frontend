@@ -11,7 +11,7 @@ import { QRCodeSVG } from 'qrcode.react'
 
 import { getServerImagePath } from '~/lib/image'
 
-import BaseAvatar from '../../shared/BaseAvatar'
+import { BaseAvatar } from '../../shared/BaseAvatar'
 
 import type { Ref } from 'react'
 import type { IShareCard } from '../../../ds/hero'

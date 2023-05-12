@@ -11,7 +11,8 @@ import { signOut } from 'next-auth/react'
 import { IconLoaderQuarter } from '@tabler/icons-react'
 
 import { useUser } from '~/hooks/use-user'
-import { Avatar, AvatarFallback, AvatarImage } from '~/components/ui/avatar'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '~/components/ui/dropdown-menu'
+import { UserAvatar } from '~/components/shared/BaseAvatar'
 
 
 export const RegisteredDropdown = () => {
@@ -21,27 +22,26 @@ export const RegisteredDropdown = () => {
 	
 	
 	return (
-		// avatar with image
-		<div className="dropdown dropdown-end">
-			<div role="button" tabIndex={0} className="m-1">
-				<Avatar>
-					<AvatarImage src={user.avatar}/>
-					<AvatarFallback>{(user.name || user.email).slice(0, 2)}</AvatarFallback>
-				</Avatar>
-			</div>
+		<DropdownMenu>
+			<DropdownMenuTrigger>
+				<UserAvatar user={user}/>
+			</DropdownMenuTrigger>
 			
-			<ul className="w-24 mt-3 p-2 shadow menu menu-compact dropdown-content bg-base-100 rounded-box">
+			<DropdownMenuContent>
 				
-				<li>
-					<Link href={'/user/' + user.email}>资料</Link>
-				</li>
+				<Link href={'/user/' + user.email}>
+					<DropdownMenuItem>
+						资料
+					</DropdownMenuItem>
+				</Link>
 				
-				<li>
-					<button type="button" onClick={() => signOut()}>注销</button>
-				</li>
+				<DropdownMenuItem onClick={() => signOut()}>
+					注销
+				</DropdownMenuItem>
 			
-			</ul>
-		</div>
+			</DropdownMenuContent>
+		</DropdownMenu>
+	
 	)
 }
 

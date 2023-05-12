@@ -43,7 +43,7 @@ export const HeroTable = (props: HeroTableProps) => {
 					heroes
 						.filter((hero) => !searchKey || hero.name?.includes(searchKey))
 						// .filter((value, i) => i >= pageNumber * pageSize && i < (pageNumber + 1) * pageSize)
-						.map((hero) => <HeroLineView key={hero.email} hero={hero} onClickHero={onClickHero}/>)
+						.map((hero) => <HeroLineView key={hero.id} hero={hero} onClickHero={onClickHero}/>)
 				}
 				
 				</tbody>

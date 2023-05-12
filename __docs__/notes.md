@@ -1,5 +1,9 @@
 # hand-future-frontend
 
+## next-auth mongodb
+
+ref: https://github.com/nextauthjs/next-auth/blob/main/packages/adapter-mongodb/src/index.ts
+
 ## node
 
 ### install specific node version on MacOS

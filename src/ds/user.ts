@@ -8,8 +8,9 @@ import { IHero } from '~/ds/hero'
 
 
 export interface IUser extends IHero {
-	email: string
+	email?: string
 	role?: 'user' | 'admin'
+	cover?: string
 }
 
 export type User = IUser | null

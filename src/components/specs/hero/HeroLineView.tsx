@@ -1,6 +1,6 @@
 import { IHero } from '~/ds/hero'
 import { getServerImagePath } from '~/lib/image'
-import BaseAvatar from '~/components/shared/BaseAvatar'
+import { BaseAvatar } from '~/components/shared/BaseAvatar'
 
 export const HeroLineView = ({
 	                             hero, onClickHero,
@@ -11,7 +11,7 @@ export const HeroLineView = ({
 ) => {
 	
 	return (
-		<tr key={hero.email} onClick={() => {onClickHero && onClickHero(hero.email)}}>
+		<tr onClick={() => {onClickHero && onClickHero(hero.id)}}>
 			
 			<td>
 				<div className="flex items-center space-x-3">

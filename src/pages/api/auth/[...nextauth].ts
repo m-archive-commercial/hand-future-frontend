@@ -1,16 +1,16 @@
 import NextAuth, { NextAuthOptions } from 'next-auth'
 import EmailProvider from 'next-auth/providers/email'
-import { MongoDBAdapter } from '@next-auth/mongodb-adapter'
 import { createTransport } from 'nodemailer'
 
 import { generateVerificationToken } from '~/lib/auth'
 import clientPromise from '@/lib/mongodb'
 import { DATABASE_AUTH_DB_NAME, EMAIL_FROM, EMAIL_SERVER } from '@/lib/env'
 import { setTokenCentre } from '@/pages/api/auth/general'
+import { MongodbEmailAdapter } from '~/lib/mongodb-email-adapter'
 
 
 export const authOptions: NextAuthOptions = {
-	adapter: MongoDBAdapter(clientPromise, {
+	adapter: MongodbEmailAdapter(clientPromise, {
 		databaseName: DATABASE_AUTH_DB_NAME,
 		collections: { Users: 'user' },
 	}),
@@ -48,16 +48,16 @@ export const authOptions: NextAuthOptions = {
 	callbacks: {
 		
 		signIn: async ({ user, email, account, profile, credentials }) => {
-			user.id = user.email! // <-- key
+			// user.id = user.email! // <-- key
 			console.log('signIn', { user, email, account, profile, credentials })
 			return true
 		},
-		
-		jwt: async ({ token, user }) => {
-			console.log('jwt', { token, user })
-			return Promise.resolve(token)
-		},
-		
+		//
+		// jwt: async ({ token, user }) => {
+		// 	console.log('jwt', { token, user })
+		// 	return Promise.resolve(token)
+		// },
+		//
 		// ref: https://dev.to/said_mounaim/authentication-with-credentials-using-next-auth-mongodb-5e0j
 		// async jwt({ token, user }) {
 		// 	console.log({ token, user })
@@ -72,7 +72,7 @@ export const authOptions: NextAuthOptions = {
 		
 		session({ session, token, user }) {
 			console.log('session', { session, token, user })
-			session.user.id = session.user.email
+			session.user.id = user.id
 			return session // The return type will match the one returned in `useSession()`
 		},
 		

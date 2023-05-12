@@ -22,7 +22,7 @@ import RootLayout from '../../components/layouts/RootLayout'
 import backendAPI from '../../lib/api'
 import InputText from '../../components/shared/InputText'
 import InputTextArea from '../../components/shared/InputTextArea'
-import BaseAvatar from '../../components/shared/BaseAvatar'
+import { BaseAvatar } from '../../components/shared/BaseAvatar'
 
 import type { InputAction } from '../../components/shared/InputText'
 import type { FONT_WEIGHT } from '../../ds/font'

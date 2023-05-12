@@ -3,17 +3,19 @@ import { useEffect, useState } from 'react'
 import { skipToken } from '@reduxjs/toolkit/query'
 
 import { User } from '@/ds/user'
-import { useGetUserQuery, useLazyGetUserQuery } from '@/states/api/userApi'
-import { ID } from '@/ds/general'
+import { useGetUserByIdQuery } from '~/states/api/userApi'
 
+
+export const useUserId = (): string | undefined => {
+	const { data } = useSession()
+	return data?.user.id
+}
 
 export const useUser = (): User => {
 	const [user, setUser] = useState<User>(null)
+	const userId = useUserId()
 	
-	const { data: sessionData } = useSession()
-	console.log({ sessionData })
-	
-	const { data: userData } = useGetUserQuery(sessionData?.user.id ?? skipToken)
+	const { data: userData } = useGetUserByIdQuery(userId ?? skipToken)
 	console.log({ userData })
 	
 	useEffect(() => {
@@ -24,22 +26,12 @@ export const useUser = (): User => {
 	return user
 }
 
-
-export const useLazyUser = (): [User, (id: ID) => void] => {
-	const { data: session } = useSession()
-	const id = session?.user.id
-	
-	const [getUser, { data: userData = null }] = useLazyGetUserQuery()
-	
-	useEffect(() => {
-		if (!id) return
-		getUser(id)
-	}, [id])
-	
-	return [userData, getUser]
+export const useSelf = (id: string | undefined): boolean => {
+	const yourId = useUserId()
+	return id ? yourId === id : false
 }
 
-export const useUserId = (): ID | null => {
+export const useAdmin = (): boolean => {
 	const user = useUser()
-	return user ? user.email : null
+	return user?.role === 'admin'
 }

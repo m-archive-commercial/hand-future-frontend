@@ -8,9 +8,9 @@
 import Image from 'next/image'
 import { toast } from 'react-toastify'
 
-import { useAdmin } from '~/hooks/use-role'
 import { SourcePlatform, TypographyLayout } from '~/ds/work'
 import { useRefresh } from '~/lib/router'
+import { useAdmin } from '~/hooks/use-user'
 
 import settings from '../../../ds/settings'
 import backendAPI from '../../../lib/api'

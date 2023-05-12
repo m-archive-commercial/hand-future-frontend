@@ -15,10 +15,6 @@ export const heroApi = baseApi.injectEndpoints({
 			query: () => `/user/?only_heroes=1`,
 		}),
 		
-		getHero: build.query<IHero, string>({
-			query: (userId) => `/user/?user_id=${userId}`,
-		}),
-		
 		getWorks: build.query<IWork[], string>({
 			query: (userId) => `/works/?user_id=${userId}`,
 		}),
@@ -29,6 +25,5 @@ export const heroApi = baseApi.injectEndpoints({
 export const {
 	useGetGraphDataQuery,
 	useGetHeroesListQuery,
-	useGetHeroQuery,
 	useGetWorksQuery,
 } = heroApi

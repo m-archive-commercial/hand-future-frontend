@@ -15,7 +15,7 @@ import { useIdleTimer } from 'react-idle-timer'
 import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } from '~/hooks/use-3dgraph'
 import { DagModes, ForceEngines, NumDimensions } from '~/ds/panel_3dgraph'
 import { getServerImagePath } from '~/lib/image'
-import { useAdmin } from '~/hooks/use-role'
+import { useAdmin } from '~/hooks/use-user'
 
 import useWindowDimensions from '../../../hooks/use-window'
 import { Section } from '../../shared/Section'
