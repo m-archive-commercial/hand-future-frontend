@@ -131,7 +131,7 @@ export const Graph = ({ data }: {
 		// 双击跳转到对应主页
 		const id = node.id as string
 		if (lastClickId === id && +new Date() - +lastClickTime < 1000) {
-			window.open(`/user/${id}`, '_blank')
+			window.open(`/user?id=${id}`, '_blank')
 		}
 		lastClickId = id
 		lastClickTime = new Date()

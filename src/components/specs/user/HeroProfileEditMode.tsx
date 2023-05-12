@@ -71,7 +71,7 @@ export const HeroProfileEditMode = ({ user, works }: { user: IUser, works: IWork
 								user?.partners.map((id) => <PartnerLink id={id} key={id}/>)
 								: <div className={'inline-flex items-center gap-1'}>
 									<span className={'text-sm'}>我是一座静静的孤岛：）</span>
-									<IconSquareRoundedPlus/>
+									<IconSquareRoundedPlus onClick={() => toast.warning('todo~')}/>
 								</div>
 						}
 					</div>
