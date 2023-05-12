@@ -8,7 +8,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 
-import { getServerImagePath } from '~/lib/image'
+import { normalizeImageUri } from '~/lib/image'
 
 import type { IHero } from '../../ds/hero'
 
@@ -19,7 +19,7 @@ export interface HeroCardProps {
 export const HeroCard = ({ data }: HeroCardProps): JSX.Element => (
 	(
 		<div className="card w-64 h-96 bg-base-100 image-full2">
-			<figure><Image src={getServerImagePath(data.avatar) || ''} alt="avatar" width={512} height={512}/></figure>
+			<figure><Image src={normalizeImageUri(data.avatar) || ''} alt="avatar" width={512} height={512}/></figure>
 			<div className="card-body">
 				<h2 className="card-title">
 					{data.name}

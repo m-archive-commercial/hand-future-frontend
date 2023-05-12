@@ -1,5 +1,5 @@
 import { IHero } from '~/ds/hero'
-import { getServerImagePath } from '~/lib/image'
+import { normalizeImageUri } from '~/lib/image'
 import { BaseAvatar } from '~/components/shared/BaseAvatar'
 
 export const HeroLineView = ({
@@ -17,7 +17,7 @@ export const HeroLineView = ({
 				<div className="flex items-center space-x-3">
 					<div className="avatar">
 						<div className="rounded-full w-12 h-12">
-							<BaseAvatar url={getServerImagePath(hero.avatar)} name={hero.name} size={'lg'}/>
+							<BaseAvatar url={normalizeImageUri(hero.avatar)} name={hero.name} size={'lg'}/>
 						</div>
 					</div>
 					<div>

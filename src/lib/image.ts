@@ -1,3 +1,6 @@
 import { BACKEND_ENDPOINT } from '~/lib/env'
 
-export const getServerImagePath = (imageId?: string): string | undefined => imageId ? BACKEND_ENDPOINT + imageId : undefined
+export const normalizeImageUri = (imageId: string): string =>
+	imageId.startsWith('/')
+		? BACKEND_ENDPOINT + imageId
+		: imageId

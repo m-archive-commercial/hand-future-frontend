@@ -213,15 +213,15 @@ export function MongodbEmailAdapter(
 			return from<AdapterAccount>(account!)
 		},
 		async getSessionAndUser(sessionToken) {
-			console.log('getSessionAndUser...')
+			// console.log('getSessionAndUser...')
 			const session = await (await db).S.findOne({ sessionToken })
-			console.log({ session })
+			// console.log({ session })
 			if (!session) return null
 			
 			const user = await (
 				await db
 			).U.findOne({ _id: new ObjectId(session.userId) })
-			console.log({ user })
+			// console.log({ user })
 			if (!user) return null
 			
 			return {

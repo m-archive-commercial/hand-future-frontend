@@ -24,7 +24,7 @@ export const SVG_PATH_ARROW_DOWN = 'M7.41,8.58L12,13.17L16.59,8.58L18,10L12,16L6
 export const NavBar = (): JSX.Element => {
 	
 	const { data: sessionData } = useSession()
-	console.log({ sessionData })
+	// console.log({ sessionData })
 	
 	const isAdmin = useAdmin()
 	

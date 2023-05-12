@@ -9,7 +9,7 @@
 import clsx from 'clsx'
 import { QRCodeSVG } from 'qrcode.react'
 
-import { getServerImagePath } from '~/lib/image'
+import { normalizeImageUri } from '~/lib/image'
 
 import { BaseAvatar } from '../../shared/BaseAvatar'
 
@@ -49,7 +49,7 @@ export const RenderShareCard = (props: RenderShareCardProps) => {
 					{/* todo: 在iphone浏览器里不显示 */}
 					<BaseAvatar
 						customClasses="m-4"
-						url={getServerImagePath(data.avatar)} name={data.name} size="lg"
+						url={normalizeImageUri(data.avatar)} name={data.name} size="lg"
 					/>
 					
 					{/*  name - title */}

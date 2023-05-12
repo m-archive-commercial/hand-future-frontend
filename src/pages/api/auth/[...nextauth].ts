@@ -49,7 +49,7 @@ export const authOptions: NextAuthOptions = {
 		
 		signIn: async ({ user, email, account, profile, credentials }) => {
 			// user.id = user.email! // <-- key
-			console.log('signIn', { user, email, account, profile, credentials })
+			// console.log('signIn', { user, email, account, profile, credentials })
 			return true
 		},
 		//
@@ -71,7 +71,7 @@ export const authOptions: NextAuthOptions = {
 		// },
 		
 		session({ session, token, user }) {
-			console.log('session', { session, token, user })
+			// console.log('session', { session, token, user })
 			session.user.id = user.id
 			return session // The return type will match the one returned in `useSession()`
 		},

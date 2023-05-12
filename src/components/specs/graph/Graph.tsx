@@ -14,7 +14,7 @@ import { useIdleTimer } from 'react-idle-timer'
 
 import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } from '~/hooks/use-3dgraph'
 import { DagModes, ForceEngines, NumDimensions } from '~/ds/panel_3dgraph'
-import { getServerImagePath } from '~/lib/image'
+import { normalizeImageUri } from '~/lib/image'
 import { useAdmin } from '~/hooks/use-user'
 
 import useWindowDimensions from '../../../hooks/use-window'
@@ -140,7 +140,7 @@ export const Graph = ({ data }: {
 	const nodeThreeObject = (node: NodeObject) => {
 		
 		// @ts-ignore // 这个库默认 NodeObject 是只有 id,x,y,z等属性
-		const imgPath = getServerImagePath(node.avatar)!
+		const imgPath = normalizeImageUri(node.avatar)!
 		
 		const imgTexture = new TextureLoader().load(imgPath)
 		const material = new SpriteMaterial({ map: imgTexture, depthWrite: false })

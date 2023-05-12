@@ -1,4 +1,5 @@
 import { baseApi } from '~/states/api/baseApi'
+import { normalizeImageUri } from '~/lib/image'
 
 
 export const fileApi = baseApi.injectEndpoints({
@@ -14,6 +15,7 @@ export const fileApi = baseApi.injectEndpoints({
 					method: 'POST',
 				})
 			},
+			transformResponse: (fileUri: string) => normalizeImageUri(fileUri),
 		}),
 		
 	}),
