@@ -10,15 +10,16 @@ import * as Accordion from '@radix-ui/react-accordion'
 import { toast } from 'react-toastify'
 
 import { useAddWorkMutation } from '~/states/api/workApi'
-import { mockWork } from '~/ds/work'
+import { mockWork, TypographyLayout, TypographyLayouts } from '~/ds/work'
 import { Dialog, DialogContent, DialogTrigger } from '~/components/ui/dialog'
 import { Button } from '~/components/ui/button'
+import { Label } from '~/components/ui/label'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '~/components/ui/select'
 
 import { Section } from '../../shared/Section'
 import { genPlainWorkPresentation, WorkPresentation } from '../work/presentations'
 import { HeroInputPlain } from '../work/HeroInputPlain'
 import { HeroInputWechat } from '../work/HeroInputWechat'
-import { HeroSettingLayout } from '../work/HeroSettingLayout'
 import { ConnectionsLine } from '../../shared/ConnectionsLine'
 import settings from '../../../ds/settings'
 import { HeroInputBilibili } from '../work/HeroInputBilibili'
@@ -72,7 +73,21 @@ export const HeroAddWork = ({ user_id }: {
 				<Section title="控制区" className="col-span-1">
 					
 					<div className="flex flex-col gap-2">
-						<HeroSettingLayout data={work} setData={setWork}/>
+						<div className="inline-flex items-center py-2 gap-2">
+							<Label className="text-sm shrink-0">布局</Label>
+							
+							<Select defaultValue={work.layout} onValueChange={(_: TypographyLayout) => setWork({ ...work, layout: _ })}>
+								<SelectTrigger><SelectValue/></SelectTrigger>
+								<SelectContent>
+									{
+										TypographyLayouts
+											.map((_) => (
+												<SelectItem key={_} value={_}>{_}</SelectItem>
+											))
+									}
+								</SelectContent>
+							</Select>
+						</div>
 					</div>
 					
 					{settings.features.enable_connection_between_works &&
