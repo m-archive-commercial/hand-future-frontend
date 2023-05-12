@@ -1,19 +1,32 @@
-import React, { useEffect, useRef, useState } from 'react'
+import React, { ReactNode, useEffect, useRef, useState } from 'react'
 import { GetServerSideProps, NextPage } from 'next'
 import { signIn } from 'next-auth/react'
 import { validate } from 'isemail'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { toast } from 'react-toastify'
+import Typist from 'react-typist'
 
 import { Input } from '~/components/ui/input'
 import RootLayout from '~/components/layouts/RootLayout'
-import { TitleLineComp } from '~/components/specs/line/TitleLineComp'
 import { Button } from '@/components/ui/button'
 
 const getToken = async (email: string): Promise<string> =>
 	(await axios.get('/api/auth/token?email=' + email)).data.toString()
 
+export const TitleLineComp = ({ content, onTypingDone }: { content: string | ReactNode, onTypingDone?: any }) => {
+	
+	return (
+		<Typist
+			avgTypingDelay={50}
+			cursor={{ hideWhenDone: true, hideWhenDoneDelay: 0 }}
+			className={'text-[#02CEC7] font-bold'}
+			onTypingDone={onTypingDone}
+		>
+			{content}
+		</Typist>
+	)
+}
 const SigninPage: NextPage<{ baseUrl: string }> = ({ baseUrl }) => {
 	
 	const [loading, setLoading] = useState(false)

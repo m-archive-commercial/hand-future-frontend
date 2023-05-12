@@ -7,7 +7,9 @@
 
 import clsx from 'clsx'
 
-import { HeroLineView } from '~/components/specs/user/HeroLineView'
+
+import { BaseAvatar } from '~/components/shared/BaseAvatar'
+import { normalizeImageUri } from '~/lib/image'
 
 import type { IHero } from '../../../ds/hero'
 
@@ -19,6 +21,38 @@ export interface HeroTableProps {
 	pageNumber?: number
 	onClickHero?: (id: string) => void
 }
+
+export const HeroLineView = ({
+	                             hero, onClickHero,
+                             }: {
+	                             hero: IHero,
+	                             onClickHero?: (id: string) => void
+                             },
+) => {
+	
+	return (
+		<tr onClick={() => {onClickHero && onClickHero(hero.id)}}>
+			
+			<td>
+				<div className="flex items-center space-x-3">
+					<div className="avatar">
+						<div className="rounded-full w-12 h-12">
+							<BaseAvatar url={normalizeImageUri(hero.avatar || '')} text={hero.name}/>
+						</div>
+					</div>
+					<div>
+					</div>
+				</div>
+			</td>
+			
+			<td>
+				<div className="font-bold">{hero.name}</div>
+				<div className="text-sm opacity-50">{hero.cities}</div>
+			</td>
+		</tr>
+	)
+}
+
 
 export const HeroTable = (props: HeroTableProps) => {
 	const { heroes, pageSize = 10, pageNumber = 0, searchKey, onClickHero } = props
