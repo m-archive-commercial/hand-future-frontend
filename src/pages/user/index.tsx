@@ -24,7 +24,9 @@ export const UserPage = () => {
 	const id = router.query.id as string | undefined
 	
 	const query = { 'email': email, 'id': id }
-	const { currentData: user = null } = useGetUserQuery(query ?? skipToken)
+	const isEmpty = !query.email && !query.id
+	console.log({ id, email, isEmpty })
+	const { currentData: user = null } = useGetUserQuery(isEmpty ? skipToken : query)
 	const { currentData: works = [] } = useListWorksQuery(user?.id ?? skipToken)
 	
 	const [editModel, setEditModel] = useState(false)
@@ -32,6 +34,7 @@ export const UserPage = () => {
 	const isAdmin = useAdmin()
 	const isSelf = useSelf(user?.id)
 	const editable = isAdmin || isSelf
+	
 	
 	return (
 		<RootLayout>

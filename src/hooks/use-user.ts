@@ -15,7 +15,7 @@ export const useUser = (): User => {
 	const [user, setUser] = useState<User>(null)
 	const userId = useUserId()
 	
-	const { data: userData } = useGetUserQuery({ id: userId } ?? skipToken)
+	const { data: userData } = useGetUserQuery(userId ? { id: userId } : skipToken)
 	// console.log({ userData })
 	
 	useEffect(() => {

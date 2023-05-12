@@ -45,7 +45,7 @@ export interface ICreateWork<T extends SourcePlatform> {
 	source: WorkSource<T>
 }
 
-export interface IWork<T extends SourcePlatform> extends ICreateWork<T> {
+export interface IWork<T extends SourcePlatform = SourcePlatform> extends ICreateWork<T> {
 	id?: string
 }
 

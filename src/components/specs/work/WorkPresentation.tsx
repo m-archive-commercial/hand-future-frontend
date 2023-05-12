@@ -11,27 +11,30 @@ import { toast } from 'react-toastify'
 import { ICreateWork, IWork, SourcePlatform, TypographyLayout } from '~/ds/work'
 import { useAdmin, useUserId } from '~/hooks/use-user'
 import { useDeleteWorkMutation } from '~/states/api/workApi'
+import { BilibiliVideo, getBvidFromUrl } from '~/components/shared/BilibiliVideo'
+import { Dialog, DialogContent, DialogTrigger } from '~/components/ui/dialog'
 
 import settings from '../../../ds/settings'
-import { BilibiliVideo, getBvidFromUrl } from '../../shared/BilibiliVideo'
-import MyDialog from '../../shared/MyDialog'
 import { ConnectionsLine } from '../../shared/ConnectionsLine'
 
 
-const genWorkContent = (work: ICreateWork<SourcePlatform>): JSX.Element => (
-	<div className="prose p-2">
-		<h2>{work.title}</h2>
-		<blockquote>{work.description}</blockquote>
-	</div>
-)
-
-const PlainLine = ({ title, content }: {
+export const PlainLine = ({ title, content }: {
 	title: string
 	content: string
 }): JSX.Element => (
 	<div className="flex border-b">
 		<p className="w-28 shrink-0 text-primary text-lg">{title}</p>
 		<p className="flex-1">{content}</p>
+	</div>
+)
+
+export const workIsBilibili = (work: ICreateWork<SourcePlatform>): work is ICreateWork<SourcePlatform.bilibiliVideo> =>
+	work.source.platform === SourcePlatform.bilibiliVideo
+
+export const genWorkContent = (work: ICreateWork<SourcePlatform>): JSX.Element => (
+	<div className="prose p-2">
+		<h2>{work.title}</h2>
+		<blockquote>{work.description}</blockquote>
 	</div>
 )
 export const genPlainWorkPresentation = (work: ICreateWork<SourcePlatform>): JSX.Element => (
@@ -50,10 +53,6 @@ export const genPlainWorkPresentation = (work: ICreateWork<SourcePlatform>): JSX
 		}
 	</div>
 )
-
-export const workIsBilibili = (work: ICreateWork<SourcePlatform>): work is ICreateWork<SourcePlatform.bilibiliVideo> =>
-	work.source.platform === SourcePlatform.bilibiliVideo
-
 export const genInnerWorkPresentation = (work: ICreateWork<SourcePlatform>): JSX.Element => {
 	// console.log('generating work presentation: ', work)
 	
@@ -151,33 +150,36 @@ export const WorkPresentation = ({ work }: { work: IWork<SourcePlatform> }): JSX
 				{/* 纯文本 */}
 				{
 					work.source.platform === SourcePlatform.plain && (
-						<MyDialog trigger={detailBtn} asChild>
-							<article className="w-[80vw] p-2 prose lg:prose-xl max-h-[72] overflow-y-hidden">
-								<h2 className="my-8 text-lg font-semibold">{work.title}</h2>
+						<Dialog>
+							<DialogTrigger asChild>{detailBtn}</DialogTrigger>
+							<DialogContent>
+								<article className="w-full prose lg:prose-xl overflow-auto">
+									<h2 className="my-8 text-lg font-semibold">{work.title}</h2>
+									
+									{
+										work.cover && (
+											<Image src={work.cover + '?raw=true'} alt={work.title} width={300} height={200} className="w-full object-contain"/>
+										)
+									}
+									
+									<blockquote className="text-lg font-medium">{work.description}</blockquote>
+									
+									{
+										work.content.split('\n')
+											.map((para, index) => (
+												<p key={index} className="text-sm font-medium text-gray-500 ">{para}</p>
+											))
+									}
+									
+									{
+										settings.features.enable_connection_between_works && (
+											<ConnectionsLine connections={work.connections}/>
+										)
+									}
 								
-								{
-									work.cover && (
-										<Image src={work.cover + '?raw=true'} alt={work.title} width={300} height={200} className="w-full object-contain"/>
-									)
-								}
-								
-								<blockquote className="text-lg font-medium">{work.description}</blockquote>
-								
-								{
-									work.content.split('\n')
-										.map((para, index) => (
-											<p key={index} className="text-sm font-medium text-gray-500 ">{para}</p>
-										))
-								}
-								
-								{
-									settings.features.enable_connection_between_works && (
-										<ConnectionsLine connections={work.connections}/>
-									)
-								}
-							
-							</article>
-						</MyDialog>
+								</article>
+							</DialogContent>
+						</Dialog>
 					)
 				}
 				

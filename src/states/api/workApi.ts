@@ -1,5 +1,5 @@
 import { baseApi } from '~/states/api/baseApi'
-import { IWork, SourcePlatform } from '~/ds/work'
+import { IWork } from '~/ds/work'
 
 export const TAG_WORK = 'work' as const
 export const ID_ALL = '*' as const
@@ -12,12 +12,12 @@ export const workApi = baseApi
 		overrideExisting: true,
 		endpoints: (build) => ({
 			
-			listWorks: build.query<IWork<SourcePlatform>[], string>({
+			listWorks: build.query<IWork[], string>({
 				query: (arg) => `/work/?user_id=${arg}`,
 				providesTags: (result) => [...(result || []).map((item) => ({ type: TAG_WORK, id: item.id })), { type: TAG_WORK, id: ID_ALL }],
 			}),
 			
-			addWork: build.mutation<void, Omit<IWork<SourcePlatform>, 'id'>>({
+			addWork: build.mutation<void, Omit<IWork, 'id'>>({
 				query: (body) => ({
 					url: `/work/`,
 					method: 'POST',
@@ -26,7 +26,7 @@ export const workApi = baseApi
 				invalidatesTags: [{ type: TAG_WORK, id: ID_ALL }],
 			}),
 			
-			updateWork: build.mutation<void, IWork<SourcePlatform>>({
+			updateWork: build.mutation<void, IWork>({
 				query: (body) => ({
 					url: `/work/`,
 					method: 'PATCH',
