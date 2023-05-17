@@ -30,7 +30,7 @@ export const Home = (
 	
 	// we need to expand the data, since Graph would mutate the data, while the rtk query data is immutable
 	return (
-		<RootLayout>
+		<RootLayout className={'p-0'}>
 			{data ? <Graph data={data}/> : 'Loading...'}
 		</RootLayout>
 	)

@@ -9,18 +9,18 @@
 import Header from '../specs/layout/Header'
 import NavBar from '../specs/layout/NavBar'
 
-import type { ReactNode } from 'react'
+import type { HTMLAttributes, ReactNode } from 'react'
 
 /**
  * 关于如何定义props，ref: /app-playground/app/layouts/layout.tsx
  */
-export const RootLayout = ({ children }: { children: ReactNode }): JSX.Element => (
+export const RootLayout = ({ children, ...props }: { children: ReactNode } & HTMLAttributes<HTMLDivElement>): JSX.Element => (
 	<div className="w-screen min-h-screen flex flex-col">
 		<Header/>
 		
 		<NavBar/>
 		
-		<div className="flex-1 flex flex-col justify-center items-center relative p-2">
+		<div className="flex-1 flex flex-col justify-center items-center relative p-2" {...props}>
 			{children}
 		</div>
 	
