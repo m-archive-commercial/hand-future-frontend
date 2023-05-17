@@ -3,7 +3,6 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 import { BACKEND_ENDPOINT } from '~/lib/env'
 
-console.log({ BACKEND_ENDPOINT })
 
 // Define a service using a base URL and expected endpoints
 export const baseApi = createApi({
