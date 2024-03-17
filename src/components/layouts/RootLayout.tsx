@@ -34,9 +34,7 @@ export const RootLayout = ({
     ],
   ]);
 
-  const { data: hello } = trpc.graph.init.useQuery();
-
-  console.log({ hello });
+  const { data } = trpc.graph.init.useQuery();
 
   return (
     <div className="w-screen min-h-screen flex flex-col">

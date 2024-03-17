@@ -22,6 +22,13 @@ function getBaseUrl() {
 export const trpc = createTRPCNext<AppRouter>({
   config(opts) {
     return {
+      queryClientConfig: {
+        defaultOptions: {
+          queries: {
+            retry: false,
+          },
+        },
+      },
       links: [
         httpBatchLink({
           /**

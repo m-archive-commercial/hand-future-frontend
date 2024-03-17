@@ -1,14 +1,8 @@
-import { Client } from "@notionhq/client";
-import { env } from "~/env";
-import { procedure, router } from "../trpc";
-
-// Initializing a client
-const notion = new Client({
-  auth: env.NOTION_TOKEN,
-});
+import { readNotion } from "../actions";
+import { procedure, router } from "../trpc"; // Initializing a client
 
 export const graphRouter = router({
   init: procedure.query(async ({}) => {
-    return "hello world";
+    return readNotion();
   }),
 });
