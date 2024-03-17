@@ -1,4 +1,4 @@
-import { Hero } from "@prisma/client";
+import { Hero, Prisma } from "@prisma/client";
 import { IHero } from "./hero";
 
 export interface IUserInNotion {
@@ -62,6 +62,15 @@ export interface IUserInNotion {
 }
 
 export type IHeroWithoutUser = Omit<Hero, "userId">;
+
+export const heroDetailSchema = Prisma.validator<Prisma.HeroDefaultArgs>()({
+  include: {
+    user: true,
+    from: true,
+    to: true,
+  },
+});
+export type IHeroDetail = Prisma.HeroGetPayload<typeof heroDetailSchema>;
 
 export interface IUserWithId extends IHero {
   email?: string;

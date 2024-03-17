@@ -1,5 +1,10 @@
 import moment from "moment";
-import { IHeroWithoutUser, IUserInNotion } from "../schema/user";
+import {
+  IHeroDetail,
+  IHeroWithoutUser,
+  IUserInNotion,
+  IUserWithId,
+} from "../schema/user";
 
 export const user2hero = (user: IUserInNotion): IHeroWithoutUser => ({
   id: user.id,
@@ -20,3 +25,16 @@ export const user2heroRelation = (
     fromId: user.id,
     toId: r.id,
   }));
+
+export const hero2userWithId = (hero: IHeroDetail): IUserWithId => ({
+  name: hero?.name ?? undefined,
+  cover: hero?.cover ?? undefined,
+  avatar: hero?.avatar ?? undefined,
+  title: hero?.title ?? undefined,
+  email: hero.user.email ?? undefined,
+  id: hero.id,
+  role: "user",
+  cities: hero?.cities ?? undefined,
+  description: "", // todo: user.hero
+  partners: hero.to.map((h) => h.toId),
+});

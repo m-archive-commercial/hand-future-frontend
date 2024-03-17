@@ -1,5 +1,6 @@
 import { httpBatchLink } from "@trpc/client";
 import { createTRPCNext } from "@trpc/next";
+import superjson from "superjson";
 import type { AppRouter } from "../server/routers/_app";
 
 function getBaseUrl() {
@@ -31,6 +32,8 @@ export const trpc = createTRPCNext<AppRouter>({
       },
       links: [
         httpBatchLink({
+          transformer: superjson,
+
           /**
            * If you want to use SSR, you need to use the server's full URL
            * @link https://trpc.io/docs/v11/ssr
@@ -47,6 +50,7 @@ export const trpc = createTRPCNext<AppRouter>({
       ],
     };
   },
+  transformer: superjson,
   /**
    * @link https://trpc.io/docs/v11/ssr
    **/
