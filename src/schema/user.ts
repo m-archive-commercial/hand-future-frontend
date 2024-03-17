@@ -1,4 +1,5 @@
 import { Hero } from "@prisma/client";
+import { IHero } from "./hero";
 
 export interface IUserInNotion {
   object: "page";
@@ -61,3 +62,11 @@ export interface IUserInNotion {
 }
 
 export type IHeroWithoutUser = Omit<Hero, "userId">;
+
+export interface IUserWithId extends IHero {
+  email?: string;
+  role?: "user" | "admin";
+  cover?: string;
+}
+
+export type IUserWithEmail = Omit<IUserWithId, "id"> & { email: string };

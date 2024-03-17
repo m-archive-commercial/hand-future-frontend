@@ -1,6 +1,6 @@
 import { InputHTMLAttributes } from 'react'
 
-import { useUploadFileMutation } from '~/states/api/fileApi'
+import { useUploadFileMutation } from '../../store/states/api/fileApi'
 
 export const MyImageUploader = ({ onUploaded, ...props }: {
 	onUploaded: (fileUri: string) => void

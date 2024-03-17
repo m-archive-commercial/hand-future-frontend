@@ -4,7 +4,7 @@ import { toast } from 'react-toastify'
 
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '~/components/ui/card'
 import { Button } from '~/components/ui/button'
-import { useInitHeroesMutation } from '~/states/api/heroApi'
+import { useInitHeroesMutation } from '../../../store/states/api/heroApi'
 
 export const InitHeroes = () => {
 	

@@ -8,12 +8,12 @@
 import Image from 'next/image'
 import { toast } from 'react-toastify'
 
-import { ICreateWork, IWork, SourcePlatform, TypographyLayout } from '~/ds/work'
-import { useDeleteWorkMutation } from '~/states/api/workApi'
+import { ICreateWork, IWork, SourcePlatform, TypographyLayout } from '../../../schema/work'
+import { useDeleteWorkMutation } from '../../../store/states/api/workApi'
 import { BilibiliVideo, getBvidFromUrl } from '~/components/shared/BilibiliVideo'
 import { Dialog, DialogContent, DialogTrigger } from '~/components/ui/dialog'
 
-import settings from '../../../ds/settings'
+import settings from '../../../schema/settings'
 import { ConnectionsLine } from '../../shared/ConnectionsLine'
 
 

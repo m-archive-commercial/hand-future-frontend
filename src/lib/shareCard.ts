@@ -1,6 +1,6 @@
 import { LoremIpsum, loremIpsum } from 'lorem-ipsum'
 
-import { IShareCard } from '~/ds/hero'
+import { IShareCard } from '../schema/hero'
 import { mockConnections, mockDesc, mockName, mockTitle } from '~/mock/hero'
 
 

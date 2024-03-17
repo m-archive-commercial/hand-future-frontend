@@ -10,7 +10,7 @@ import Link from 'next/link'
 
 import { normalizeImageUri } from '~/lib/image'
 
-import type { IHero } from '../../ds/hero'
+import type { IHero } from '../../schema/hero'
 
 export interface HeroCardProps {
 	data: IHero

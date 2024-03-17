@@ -1,6 +1,6 @@
-import { baseApi } from '~/states/api/baseApi'
-import { IHero } from '~/ds/hero'
-import { IGraphData } from '~/ds/panel_3dgraph'
+import { baseApi } from './baseApi'
+import { IHero } from '../../../schema/hero'
+import { IGraphData } from '../../../schema/panel_3dgraph'
 
 export const TAG_HERO = 'hero' as const
 

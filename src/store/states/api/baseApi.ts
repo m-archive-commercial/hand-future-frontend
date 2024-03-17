@@ -1,7 +1,7 @@
 // Need to use the React-specific entry point to allow generating React hooks
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-import { BACKEND_ENDPOINT } from '~/lib/env'
+import { BACKEND_ENDPOINT } from '../../../lib/env'
 
 
 // Define a service using a base URL and expected endpoints

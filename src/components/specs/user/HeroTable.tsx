@@ -11,7 +11,7 @@ import clsx from 'clsx'
 import { BaseAvatar } from '~/components/shared/BaseAvatar'
 import { normalizeImageUri } from '~/lib/image'
 
-import type { IHero } from '../../../ds/hero'
+import type { IHero } from '../../../schema/hero'
 
 
 export interface HeroTableProps {

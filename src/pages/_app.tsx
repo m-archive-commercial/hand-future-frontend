@@ -17,10 +17,10 @@ import "react-toastify/dist/ReactToastify.css";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 
-import { USE_PERSISTOR } from "~/config";
 import { trpc } from "~/lib/trpc";
+import { USE_PERSISTOR } from "../config/system";
 
-import { store } from "../states/store";
+import { store } from "../store/states/store";
 
 import "../styles/globals.css";
 

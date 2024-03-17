@@ -5,9 +5,9 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { isMainMenuItem } from '../../../ds/menu'
+import { isMainMenuItem } from '../../../schema/menu'
 
-import type { IMenuItem } from '../../../ds/menu'
+import type { IMenuItem } from '../../../schema/menu'
 
 
 export interface MenuProps {

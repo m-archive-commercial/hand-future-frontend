@@ -14,7 +14,7 @@ import { normalizeImageUri } from '~/lib/image'
 import { BaseAvatar } from '../../shared/BaseAvatar'
 
 import type { Ref } from 'react'
-import type { IShareCard } from '../../../ds/hero'
+import type { IShareCard } from '../../../schema/hero'
 
 export interface RenderShareCardProps {
 	refCanvas: Ref<HTMLDivElement>

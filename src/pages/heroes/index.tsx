@@ -5,7 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { useListHeroesQuery } from '~/states/api/heroApi'
+import { useListHeroesQuery } from '../../store/states/api/heroApi'
 
 import RootLayout from '../../components/layouts/RootLayout'
 import HeroCard from '../../components/shared/HeroCard'

@@ -13,7 +13,7 @@ import { QRCodeSVG } from 'qrcode.react'
 import { BaseAvatar } from '~/components/shared/BaseAvatar'
 
 import type { Ref } from 'react'
-import type { IShareCard } from '../../../ds/hero'
+import type { IShareCard } from '../../../schema/hero'
 
 export interface RenderShareCardProps {
 	refCanvas: Ref<HTMLDivElement>

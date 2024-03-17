@@ -12,9 +12,9 @@ import { Input } from '~/components/ui/input'
 import { Textarea } from '~/components/ui/textarea'
 import { bindData } from '~/lib/utils'
 import { MyImageUploader } from '~/components/specs/general'
-import { SourcePlatform } from '~/ds/work'
+import { SourcePlatform } from '../../../schema/work'
 
-import type { ICreateWork } from '~/ds/work'
+import type { ICreateWork } from '../../../schema/work'
 
 export const AddPlainWork = ({ data, setData }: {
 	data: ICreateWork<SourcePlatform.plain>

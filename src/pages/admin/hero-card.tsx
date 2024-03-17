@@ -13,8 +13,8 @@ import * as htmlToImage from 'html-to-image'
 import { Fonts } from '~/config/fonts'
 import { genRandomShareCard, shareCardInit } from '~/lib/shareCard'
 import { normalizeImageUri } from '~/lib/image'
-import { useListHeroesQuery } from '~/states/api/heroApi'
-import { FONT_WEIGHTS } from '~/ds/font'
+import { useListHeroesQuery } from '../../store/states/api/heroApi'
+import { FONT_WEIGHTS } from '../../schema/font'
 import { BaseAvatar } from '~/components/shared/BaseAvatar'
 
 import HeroSearch from '../../components/specs/user/HeroSearch'
@@ -24,10 +24,10 @@ import backendAPI from '../../lib/api'
 import InputText from '../../components/shared/InputText'
 import InputTextArea from '../../components/shared/InputTextArea'
 
-import type { FONT_WEIGHT } from '~/ds/font'
+import type { FONT_WEIGHT } from '../../schema/font'
 import type { ChangeEvent } from 'react'
 import type { InputAction } from '~/components/shared/InputText'
-import type { IShareCard } from '~/ds/hero'
+import type { IShareCard } from '../../schema/hero'
 
 export const CardPage = () => {
 	

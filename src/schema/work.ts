@@ -6,8 +6,8 @@
  */
 
 
-import { mockConnections, mockDesc, mockTitle } from '~/mock/hero'
-import { genRandomImage } from '~/lib/random'
+import { mockConnections, mockDesc, mockTitle } from '../mock/hero'
+import { genRandomImage } from '../lib/random'
 
 
 export enum SourcePlatform {

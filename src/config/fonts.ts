@@ -1,6 +1,6 @@
 import localFont from '@next/font/local'
 
-import { IFontItem } from '~/ds/font'
+import { IFontItem } from '../schema/font'
 
 /**
  * 本地导入字体的方式，本来是打算用的，但是后来想起来不如直接用公开的代码导入，此处就不注释了，留着做参考

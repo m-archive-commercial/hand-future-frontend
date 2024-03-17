@@ -13,14 +13,14 @@ import { useRouter } from 'next/router'
 import { useIdleTimer } from 'react-idle-timer'
 
 import { useBooleanOption, useColorOption, useNumberOption, useSelectOption } from '~/hooks/use-3dgraph'
-import { DagModes, ForceEngines, NumDimensions } from '~/ds/panel_3dgraph'
+import { DagModes, ForceEngines, NumDimensions } from '../../../schema/panel_3dgraph'
 import { normalizeImageUri } from '~/lib/image'
 import { useAdmin } from '~/hooks/use-user'
 
 import useWindowDimensions from '../../../hooks/use-window'
 import { Section } from '../../shared/Section'
 
-import type { DagMode, ForceEngine, NumDimension } from '~/ds/panel_3dgraph'
+import type { DagMode, ForceEngine, NumDimension } from '../../../schema/panel_3dgraph'
 import type { ForceGraphMethods, GraphData, NodeObject } from 'react-force-graph-3d'
 
 

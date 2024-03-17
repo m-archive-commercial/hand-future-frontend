@@ -1,5 +1,5 @@
-import { baseApi } from '~/states/api/baseApi'
-import { IWork } from '~/ds/work'
+import { baseApi } from './baseApi'
+import { IWork } from '../../../schema/work'
 
 export const TAG_WORK = 'work' as const
 export const ID_ALL = '*' as const

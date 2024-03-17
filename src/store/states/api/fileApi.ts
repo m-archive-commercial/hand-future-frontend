@@ -1,5 +1,5 @@
-import { baseApi } from '~/states/api/baseApi'
-import { normalizeImageUri } from '~/lib/image'
+import { baseApi } from './baseApi'
+import { normalizeImageUri } from '../../../lib/image'
 
 
 export const fileApi = baseApi.injectEndpoints({
