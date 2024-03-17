@@ -51,6 +51,12 @@ export interface IUserInNotion {
         plain_text: string; // e.g. 辛子俊
       }[];
     };
+
+    携手嘉宾: {
+      id: string;
+      type: "relation";
+      relation: { id: string }[];
+    };
   };
 }
 

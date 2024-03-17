@@ -5,43 +5,27 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import dynamic from 'next/dynamic'
-import { GraphData } from 'react-force-graph-3d'
-import { GetServerSideProps } from 'next'
+import { useAtom } from "jotai";
+import dynamic from "next/dynamic";
+import { trpc } from "~/lib/trpc";
 
-import backendAPI from '~/lib/api'
-
-import RootLayout from '../components/layouts/RootLayout'
+import RootLayout from "../components/layouts/RootLayout";
+import { apiVersionAtom } from "../store/system"; // ref: https://nextjs.org/docs/advanced-features/dynamic-import
 
 // ref: https://nextjs.org/docs/advanced-features/dynamic-import
-const Graph = dynamic(
-	() => import('../components/specs/graph/Graph'),
-	{ ssr: false },
-)
+const Graph = dynamic(() => import("../components/specs/graph/Graph"), {
+  ssr: false,
+});
 
-export const Home = (
-	{ data }: { data: GraphData },
-): JSX.Element => {
-	/**
-	 * todo: 不知道为什么不可以客户端rtk query获取 data list，以后再说吧
-	 *
-	 * 	let { data } = useGetGraphDataQuery(undefined, { refetchOnMountOrArgChange: true })
-	 */
-	
-	// we need to expand the data, since Graph would mutate the data, while the rtk query data is immutable
-	return (
-		<RootLayout className={'p-0'}>
-			{data ? <Graph data={data}/> : 'Loading...'}
-		</RootLayout>
-	)
+export default function Home() {
+  const [apiVersion] = useAtom(apiVersionAtom);
+  const { data } = trpc.graph.read.useQuery({ apiVersion });
+  console.log("-- server data: ", data);
+
+  // we need to expand the data, since Graph would mutate the data, while the rtk query data is immutable
+  return (
+    <RootLayout className={"p-0"}>
+      {data ? <Graph data={data} /> : "Loading..."}
+    </RootLayout>
+  );
 }
-
-export default Home
-
-export const getServerSideProps: GetServerSideProps = async () => {
-	const { data } = await backendAPI.get('/hero/graph_data/')
-	return ({ props: { data } })
-}
-
-
-
