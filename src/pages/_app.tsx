@@ -5,40 +5,46 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { Provider } from 'react-redux'
-import { toast, ToastContainer } from 'react-toastify'
+import { SessionProvider } from "next-auth/react";
 
-import { store } from '../states/store'
+import type { AppProps } from "next/app";
 
-import type { AppProps } from 'next/app'
+import { Provider } from "react-redux";
+import { toast, ToastContainer } from "react-toastify";
 
-import '../styles/globals.css'
-import 'react-toastify/dist/ReactToastify.css'
+import "react-toastify/dist/ReactToastify.css";
 
-import { USE_PERSISTOR } from '~/config'
+import { persistStore } from "redux-persist";
+import { PersistGate } from "redux-persist/integration/react";
 
-import { persistStore } from 'redux-persist'
-import { PersistGate } from 'redux-persist/integration/react'
-import { SessionProvider } from 'next-auth/react'
+import { USE_PERSISTOR } from "~/config";
 
+import { store } from "../states/store";
 
-const MyApp = ({ Component, pageProps: { session, ...pageProps } }: AppProps) => (
-	<Provider store={store}>
-		<SessionProvider session={session}>
-			
-			{
-				USE_PERSISTOR ? (
-					<PersistGate persistor={persistStore(store)} loading={null}>
-						<Component {...pageProps} />
-					</PersistGate>
-				) : <Component {...pageProps}/>
-			}
-			
-			<ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_RIGHT}/>
-		
-		</SessionProvider>
-	
-	</Provider>
-)
+import "../styles/globals.css";
 
-export default MyApp
+const MyApp = ({
+  Component,
+  pageProps: { session, ...pageProps },
+}: AppProps) => {
+  return (
+    <Provider store={store}>
+      <SessionProvider session={session}>
+        {USE_PERSISTOR ? (
+          <PersistGate persistor={persistStore(store)} loading={null}>
+            <Component {...pageProps} />
+          </PersistGate>
+        ) : (
+          <Component {...pageProps} />
+        )}
+
+        <ToastContainer
+          autoClose={3000}
+          position={toast.POSITION.BOTTOM_RIGHT}
+        />
+      </SessionProvider>
+    </Provider>
+  );
+};
+
+export default MyApp;
