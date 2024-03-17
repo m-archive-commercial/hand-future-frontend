@@ -8,6 +8,7 @@
 import { useHotkeys } from "@mantine/hooks";
 import type { HTMLAttributes, ReactNode } from "react";
 import { useState } from "react";
+import { trpc } from "../../lib/trpc";
 import { InitHeroes } from "../specs/admin/InitHeroes";
 
 import Header from "../specs/layout/Header";
@@ -32,6 +33,10 @@ export const RootLayout = ({
       },
     ],
   ]);
+
+  const { data: hello } = trpc.graph.init.useQuery();
+
+  console.log({ hello });
 
   return (
     <div className="w-screen min-h-screen flex flex-col">

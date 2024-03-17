@@ -18,6 +18,7 @@ import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 
 import { USE_PERSISTOR } from "~/config";
+import { trpc } from "~/lib/trpc";
 
 import { store } from "../states/store";
 
@@ -47,4 +48,4 @@ const MyApp = ({
   );
 };
 
-export default MyApp;
+export default trpc.withTRPC(MyApp);
