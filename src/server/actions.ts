@@ -1,4 +1,6 @@
 import { Client, collectPaginatedAPI } from "@notionhq/client";
+import { promises } from "fs";
+import * as path from "path";
 import { env } from "../env";
 
 const notion = new Client({
@@ -11,7 +13,11 @@ export const readNotion = async () => {
   const data = await collectPaginatedAPI(notion.databases.query, {
     database_id: env.NOTION_DATABASE_ID,
   });
-  console.log("-- inited data: ", data);
+
+  const fp = path.join(__dirname, "data.json");
+  console.log(`-- dumping data info ${fp}`);
+  await promises.writeFile(fp, JSON.stringify(data, null, 2));
+  console.log("-- dumped");
 };
 
 void readNotion();
