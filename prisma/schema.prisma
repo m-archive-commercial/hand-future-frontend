@@ -1,0 +1,59 @@
+datasource db {
+  url      = env("DATABASE_URL")
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Hero {
+  id        String   @id @default(nanoid(9))
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // hero
+  name   String?
+  avatar String?
+  cover  String?
+  title  String?
+  cities String?
+  from   HeroRelation[] @relation("from")
+  to     HeroRelation[] @relation("to")
+
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId String @unique
+}
+
+model HeroRelation {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  from   Hero   @relation("from", fields: [fromId], references: [id])
+  fromId String
+
+  to   Hero   @relation("to", fields: [toId], references: [id])
+  toId String
+
+  @@id([fromId, toId])
+}
+
+model User {
+  id        String   @id @default(nanoid(9))
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  // account
+  role           RoleType @default(user)
+  email          String?
+  hashedPassword String?
+  activated      Boolean  @default(false)
+  activationCode String?
+
+  hero Hero?
+}
+
+enum RoleType {
+  user
+  admin
+}
