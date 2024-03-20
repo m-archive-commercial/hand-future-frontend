@@ -31,6 +31,7 @@ export const initNotion = async (options?: { dumpJson?: boolean }) => {
     await Promise.all(
       usersInNotion.map(user2hero).map(async (_user) => {
         const user = await persistHeroAvatar(_user);
+        console.log("-- user: ", user);
 
         await prisma.hero.upsert({
           where: { id: user.id },

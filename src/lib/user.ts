@@ -24,7 +24,7 @@ export const persistHeroAvatar = async (
     const res = await fileRemote2Local(avatar);
 
     if (res.success) {
-      user.avatar = res.local;
+      user.avatar = res.localUri;
     }
   }
 
