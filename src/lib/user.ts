@@ -1,10 +1,6 @@
 import moment from "moment";
-import {
-  IHeroDetail,
-  IHeroWithoutUser,
-  IUserInNotion,
-  IUserWithId,
-} from "../schema/user";
+import { IHeroWithoutUser, IUserInNotion } from "../schema/user";
+import { fileRemote2Local } from "../server/file";
 
 export const user2hero = (user: IUserInNotion): IHeroWithoutUser => ({
   id: user.id,
@@ -13,10 +9,27 @@ export const user2hero = (user: IUserInNotion): IHeroWithoutUser => ({
   name: user.properties.嘉宾姓名.title[0]?.plain_text,
   updatedAt: moment(user.last_edited_time).toDate(),
   createdAt: moment(user.created_time).toDate(),
+  photos: user.properties.照片.files.map((file) => file.file?.url ?? ""),
+  avatarOrigin: user.properties.照片.files[0]?.file?.url ?? null,
   avatar: user.properties.照片.files[0]?.file?.url ?? null,
-  cover: user.properties.照片.files[0]?.file?.url ?? null,
   cities: user.properties.坐标.select?.name ?? null,
 });
+
+export const persistHeroAvatar = async (
+  user: IHeroWithoutUser,
+): Promise<IHeroWithoutUser> => {
+  const { avatar } = user;
+
+  if (avatar && !avatar.startsWith("/")) {
+    const res = await fileRemote2Local(avatar);
+
+    if (res.success) {
+      user.avatar = res.local;
+    }
+  }
+
+  return user;
+};
 
 export const user2heroRelation = (
   user: IUserInNotion,
@@ -25,16 +38,3 @@ export const user2heroRelation = (
     fromId: user.id,
     toId: r.id,
   }));
-
-export const hero2userWithId = (hero: IHeroDetail): IUserWithId => ({
-  name: hero?.name ?? undefined,
-  cover: hero?.cover ?? undefined,
-  avatar: hero?.avatar ?? undefined,
-  title: hero?.title ?? undefined,
-  email: hero.user.email ?? undefined,
-  id: hero.id,
-  role: "user",
-  cities: hero?.cities ?? undefined,
-  description: "", // todo: user.hero
-  partners: hero.to.map((h) => h.toId),
-});

@@ -1,6 +1,8 @@
 import { z } from "zod";
+import workUncheckedCreateInputSchema from "../../../prisma/generated/zod/inputTypeSchemas/WorkUncheckedCreateInputSchema";
 import backendAPI from "../../lib/api";
 import { heroDetailSchema, IHeroDetail } from "../../schema/user";
+import { workDetailSchema } from "../../schema/work";
 import { apiVersionSchema } from "../../store/system";
 import { initNotion, readNotion } from "../actions";
 import prisma from "../db";
@@ -33,5 +35,11 @@ export const graphRouter = router({
         where: { id: input.heroId },
         ...heroDetailSchema,
       });
+    }),
+
+  addWork: procedure
+    .input(workUncheckedCreateInputSchema)
+    .mutation(async ({ input }) => {
+      return await prisma.work.create({ data: input, ...workDetailSchema });
     }),
 });

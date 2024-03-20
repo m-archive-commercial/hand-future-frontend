@@ -1,3 +1,4 @@
+import { Work } from "@prisma/client";
 import * as AspectRatio from "@radix-ui/react-aspect-ratio";
 import { IconSquareRoundedPlus } from "@tabler/icons-react";
 import _ from "lodash";
@@ -19,7 +20,6 @@ import { normalizeImageUri } from "~/lib/image";
 import { bindData } from "~/lib/utils";
 
 import { IUserWithId } from "../../../schema/user";
-import { IWork } from "../../../schema/work";
 import { useUpdateUserMutation } from "../../../store/states/api/userApi";
 
 export const HeroProfileEditMode = ({
@@ -27,7 +27,7 @@ export const HeroProfileEditMode = ({
   works,
 }: {
   user: IUserWithId;
-  works: IWork[];
+  works: Work[];
 }) => {
   // console.log({ user })
 

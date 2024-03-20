@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import { Work } from "@prisma/client";
 import _ from "lodash";
 import React from "react";
 import { toast } from "react-toastify";
@@ -13,7 +14,7 @@ import { Input } from "~/components/ui/input";
 
 import { Label } from "~/components/ui/label";
 import { BILIBILI_VIDEO_URL_PLACEHOLDER } from "../../../config/system";
-import { ICreateWork, SourcePlatform } from "../../../schema/work";
+import { SourcePlatform } from "../../../schema/work";
 
 import { getBvidFromUrl } from "../../shared/BilibiliVideo";
 
@@ -21,8 +22,8 @@ export const AddBilibiliWork = ({
   data,
   setData,
 }: {
-  data: ICreateWork<SourcePlatform.bilibiliVideo>;
-  setData: (data: ICreateWork<SourcePlatform.bilibiliVideo>) => void;
+  data: Work;
+  setData: (data: Work) => void;
 }): JSX.Element => (
   <>
     <div className="inline-flex w-full items-center gap-2">

@@ -5,6 +5,7 @@
  * LICENSE file in the root directory of this source tree.
  */
 
+import { Work } from "@prisma/client";
 import { AxiosError } from "axios";
 import _ from "lodash";
 import React from "react";
@@ -51,8 +52,8 @@ export const AddWechatWork = ({
   data,
   setData,
 }: {
-  data: ICreateWork<SourcePlatform.wechatArticle>;
-  setData: (data: ICreateWork<SourcePlatform.wechatArticle>) => void;
+  data: Work;
+  setData: (data: Work) => void;
 }): JSX.Element => {
   return (
     <>

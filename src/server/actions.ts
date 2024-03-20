@@ -4,7 +4,7 @@ import { flatten } from "lodash";
 import * as path from "path";
 import { GraphData } from "react-force-graph-3d";
 import { env } from "../env";
-import { user2hero, user2heroRelation } from "../lib/user";
+import { persistHeroAvatar, user2hero, user2heroRelation } from "../lib/user";
 import { IUserInNotion } from "../schema/user";
 import prisma from "./db";
 
@@ -27,27 +27,31 @@ export const initNotion = async (options?: { dumpJson?: boolean }) => {
     console.log("-- dumped");
   }
 
-  await prisma.$transaction(
-    usersInNotion.map(user2hero).map((user) => {
-      return prisma.hero.upsert({
-        where: { id: user.id },
-        create: {
-          ...user,
-          user: {
-            create: {},
-          },
-        },
-        update: {
-          ...user,
-        },
-      });
-    }),
-    {},
-  );
+  await prisma.$transaction(async (prisma) => {
+    await Promise.all(
+      usersInNotion.map(user2hero).map(async (_user) => {
+        const user = await persistHeroAvatar(_user);
 
-  await prisma.heroRelation.deleteMany();
-  await prisma.heroRelation.createMany({
-    data: flatten(usersInNotion.map(user2heroRelation)),
+        await prisma.hero.upsert({
+          where: { id: user.id },
+          create: {
+            ...user,
+            user: {
+              create: {},
+            },
+          },
+          update: {
+            ...user,
+          },
+        });
+      }),
+    );
+
+    await prisma.heroRelation.deleteMany();
+
+    await prisma.heroRelation.createMany({
+      data: flatten(usersInNotion.map(user2heroRelation)),
+    });
   });
 };
 

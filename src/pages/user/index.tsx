@@ -5,7 +5,6 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { skipToken } from "@reduxjs/toolkit/query";
 import clsx from "clsx";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -15,8 +14,6 @@ import { useAdmin, useSelf } from "~/hooks/use-user";
 
 import RootLayout from "../../components/layouts/RootLayout";
 import { trpc } from "../../lib/trpc";
-import { hero2userWithId } from "../../lib/user";
-import { useListWorksQuery } from "../../store/states/api/workApi";
 
 export const UserPage = () => {
   const router = useRouter();
@@ -31,9 +28,6 @@ export const UserPage = () => {
     { heroId: id! },
     { enabled: !!id },
   );
-  const user = hero ? hero2userWithId(hero) : null;
-
-  const { currentData: works = [] } = useListWorksQuery(hero?.id ?? skipToken);
 
   const [editMode, setEditMode] = useState<boolean>(false);
 
@@ -43,13 +37,13 @@ export const UserPage = () => {
 
   return (
     <RootLayout>
-      {!user ? (
+      {!hero ? (
         "User Not Exists!"
       ) : (
         //     editMode ? (
         //   <HeroProfileEditMode user={user} works={works} />
         // ) :
-        <HeroProfileReadMode user={user} works={works} />
+        <HeroProfileReadMode hero={hero} />
       )}
 
       {editable && (

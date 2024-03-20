@@ -7,22 +7,55 @@ generator client {
   provider = "prisma-client-js"
 }
 
+generator json {
+  /// Always after the prisma-client-js generator
+  provider  = "npx prisma-json-types-generator"
+  namespace = "PrismaJson"
+  // clientOutput = "<finds it automatically>"
+  // (./ -> relative to schema, or an importable path to require() it)
+  // useType = "MyType"
+  // In case you need to use a type, export it inside the namespace and we will add a index signature to it
+  // (e.g.  export namespace PrismaJson { export type MyType = {a: 1, b: 2} }; will generate namespace.MyType["TYPE HERE"])
+}
+
+generator zod {
+  provider                         = "npx zod-prisma-types"
+  output                           = "./generated/zod" // default is ./generated/zod
+  useMultipleFiles                 = true // default is false
+  writeBarrelFiles                 = true // default is true
+  createInputTypes                 = true // default is true
+  createModelTypes                 = true // default is true
+  addInputTypeValidation           = true // default is true
+  addIncludeType                   = true // default is true
+  addSelectType                    = true // default is true
+  validateWhereUniqueInput         = true // default is true
+  createOptionalDefaultValuesTypes = true // default is false
+  createRelationValuesTypes        = true // default is false
+  createPartialTypes               = true // default is false
+  useDefaultValidators             = true // default is true
+  coerceDate                       = true // default is true
+  writeNullishInModelTypes         = true // default is false
+  // prismaClientPath                 = "./path/to/prisma/client" // default is client output path
+}
+
 model Hero {
   id        String   @id @default(nanoid(9))
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
   // hero
-  name   String?
-  avatar String?
-  cover  String?
-  title  String?
-  cities String?
-  from   HeroRelation[] @relation("from")
-  to     HeroRelation[] @relation("to")
+  name         String?
+  photos       String[]
+  avatar       String?
+  avatarOrigin String? // aws, 1h expiration
+  title        String?
+  cities       String?
+  fromHeroes   HeroRelation[] @relation("from")
+  toHeroes     HeroRelation[] @relation("to")
 
   user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId String @unique
+  works  Work[]
 }
 
 model HeroRelation {
@@ -36,6 +69,11 @@ model HeroRelation {
   toId String
 
   @@id([fromId, toId])
+}
+
+enum RoleType {
+  user
+  admin
 }
 
 model User {
@@ -53,7 +91,43 @@ model User {
   hero Hero?
 }
 
-enum RoleType {
-  user
-  admin
+model Work {
+  id        String   @id @default(nanoid(9))
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  hero   Hero   @relation(fields: [heroId], references: [id], onDelete: Cascade)
+  heroId String
+
+  layout      TypographyLayoutType @default(typography_plain)
+  title       String
+  cover       String
+  description String
+  content     String
+  connections String[]
+  /// [WorkModel]
+  source      Json
+
+  fromWorks WorkRelation[] @relation("from")
+  toWorks   WorkRelation[] @relation("to")
+}
+
+model WorkRelation {
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  from   Work   @relation("from", fields: [fromId], references: [id])
+  fromId String
+
+  to   Work   @relation("to", fields: [toId], references: [id])
+  toId String
+
+  @@id([fromId, toId])
+}
+
+enum TypographyLayoutType {
+  typography_plain
+  typography_horizontal_bg
+  typography_horizontal
+  typography_vertical
 }

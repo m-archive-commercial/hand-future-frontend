@@ -8,7 +8,7 @@
 import { IconUser } from "@tabler/icons-react";
 
 import { Avatar, AvatarFallback, AvatarImage } from "~/components/ui/avatar";
-import { IUserWithId } from "../../schema/user";
+import { IHeroDetail } from "../../schema/user";
 
 export const BaseAvatar = ({ url, text }: { url?: string; text?: string }) => {
   return (
@@ -19,12 +19,12 @@ export const BaseAvatar = ({ url, text }: { url?: string; text?: string }) => {
   );
 };
 
-export const UserAvatar = ({ user }: { user: IUserWithId }) => {
+export const UserAvatar = ({ user }: { user: IHeroDetail }) => {
   return (
     <Avatar>
-      <AvatarImage src={user?.avatar} />
+      <AvatarImage src={user?.avatar ?? undefined} />
       <AvatarFallback>
-        {!user ? "登录" : (user.name || user.email || user.id).slice(0, 2)}
+        {!user ? "登录" : (user.name || user.id).slice(0, 2)}
       </AvatarFallback>
     </Avatar>
   );
