@@ -1,4 +1,3 @@
-import { trpc } from "../../../lib/trpc";
 import { IHero } from "../../../schema/hero";
 import { IGraphData } from "../../../schema/panel_3dgraph";
 import { baseApi } from "./baseApi";
@@ -37,6 +36,3 @@ export const {
   useGetGraphDataQuery,
   // useListHeroesQuery,
 } = heroApi;
-
-export const useInitHeroesMutation = trpc.graph.init.useMutation;
-export const useListHeroesQuery = trpc.graph.listHeroes.useQuery;

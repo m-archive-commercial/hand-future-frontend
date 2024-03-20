@@ -8,12 +8,12 @@
 import clsx from "clsx";
 import { useRouter } from "next/router";
 import { useState } from "react";
-import { HeroProfileReadMode } from "~/components/specs/user/HeroProfileReadMode";
-import { Switch } from "~/components/ui/switch";
-import { useAdmin, useSelf } from "~/hooks/use-user";
 
-import RootLayout from "../../components/layouts/RootLayout";
-import { trpc } from "../../lib/trpc";
+import RootLayout from "../components/layouts/RootLayout";
+import { HeroProfileReadMode } from "../components/specs/user/HeroProfileReadMode";
+import { Switch } from "../components/ui/switch";
+import { useAdmin, useSelf } from "../hooks/use-user";
+import { trpc } from "../lib/trpc";
 
 export const UserPage = () => {
   const router = useRouter();

@@ -9,9 +9,15 @@
       "path": "/heroes/"
     },
     {
+      "name": "嘉宾卡片",
+      "path": "/admin/hero-card/",
+      "admin": true
+    },
+    {
       "name": "管理员",
       "path": "/admin/",
-      "admin": true
+      "admin": true,
+      "hide": true
     }
   ],
   "features": {

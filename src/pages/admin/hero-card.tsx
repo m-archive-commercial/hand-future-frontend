@@ -22,11 +22,11 @@ import InputTextArea from "../../components/shared/InputTextArea";
 
 import HeroSearch from "../../components/specs/user/HeroSearch";
 import RenderShareCard from "../../components/specs/user/RenderShareCard";
+import { useListHeroesQuery } from "../../hooks/use-heroes";
 import backendAPI from "../../lib/api";
 import type { FONT_WEIGHT } from "../../schema/font";
 import { FONT_WEIGHTS } from "../../schema/font";
 import type { IShareCard } from "../../schema/hero";
-import { useListHeroesQuery } from "../../store/states/api/heroApi";
 
 export const CardPage = () => {
   const [searchKey, setSearchKey] = useState("");
@@ -103,7 +103,7 @@ export const CardPage = () => {
   return (
     <RootLayout>
       {/* 使用横向布局 */}
-      <div className="p-4 m-auto flex flex-wrap gap-8">
+      <div className="p-4 m-auto flex flex-wrap gap-8 text-white">
         {/* 1. 搜索区域 */}
         <HeroSearch
           heroes={heroes}

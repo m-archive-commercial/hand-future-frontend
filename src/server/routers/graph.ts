@@ -29,7 +29,10 @@ export const graphRouter = router({
     }),
 
   listHeroes: procedure.query<IHeroDetail[]>(async () => {
-    return prisma.hero.findMany({ ...heroDetailSchema });
+    return prisma.hero.findMany({
+      where: { avatar: { not: null } },
+      ...heroDetailSchema,
+    });
   }),
 
   getHero: procedure

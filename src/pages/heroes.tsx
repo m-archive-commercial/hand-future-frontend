@@ -5,11 +5,11 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import RootLayout from "../../components/layouts/RootLayout";
-import HeroCard from "../../components/shared/HeroCard";
-import { useListHeroesQuery } from "../../store/states/api/heroApi";
+import RootLayout from "../components/layouts/RootLayout";
+import HeroCard from "../components/shared/HeroCard";
+import { useListHeroesQuery } from "../hooks/use-heroes";
 
-export const HeroesGallery = (): JSX.Element => {
+export const HeroesGallery = () => {
   const { data: heroes = [] } = useListHeroesQuery();
   console.log("HeroesGallery: ", heroes);
 

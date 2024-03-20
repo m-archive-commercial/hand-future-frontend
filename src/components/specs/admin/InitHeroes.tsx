@@ -12,7 +12,7 @@ import {
   CardTitle,
 } from "~/components/ui/card";
 import { apiVersionAtom } from "~/store/system";
-import { useInitHeroesMutation } from "../../../store/states/api/heroApi";
+import { useInitHeroesMutation } from "../../../hooks/use-heroes";
 
 export const InitHeroes = () => {
   const [apiVersion] = useAtom(apiVersionAtom);

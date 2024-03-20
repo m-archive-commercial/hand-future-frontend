@@ -7,6 +7,8 @@
 
 import { SessionProvider } from "next-auth/react";
 
+import { ThemeProvider } from "next-themes";
+
 import type { AppProps } from "next/app";
 
 import { Provider } from "react-redux";
@@ -33,7 +35,9 @@ const MyApp = ({
       <SessionProvider session={session}>
         {USE_PERSISTOR ? (
           <PersistGate persistor={persistStore(store)} loading={null}>
-            <Component {...pageProps} />
+            <ThemeProvider defaultTheme={"dark"} attribute={"class"}>
+              <Component {...pageProps} />
+            </ThemeProvider>
           </PersistGate>
         ) : (
           <Component {...pageProps} />
