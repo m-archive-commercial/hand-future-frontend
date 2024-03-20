@@ -28,6 +28,10 @@ export const graphRouter = router({
       return readNotion();
     }),
 
+  listHeroes: procedure.query<IHeroDetail[]>(async () => {
+    return prisma.hero.findMany({ ...heroDetailSchema });
+  }),
+
   getHero: procedure
     .input(z.object({ heroId: z.string() }))
     .query<IHeroDetail | null>(async ({ input }) => {

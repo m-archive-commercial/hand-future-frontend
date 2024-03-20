@@ -35,7 +35,8 @@ export const heroApi = baseApi
 export const {
   // useInitHeroesMutation,
   useGetGraphDataQuery,
-  useListHeroesQuery,
+  // useListHeroesQuery,
 } = heroApi;
 
 export const useInitHeroesMutation = trpc.graph.init.useMutation;
+export const useListHeroesQuery = trpc.graph.listHeroes.useQuery;

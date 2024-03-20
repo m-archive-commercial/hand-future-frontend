@@ -5,28 +5,22 @@
  * LICENSE file in the root directory of this source tree.
  */
 
-import { useListHeroesQuery } from '../../store/states/api/heroApi'
-
-import RootLayout from '../../components/layouts/RootLayout'
-import HeroCard from '../../components/shared/HeroCard'
+import RootLayout from "../../components/layouts/RootLayout";
+import HeroCard from "../../components/shared/HeroCard";
+import { useListHeroesQuery } from "../../store/states/api/heroApi";
 
 export const HeroesGallery = (): JSX.Element => {
-	
-	const { data: heroes = [] } = useListHeroesQuery()
-	console.log('HeroesGallery: ', heroes)
-	
-	return (
-		(
-			<RootLayout>
-				<div className="p-4  w-full flex flex-wrap justify-around justify-items-center gap-4">
-					{
-						heroes.map((hero) => (
-							<HeroCard data={hero} key={hero.id}/>
-						))
-					}
-				</div>
-			</RootLayout>
-		)
-	)
-}
-export default HeroesGallery
+  const { data: heroes = [] } = useListHeroesQuery();
+  console.log("HeroesGallery: ", heroes);
+
+  return (
+    <RootLayout>
+      <div className="p-4  w-full flex flex-wrap justify-around justify-items-center gap-4">
+        {heroes.map((hero) => (
+          <HeroCard data={hero} key={hero.id} />
+        ))}
+      </div>
+    </RootLayout>
+  );
+};
+export default HeroesGallery;
